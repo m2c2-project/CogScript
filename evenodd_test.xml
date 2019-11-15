@@ -1,0 +1,155 @@
+<Dolphin targetVersion="1.2.9" studyID="evenodd_test">
+
+
+
+<Launch> <!-- Launch settings. Options for entire survey app are set here. -->
+
+    <savedata combineGameData="false" gameDataType="0"  />
+
+<!-- gamedata type
+        0 = use variable names
+        1 = no variable names, export everything in a comma delimeted line
+-->		
+
+      <main_menu id="start_menu" />
+      <timeout min="30" />
+      <beepintro title="Time to do a survey!" text="Press the Start button to begin the Beeped Survey" subtext="" button="Start" />  
+
+      <sensors>
+	  
+	   <gps on="true" time="true" location="true" /> 
+	   <light on="true" />
+	   <soundRec on="true" />
+ 
+	  </sensors>
+ 
+      <forceBeepVolume volume="25" />
+      <forceBeepVolumeOnStartup volume="50" />
+	  
+	  <server type="sagebridge" enable="false"/> 
+     <server type="custom" name="psu_server" url="https://m2c2-dev.survey.psu.edu/ctk/dolph" enable="true" /> 
+	 
+</Launch>
+
+
+
+
+
+<!-- Global Display settings -->
+
+ <Settings>
+  
+	  <text size="16">
+		<!--<color r="253" g="78" b="213" >-->
+        <color r="0" g="0" b="0" />	
+	  </text>
+
+</Settings>
+
+
+
+
+
+
+
+<!-- MAIN MENU -->
+
+<Menu id="start_menu" >
+
+ <Settings>
+  
+	  <text size="16">
+		
+        <color r="0" g="0" b="0" />	
+	  </text>
+
+</Settings>
+
+  <scroll allow="true" />
+  
+
+   
+   <!--<element type="image" filename="im2.jpg" size="50" />-->
+   
+	
+	
+  
+	<title text="Even Odd Script Test!" />
+	
+	 
+	 
+	
+	 <element type="button" text="Even Odd Test" image="morning">
+	   <action action="gopack" target_id="evenoddtest" />
+	 </element>
+	 
+	 
+	 
+
+	 
+</Menu>
+
+
+
+
+<Pack id="evenoddtest" startScreen="screen_start" >
+
+<Screen id="screen_start">
+
+    <title text="Even Odd Test" />
+	
+	<element type="text" text="Get ready for the even/odd test. Decide whether a number is even or odd as quickly as you can!" />
+
+	<nextScreen id="screen_game" />
+</Screen>
+
+	<Screen id="screen_game">
+          
+	
+          <game name="gamescript" scriptDir="evenodd" TrialNum="10" />
+
+
+		<nextScreen id="screen_game2" />		  
+		  
+		  
+
+	</Screen>
+	
+	<Screen id="screen_game2">
+          
+	
+          <game name="evenodd" TrialNum="10"  />
+
+
+		<nextScreen id="screen_end" />		  
+		  
+		  
+
+	</Screen>
+	
+	<Screen id="screen_end" >
+
+      <title text="End Screen" />
+ 
+		
+	 
+		<element type="text" text="This is the ending screen." />
+	 
+		
+		 
+		 <nextScreen text="end" >
+		  <action action="exit" />
+		 </nextScreen>
+    </Screen>
+
+
+
+</Pack>
+
+
+
+
+
+
+
+</Dolphin>

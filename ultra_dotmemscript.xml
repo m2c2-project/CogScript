@@ -1,0 +1,187 @@
+<Dolphin targetVersion="1.2" studyID="ultra_dotmemscript">
+
+
+
+<Launch> <!-- Launch settings. Options for entire survey app are set here. -->
+
+    <savedata combineGameData="false" gameDataType="0"  />
+
+<!-- gamedata type
+        0 = use variable names
+        1 = no variable names, export everything in a comma delimeted line
+-->		
+
+      <main_menu id="start_menu" />
+      <timeout min="30" />
+      <beepintro title="Time to do a survey!" text="Press the Start button to begin the Beeped Survey" subtext="" button="Start" />  
+
+      <sensors>
+	  
+	   <gps on="true" time="true" location="true" /> 
+	   <light on="true" />
+	   <soundRec on="true" />
+ 
+	  </sensors>
+ 
+      <forceBeepVolume volume="25" />
+      <forceBeepVolumeOnStartup volume="50" />
+	  
+	  <server type="sagebridge" enable="false"/> 
+	  <server type="custom" name="psu_server" url="https://m2c2-dev.survey.psu.edu/ctk/dolph_dev" enable="true" /> 
+ 
+</Launch>
+
+
+
+
+
+<!-- Global Display settings -->
+
+ <Settings>
+  
+	  <text size="16">
+		<!--<color r="253" g="78" b="213" >-->
+        <color r="0" g="0" b="0" />	
+	  </text>
+
+</Settings>
+
+
+
+
+
+
+
+<!-- MAIN MENU -->
+
+<Menu id="start_menu" >
+
+ <Settings>
+  
+	  <text size="16">
+		
+        <color r="0" g="0" b="0" />	
+	  </text>
+
+</Settings>
+
+  <scroll allow="true" />
+  
+
+   
+   <!--<element type="image" filename="im2.jpg" size="50" />-->
+   
+	
+	
+  
+	<title text="Simple Script" />
+	
+	 <element type="button" text="Dot Mem Script" image="morning">
+	   <action action="gopack" target_id="dotmemscript" />
+	 </element>
+
+	 
+	 <element type="button" text="Dot Mem Native" image="morning">
+	   <action action="gopack" target_id="dotmem" />
+	 </element>
+	 
+	 	
+	 
+	 
+	 
+	 
+	 
+
+	 
+</Menu>
+
+
+
+
+<Pack id="dotmemscript" startScreen="screen_game" >
+
+	<Screen id="screen_game">
+          
+	
+          <game name="gamescript" debug="true" scriptDir="dotmemory" TrialNum="2"  efzip="test.zip" efText="Touch the humans!" UseNumber="7" ReadyTime="200" EFTime="5000" DotPresentTime="200" >
+		  
+		<!--    <Block UseNumber="5">
+				<TrialSet TrialNum="2" />
+				<TrialSet TrialNum="1" UseNumber="3"/>
+			</Block>
+			
+			<Block UseNumber="4">
+				<TrialSet TrialNum="2" />
+				
+			</Block>-->
+		  </game>
+
+
+		<nextScreen id="screen_end" />		  
+		  
+		  
+
+	</Screen>
+	
+	
+	<Screen id="screen_end" >
+
+      <title text="End Screen" />
+ 
+		
+	 
+		<element type="text" text="This is the ending screen." />
+	 
+		
+		 
+		 <nextScreen text="end" >
+		  <action action="exit" />
+		 </nextScreen>
+    </Screen>
+
+
+
+</Pack>
+
+
+
+
+
+
+
+
+
+<Pack id="dotmem" startScreen="gamSymbol">
+ 
+ 
+ 
+ <Screen id="gamSymbol">
+  <game name="DotMemory" efzip="script/test.zip" TrialNum="1" EFRatio="5" ReadyTime="1000" EFTime="8000" DotPresentTime="3000" ShowDelayTime="1000">
+  
+  <!--<Block>
+     <TrialSet TrialNum="4" />
+	  <TrialSet TrialNum="2" />
+  </Block>
+  
+  <Block MatchPairsTop="4">
+     <TrialSet TrialNum="2" />
+  </Block> -->
+  
+  </game>
+   <nextScreen action="exit" />
+   
+   
+    
+   </Screen>
+
+
+</Pack>
+
+
+
+
+
+
+
+
+</Dolphin>

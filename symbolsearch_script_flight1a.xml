@@ -1,0 +1,177 @@
+<Dolphin targetVersion="1.2.95dev" studyID="scriptdemo_flight2">
+
+
+
+<Launch> <!-- Launch settings. Options for entire survey app are set here. -->
+
+    <savedata combineGameData="false" gameDataType="0"  />
+
+<!-- gamedata type
+        0 = use variable names
+        1 = no variable names, export everything in a comma delimeted line
+-->		
+
+      <main_menu id="start_menu" />
+      <timeout min="30" />
+      <beepintro title="Time to do a survey!" text="Press the Start button to begin the Beeped Survey" subtext="" button="Start" />  
+
+      <sensors>
+	  
+	   <gps on="true" time="true" location="true" /> 
+	   <light on="true" />
+	   <soundRec on="true" />
+ 
+	  </sensors>
+ 
+      <forceBeepVolume volume="25" />
+      <forceBeepVolumeOnStartup volume="50" />
+	  
+	  <server type="sagebridge" enable="false"/> 
+     <server type="custom" name="psu_server" url="https://m2c2-dev.survey.psu.edu/ctk/dolph_launch" enable="true" /> 
+	 
+</Launch>
+
+
+
+
+
+<!-- Global Display settings -->
+
+ <Settings>
+  
+	  <text size="16">
+		<!--<color r="253" g="78" b="213" >-->
+        <color r="0" g="0" b="0" />	
+	  </text>
+
+</Settings>
+
+
+
+
+
+
+
+<!-- MAIN MENU -->
+
+<Menu id="start_menu" >
+
+ <Settings>
+  
+	  <text size="16">
+		
+        <color r="0" g="0" b="0" />	
+	  </text>
+
+</Settings>
+
+  <scroll allow="true" />
+  
+
+   
+   <!--<element type="image" filename="im2.jpg" size="50" />-->
+   
+	
+	
+  
+	<title text="Symbol Search Script Test!" />
+	
+	 
+	 
+	
+	 <element type="button" text="Symbol Search Test" image="morning">
+	   <action action="gopack" target_id="symbolsearch_test" />
+	 </element>
+	 
+	 
+	 
+
+	 
+</Menu>
+
+
+
+
+<Pack id="symbolsearch_test" startScreen="screen_start" >
+
+<Screen id="screen_start">
+
+    <title text="Symbol Search Test" />
+	
+	<element type="text" text="[c]Get ready for the symbol search test![/c]" />
+
+	<nextScreen id="screen_game2" />
+</Screen>
+
+	<Screen id="screen_game">
+          
+	
+            <game name="gamescript" scriptDir="symbolsearch" ExportName="SymbolSearch-Script"  TrialNum="10" Feedback="0" LurePerc="50" LeftCorrectPerc="50" FeedbackDelay="500" StartDelay="1000" MatchPairsTop="2" unused2="12">
+				  
+				  <Block>
+					 <TrialSet TrialNum="6" MatchPairsTop="2"/>
+					 <TrialSet TrialNum="6" MatchPairsTop="3"/>
+				  </Block>
+				  
+				  <Block MatchPairsTop="4">
+					 <TrialSet TrialNum="4" />
+				  </Block>
+  
+            </game>
+
+
+		<nextScreen id="screen_end" />		  
+		  
+		  
+
+	</Screen>
+	
+	<Screen id="screen_game2">
+          
+	
+               <game name="symbolsearch" TrialNum="10" Feedback="0" LurePerc="50" LeftCorrectPerc="50" FeedbackDelay="500" StartDelay="1000" MatchPairsTop="2" unused2="12">
+				  
+				  <Block>
+					 <TrialSet TrialNum="6" MatchPairsTop="2"/>
+					 <TrialSet TrialNum="6" MatchPairsTop="3"/>
+				  </Block>
+				  
+				  <Block MatchPairsTop="4">
+					 <TrialSet TrialNum="4" />
+				  </Block>
+  
+            </game>
+
+
+		<nextScreen id="screen_game" />	  
+		  
+		  
+
+	</Screen>
+	
+	<Screen id="screen_end" >
+
+      <title text="End Screen" />
+ 
+		
+	 
+		<element type="text" text="This is the ending screen." />
+	 
+		
+		 
+		 <nextScreen text="end" >
+		  <action action="exit" />
+		 </nextScreen>
+    </Screen>
+
+
+
+</Pack>
+
+
+
+
+
+
+
+</Dolphin>

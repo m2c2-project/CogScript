@@ -1,0 +1,179 @@
+
+
+class Ball
+{
+ constructor(sx, sy, sr)
+ {
+  this.x = sx;
+  this.y = sy;
+  this.r = sr;
+  
+  this.velX = 3;
+  this.velY = 0;
+ }
+ 
+ Update()
+ {
+   this.x = this.x + this.velX;
+   this.y = this.y + this.velY;
+   
+   
+   if (this.x - this.r <= 0 || this.x + this.r >= GetWidth())
+   {
+    this.velX = this.velX * -1;
+   }
+   
+   if (this.y - this.r <= 0 || this.y + this.r >= GetHeight())
+   {
+    this.velY = this.velY * -1;
+   }
+ 
+   
+   
+ }
+ 
+ Draw()
+ {
+  draw_a_circle(parseInt(this.x,10),parseInt(this.y,10),parseInt(this.r,10));
+ }
+ 
+ 
+ IsCollide(o)
+ {
+  var difX = this.x - o.x;
+  var difY = this.y - o.y;
+  
+  var difR = (this.r + o.r);
+  
+  if (difX*difX + difY*difY <= difR*difR)
+  {
+   return true;
+  }
+  
+ }
+ 
+ 
+ OnCollide(o)
+ {
+    var holdVelX = this.velX;
+	var holdVelY = this.velY;
+	
+	this.velX = o.velX;
+	this.velY = o.velY;
+	
+	o.velX = holdVelX;
+	o.velY = holdVelY;
+	
+ }
+ 
+ 
+ 
+ 
+
+
+}
+
+
+
+
+
+
+var ballList = [new Ball(50, 50, 40), new Ball(800, 50, 40)]; 
+
+
+function Start()
+{
+
+ ballList = [new Ball(50, 50, 40), new Ball(800, 50, 40)]; 
+ ballList[1].velX = -3;
+ 
+ 
+ for (i = 0; i < 100; i++)
+ {
+  var r = 5;
+  var b = new Ball(r +Math.random()*(GetWidth()-r*2), r + Math.random()*(GetHeight()-r*2), r);
+  
+  var velRange = 8;
+  
+  b.velX = -velRange+Math.random()*velRange*2;
+  b.velY = -velRange+Math.random()*velRange*2;
+  
+  
+  var col = false;
+  for (j = 0; j < ballList.length; j++)
+  {
+   if (ballList[j].IsCollide(b))
+   {
+    col = true;
+	break;
+   }
+  }
+  
+  if (!col)
+  {
+  
+   ballList.push(b);
+   
+  }
+  else
+  {
+   i--;
+  }
+  
+  
+ 
+  
+  
+ }
+ 
+}
+
+function Update()
+{
+ 
+ 
+ 
+ for (var i = 0; i < ballList.length; i++)
+ {
+  ballList[i].Update();
+  
+  for (var j = i+1; j < ballList.length; j++)
+  {
+   if (i != j)
+   {
+    if (ballList[i].IsCollide(ballList[j]))
+	{
+		ballList[i].OnCollide(ballList[j]);
+		
+	
+		
+	}
+   }
+  }
+  
+  
+ }
+ 
+
+}
+
+function Draw() 
+{
+  
+   for (i = 0; i < ballList.length; i++)
+	 {
+	  ballList[i].Draw();
+	 }
+	 
+	 
+	 
+	DrawText(ballList.length.toString(), 20, 20);
+	DrawText(GetFPS().toString(), 20, 40);
+  
+  
+	
+	
+}
+
+
+				

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ResourceInfo>
+ <Info launcherFile="ultra_simplescript.xml" defaultBeep=""/>
+ 
+ <ParticipantList>
+
+   <participant id="9999" group="groupA"/>
+   
+   <participant id="9998" group="groupB"/>
+
+
+ <participant id="9001" group="groupA"/><participant id="9002" group="groupA"/><participant id="9003" group="groupA"/><participant id="9003" group="groupA"/><participant id="9003" group="groupA"/><participant id="9003" group="groupA"/><participant id="9003" group="groupA"/><participant id="9012" group="groupA"/></ParticipantList>
+ 
+ 
+</ResourceInfo>
