@@ -49,6 +49,11 @@ class GList
   return this.Get(this.GetSize()-1);
  }
 
+ RemoveLast()
+ {
+  this.Remove(this.GetSize()-1);
+ }
+
  Remove(i)
  {
    this.arr.splice(i,1);
