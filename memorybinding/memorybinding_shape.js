@@ -31,8 +31,8 @@ class Shape
     static CopyShape(other, slocX, slocY)
     {
           // "other" is the shape being copied.
-        var ret = new Shape(other.shape, other.shapeNum, slocX, slocY);
-        ret.color = other.color;
+        var ret = new Shape(other.shape, other.shapeNum, other.color, slocX, slocY);
+        
         return ret;
 
     }

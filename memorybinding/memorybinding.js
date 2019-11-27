@@ -262,7 +262,7 @@ function Start()
 {
     type = GetParam("trialType", 0);
     trialNum = -1; //tNum
-    swapCount = GetParam("swapCount", 0);
+    swapCount = GetParam("swapCount", 1);
     dispCount = GetParam("dispCount", 0);
 
     gridW = GetParam("GridW", 3);
@@ -274,6 +274,9 @@ function Start()
 
 
     shapeCount = GetParam( "ShapeCount", 2);
+
+
+    if (dispCount <= 0){dispCount = shapeCount;}
 
     
     colorBkg = new GColor(1,1,1);
@@ -352,6 +355,7 @@ function Start()
         var loc = locBank.PopRandom();
 
         shapeList2.Add(Shape.CopyShape(shapeList.Get(i), loc.x, loc.y));
+      
 
     }
 
@@ -387,7 +391,7 @@ function Start()
 
    // create buttons
     var buttonSameX = boxX;
-    var buttonSameY = boxY + boxH + (GameEngine.GetWidth() - boxY - boxH)/2 - imSame.Get(0).h/2;
+    var buttonSameY = boxY + boxH + (GameEngine.GetHeight() - boxY - boxH)/2 - imSame.Get(0).h/2;
 
     var buttonDiffX = boxX + boxW - imDiff.Get(0).w;
     var buttonDiffY = buttonSameY;
@@ -481,7 +485,7 @@ function Update()
    }
    else if (phase == 39)
    {
-    complete = true;
+    CallEndTrial();
    }
 
    buttonSame.Update();

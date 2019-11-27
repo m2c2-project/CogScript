@@ -51,7 +51,10 @@ class GList
 
  RemoveLast()
  {
-  this.Remove(this.GetSize()-1);
+  if (this.GetSize() > 0)
+  {
+   this.Remove(this.GetSize()-1);
+  }
  }
 
  Remove(i)
