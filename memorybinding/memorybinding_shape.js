@@ -54,7 +54,7 @@ class Shape
         this.sprite.y = boxY + gridBoxH*this.locY + (gridBoxH-drawH)/2;
 
         this.sprite.curFrame = this.shape%4;
-        this.sprite.curLayer = this.shape/4;
+        this.sprite.curLayer = Math.floor(this.shape/4);
 
 
         this.sprite.drawW = drawW;

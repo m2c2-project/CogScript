@@ -560,13 +560,13 @@ function OnClickDown(x,y,clickTime)
         {
             buttonPressed = 0;
             phase = 31;
-            responseTime = click.GetTime() - responseTimeHold;
+            responseTime = clickTime - responseTimeHold;
         }
         else if (buttonDiff.CheckPressed(tx,ty))
         {
             buttonPressed = 1;
             phase = 31;
-            responseTime = click.GetTime() - responseTimeHold;
+            responseTime = clickTime - responseTimeHold;
         }
     }
 
