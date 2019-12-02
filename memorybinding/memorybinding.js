@@ -181,6 +181,8 @@ function Start()
 
     buttonPressed = -1;
 
+    responseTime = -1;
+
 
 
 
@@ -347,7 +349,7 @@ function Draw()
 }
 
 
-function OnClickDown(x,y,clickTime)
+function OnClickDown(x,y,click)
 {
       var tx = x;
       var ty = y;
@@ -359,24 +361,24 @@ function OnClickDown(x,y,clickTime)
         {
             buttonPressed = 0;
             phase = 31;
-            responseTime = clickTime - responseTimeHold;
+            responseTime = click.GetTime() - responseTimeHold;
         }
         else if (buttonDiff.CheckPressed(tx,ty))
         {
             buttonPressed = 1;
             phase = 31;
-            responseTime = clickTime - responseTimeHold;
+            responseTime = click.GetTime() - responseTimeHold;
         }
     }
 
 }
 
-function OnClickUp(x,y,clickTime)
+function OnClickUp(x,y,click)
 {
 
 }
 
-function OnClickMove(x,y,clickTime)
+function OnClickMove(x,y,click)
 {
  
 }
