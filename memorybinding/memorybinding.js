@@ -384,27 +384,26 @@ function OnClickMove(x,y,clickTime)
 function ExportData()
 {
     AddResult("trial_type", "" + (type));
-   /* results.AddResult("shape_count", "" + (shapeCount));
-    results.AddResult("response_display_count", "" + (dispCount));
-    results.AddResult("swap_count", "" + (swapCount));
-    results.AddResult("response_time", "" + responseTime);
-    results.AddResult("button_pressed", "" + buttonPressed); // 0 = same, 1 = different
+    AddResult("shape_count", "" + (shapeCount));
+    AddResult("response_display_count", "" + (dispCount));
+    AddResult("swap_count", "" + (swapCount));
+    AddResult("response_time", "" + responseTime);
+    AddResult("button_pressed", "" + buttonPressed); // 0 = same, 1 = different
     // before shapes
-    for (int i = 0; i < shapeList.GetSize(); i++)
+    for (var i = 0; i < shapeList.GetSize(); i++)
     {
-        results.AddResult("before_shape" + (i+1), "" + (shapeList.Get(i).shapeNum+1));
-        results.AddResult("before_shape" + (i+1) + "color", "" + (shapeList.Get(i).color+1));
-        results.AddResult("before_shape" + (i+1) + "x", "" + (shapeList.Get(i).locX));
-        results.AddResult("before_shape" + (i+1) + "y", "" + (shapeList.Get(i).locY));
+        AddResult("before_shape" + (i+1), "" + (shapeList.Get(i).shapeNum+1));
+        AddResult("before_shape" + (i+1) + "color", "" + (shapeList.Get(i).color+1));
+        AddResult("before_shape" + (i+1) + "x", "" + (shapeList.Get(i).locX));
+        AddResult("before_shape" + (i+1) + "y", "" + (shapeList.Get(i).locY));
     }
 
-    for (int i = 0; i < shapeList2.GetSize(); i++)
+    for (var i = 0; i < shapeList2.GetSize(); i++)
     {
-        results.AddResult("after_shape" + (i+1), "" + (shapeList2.Get(i).shapeNum+1));
-        results.AddResult("after_shape" + (i+1) + "color", "" + (shapeList2.Get(i).color+1));
-        results.AddResult("after_shape" + (i+1) + "x", "" + (shapeList2.Get(i).locX));
-        results.AddResult("after_shape" + (i+1) + "y", "" + (shapeList2.Get(i).locY));
-    }*/
-
+        AddResult("after_shape" + (i+1), "" + (shapeList2.Get(i).shapeNum+1));
+        AddResult("after_shape" + (i+1) + "color", "" + (shapeList2.Get(i).color+1));
+        AddResult("after_shape" + (i+1) + "x", "" + (shapeList2.Get(i).locX));
+        AddResult("after_shape" + (i+1) + "y", "" + (shapeList2.Get(i).locY));
+    }
 }
 
