@@ -47,17 +47,23 @@ function LoadImages()
     imShapes.LoadImage("membinding.png");
 }
 
-/*
+
 function DrawBlockTransition()
 {
-    GameEngine.SetColor(169,201, 219);
-    //  GameEngine.SetColor(164,176,182);
-
+    GameEngine.SetColor(colorBkg);
     GameDraw.DrawBox(0,0,GameEngine.GetWidth(), GameEngine.GetHeight());
+    GameEngine.ResetColor();
 
-    GameEngine.ResetColor
+    GameEngine.SetColor(colorBox);
+    GameDraw.DrawBox(boxX, boxY, boxW, boxThickness);
+    GameDraw.DrawBox(boxX, boxY, boxThickness, boxH);
+    GameDraw.DrawBox(boxX, boxY + boxH - boxThickness, boxW, boxThickness);
+    GameDraw.DrawBox(boxX + boxW - boxThickness, boxY, boxThickness, boxH);
 
-}*/
+
+    GameDraw.DrawImage(imTextPlus, boxX + (boxW-imTextPlus.GetWidth())/2, boxY + (boxW-imTextPlus.GetHeight())/2);
+
+}
 
 
 
