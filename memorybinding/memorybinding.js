@@ -73,20 +73,20 @@ function DrawBlockTransition()
 
 function Start()
 {
-    type = GetParam("trialType", 0);
+    type = GetParamInt("trialType", 0);
     trialNum = -1; //tNum
-    swapCount = GetParam("swapCount", 1);
-    dispCount = GetParam("dispCount", 0);
+    swapCount = GetParamInt("swapCount", 1);
+    dispCount = GetParamInt("dispCount", 0);
 
-    gridW = GetParam("GridW", 3);
-    gridH = GetParam("GridH", 3);
+    gridW = GetParamInt("GridW", 3);
+    gridH = GetParamInt("GridH", 3);
 
-    fixationTime = GetParam( "FixationTime", 500);
-    studyTime = GetParam( "StudyTime", 2000);
-    delayTime = GetParam( "DelayTime", 900);
+    fixationTime = GetParamInt( "FixationTime", 500);
+    studyTime = GetParamInt( "StudyTime", 2000);
+    delayTime = GetParamInt( "DelayTime", 900);
 
 
-    shapeCount = GetParam( "ShapeCount", 2);
+    shapeCount = GetParamInt( "ShapeCount", 2);
 
 
     if (dispCount <= 0){dispCount = shapeCount;}

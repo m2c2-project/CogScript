@@ -101,7 +101,7 @@ function GetInstructions()
  // return array of strings for the instructions
 
  
- var getDots =  GetParam("DotCount", 3);
+ var getDots =  GetParamInt("DotCount", 3);
 
 
  return [

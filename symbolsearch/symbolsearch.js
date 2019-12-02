@@ -26,7 +26,7 @@ function GetInstructions()
 {
  // return array of strings for the instructions
 
- matchPairsTop = GetParam("MatchPairsTop", 4);
+ matchPairsTop = GetParamInt("MatchPairsTop", 4);
 
  return ["--You will see " + matchPairsTop + " pairs of symbols on the top of the screen and 2 pairs of symbols on the bottom of the screen.", "--As quickly and as accurately as you can, please touch the pair on the bottom that exactly matches one of the pairs on top."];
  
@@ -62,9 +62,9 @@ function GenerateTrialSet()
 {
       // values obtained from TrialSet
 
-       trialNum = GetParam("TrialNum", 0);
-       lurePerc = GetParam("LurePerc", 50);
-       leftCorrectPerc = GetParam("LeftCorrectPerc", 50);
+       trialNum = GetParamInt("TrialNum", 0);
+       lurePerc = GetParamInt("LurePerc", 50);
+       leftCorrectPerc = GetParamInt("LeftCorrectPerc", 50);
 
        correctList = new GList(); // list of correct values
        trialTypeList = new GList(); // type of trials
@@ -137,12 +137,12 @@ function Start()
    
             
 
-            lurePerc = GetParam("LurePerc", 50);
-            leftCorrectPerc = GetParam("LeftCorrectPerc", 50);
-            feedbackDelay = GetParam("FeedbackDelay", 500); //ms
-            startDelay = GetParam("StartDelay", 1000);
-            matchPairsTop = GetParam("MatchPairsTop", 4);
-            matchPairsBottom = GetParam("MatchPairsBottom", 2);
+            lurePerc = GetParamInt("LurePerc", 50);
+            leftCorrectPerc = GetParamInt("LeftCorrectPerc", 50);
+            feedbackDelay = GetParamInt("FeedbackDelay", 500); //ms
+            startDelay = GetParamInt("StartDelay", 1000);
+            matchPairsTop = GetParamInt("MatchPairsTop", 4);
+            matchPairsBottom = GetParamInt("MatchPairsBottom", 2);
             if (matchPairsTop < 1){matchPairsTop = 1;}
             else if (matchPairsTop > 4){matchPairsTop = 4;}
 
@@ -168,12 +168,12 @@ function Start()
             if (HasParam("lure"))
             {
                 
-                type = GetParam("lure", 0);
+                type = GetParamInt("lure", 0);
 
             }
             if (HasParam("leftCorrect"))
             {
-                correct = GetParam("leftCorrect", 0);
+                correct = GetParamInt("leftCorrect", 0);
                 
             }
 
@@ -189,7 +189,7 @@ function Start()
             textFade = 0.0;
 
 
-            getFeedback = GetParam("Feedback", 0);
+            getFeedback = GetParamInt("Feedback", 0);
             feedbackOn = getFeedback == 1;
 
 
