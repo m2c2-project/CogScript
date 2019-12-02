@@ -47,6 +47,18 @@ function LoadImages()
     imShapes.LoadImage("membinding.png");
 }
 
+/*
+function DrawBlockTransition()
+{
+    GameEngine.SetColor(169,201, 219);
+    //  GameEngine.SetColor(164,176,182);
+
+    GameDraw.DrawBox(0,0,GameEngine.GetWidth(), GameEngine.GetHeight());
+
+    GameEngine.ResetColor
+
+}*/
+
 
 
 

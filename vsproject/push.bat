@@ -33,6 +33,10 @@ adb shell "mkdir %dolph%/memorybinding"
 
 for %%i in (memorybinding/*) do (adb push memorybinding/%%i %dolph%/memorybinding)
 
+adb shell "mkdir %dolph%/mot"
+
+for %%i in (mot/*) do (adb push mot/%%i %dolph%/mot)
+
 adb shell "mkdir %dolph%/cogtask_demo1"
 
 for %%i in (cogtask_demo1/*) do (adb push cogtask_demo1/%%i %dolph%/cogtask_demo1)

@@ -138,18 +138,23 @@ function GameRunner_Draw()
 
 }
 
+function GameRunner_ClearDrawCommands()
+{
+  drawCommands = new GList();
+}
+
 function GameRunner_DrawBlockTransition()
 {
   drawCommands = new GList();
   
   if (typeof(DrawBlockTransition) === 'undefined')
   {
-    return;
+    return false;
   }
 
   DrawBlockTransition();
 
-
+  return true;
 }
 
 
