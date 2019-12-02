@@ -72,6 +72,33 @@ class GameParams
     return ToInt(r);
   }
 
+  GetBool(key, defaultValue)
+  {
+
+  // handle the possiblilty of an array of keys (allows multiple key values to be used for the same param)
+  if ( Array.isArray(key))
+  {
+    for (var i = 0; i < key.length; i++)
+    {
+       if (this.Has(key[i]))
+       {
+         return this.GetBool(key[i], defaultValue);
+       }
+    }
+
+    return defaultValue;
+  }
+
+  // add to used value
+  this.usedParams.Add(key);
+
+    var r = this.varMap.Get(key.toLowerCase());
+    if (r == null){return defaultValue;}
+
+
+    return ToBool(r);
+  }
+
   GetColor(key, defaultValue)
   {
     this.usedParams.Add(key);
@@ -173,6 +200,11 @@ function GetParam(key, defaultValue)
 function GetParamInt(key, defaultValue)
 {
   return curParams.GetInt(key, defaultValue);
+}
+
+function GetParamBool(key, defaultValue)
+{
+  return curParams.GetBool(key, defaultValue);
 }
 
 function GetParamColor(key, defaultValue)
