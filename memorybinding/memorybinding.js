@@ -1,8 +1,10 @@
 Include("Entity.js");
 Include("memorybinding_shape.js");
+Include("memorybinding_generatetrialset.js");
 Include("GImage_Create.js");
 Include("Tools.js");
 Include("GButton.js");
+
 
 
 
@@ -14,7 +16,7 @@ function Init()
 
 function GetName()
 {
-    return "MemoryBinding";
+    return "Color Shapes";
 }
 
 function GetInstructions()
@@ -23,7 +25,12 @@ function GetInstructions()
 
  //matchPairsTop = GetParam("MatchPairsTop", 4);
 
- return ["test1","test2"];
+ return [
+ "--Colored shapes will appear briefly on the screen.",
+ "--Try to remember the shapes and their colors, because they will soon disappear.",
+ "--Next, you will see the same shapes reappear.",
+ "--Please answer whether the shapes have the SAME or DIFFERENT colors as they had before."
+  ];
 
  
 }
@@ -41,218 +48,6 @@ function LoadImages()
 }
 
 
-/*
-function GenerateTrialSet()
-{
-
-        trialNum = trialSetParam.GetInt("TrialNum", 2);
-
-        shapeCount = trialSetParam.GetInt( "ShapeCount", 2);
-        diffTrialPerc = trialSetParam.GetInt("DiffTrialPerc", 50);
-        diffTrialCount = trialSetParam.GetInt( "DiffTrialCount", -1);
-        gridW = trialSetParam.GetInt("GridW", 3);
-        gridH = trialSetParam.GetInt("GridH", 3);
-
-
-
-        //diffTrialCount = -1;
-
-       // -----------------------
-
-        var swapCountPerc = [];
-        var swapCount = [];
-
-        // set diffTrialCount by taking from "diffTrialPerc" if "diffTrialCount" was not set
-        if (diffTrialCount == -1)// no diff trial count set
-        {
-            // use diffTrialPerc
-            diffTrialCount = Math.floor(trialNum*diffTrialPerc*1.0/100+.5);
-        }
-
-        LogMan.Log("DOLPH_BIND", "trialnum:" + trialNum);
-        LogMan.Log("DOLPH_BIND", "shapecount:" + shapeCount);
-        LogMan.Log("DOLPH_BIND", "diffTrialCount:" + diffTrialCount);
-
-
-        // read response display count
-        var dispCount = [];
-        var totalDispTrials = 0;
-        for (var i = 1; i <= shapeCount; i++)
-        {
-            dispCount[i] = trialSetParam.GetInt("ResponseDisp"+i+"Count", 0);
-            totalDispTrials = totalDispTrials + dispCount[i];
-        }
-
-        if (totalDispTrials < trialNum)
-        {
-            dispCount[shapeCount] = dispCount[shapeCount] + (trialNum-totalDispTrials);
-        }
-
-
-
-        // get swap counts
-        // use "swap perc" values if "swap count" values were not set
-        for (int i = 2; i <= shapeCount; i++)
-        {
-            swapCountPerc[i] = trialSetParam.GetInt("Swap"+i+"Perc", 0);
-
-            swapCount[i] = trialSetParam.GetInt("Swap"+i+"Count", -1);
-            if (swapCount[i] == -1) // if no swapCount for this number is given
-            {
-                // use the perc value
-                swapCount[i] = (int)(diffTrialCount*swapCountPerc[i]*1.0f/100);
-            }
-        }
-
-
-        // make sure the swap counts add up to equal the number of diff trials
-        int totalSwapCount = 0;
-        for (int i = 2; i <= shapeCount; i++)
-        {
-            totalSwapCount = totalSwapCount + swapCount[i];
-        }
-        // if the total is less than the number of diff trials, add it to the swapCount2
-        if (totalSwapCount < diffTrialCount)
-        {
-            swapCount[2] = swapCount[2] + (diffTrialCount-totalSwapCount);
-        }
-
-
-
-        if (shapeCount >= (gridW*gridH)-1)
-        {
-            shapeCount = (gridW*gridH)-1;
-        }
-
-        if (shapeCount < 2)
-        {
-            shapeCount = 2;
-        }
-
-
-
-        // ----------------
-
-
-
-        boxW = 450;
-        boxH = 450;
-        boxX = (GameEngine.SCREEN_W - boxW)/2;
-        boxY = (GameEngine.SCREEN_H - boxH)/2-60;
-        boxThickness = 4;
-
-        gridBoxW = boxW/gridW;
-        gridBoxH = boxH/gridH;
-
-        colorBox = new GColor(0,0,0);
-
-
-        trialList = new GList<Trial>();
-
-        GList<Integer> trialTypeBank = new GList<Integer>();
-
-        GList<Integer> dispCountBank = new GList<Integer>();
-
-        for (int i = 0; i < trialNum; i++)
-        {
-            if (i < diffTrialCount)
-            {
-                trialTypeBank.Add(new Integer(1));
-            }
-            else
-            {
-                trialTypeBank.Add(new Integer(0));
-            }
-
-            for (int j = 0; j < dispCount[i]; j++)
-            {
-                dispCountBank.Add(new Integer(i));
-            }
-        }
-
-
-        LogMan.Log("DOLPH_BIND", "difftrials:" + diffTrialCount);
-
-        LogMan.Log("DOLPH_BIND", "swapcount:");
-
-        for (int i = 0; i <= shapeCount; i++)
-        {
-            LogMan.Log("DOLPH_BIND", "" + swapCount[i]);
-        }
-
-
-        GList<Integer> swapCountBank = new GList<Integer>();
-        // go through with the number of "different" trials we have
-        // get the percentage of each number of swap for each "different" trial
-
-        for (int i = 2; i <= shapeCount; i++)
-        {
-            for (int j = 0; j < swapCount[i]; j++)
-            {
-                swapCountBank.Add(new Integer(i));
-
-
-            }
-
-        }
-
-
-        // if there are any remaining spaces, fill them up with swap count of 2
-        while (swapCountBank.GetSize() < diffTrialCount)
-        {
-            swapCountBank.Add(new Integer(2));
-        }
-
-        LogMan.Log("DOLPH_BIND", "swapcountbank:");
-
-        for (int i = 0; i < swapCountBank.GetSize(); i++)
-        {
-            LogMan.Log("DOLPH_BIND", "" + swapCountBank.Get(i));
-        }
-
-        LogMan.Log("DOLPH_BIND", "dispcountbank:");
-        for (int i = 0; i < dispCountBank.GetSize(); i++)
-        {
-            LogMan.Log("DOLPH_BIND", "" + dispCountBank.Get(i));
-        }
-
-
-        for (int i = 0; i < trialNum; i++)
-        {
-            GameParams trialParams = new GameParams();
-            trialParams.AddAllParentParams(trialSetParam);
-
-            int trialType = trialTypeBank.PopRandom();
-            int swapCountB = 0;
-
-            int trialDispCount = shapeCount;
-
-            if (dispCountBank.GetSize() > 0){trialDispCount = dispCountBank.PopRandom();}
-
-
-
-            if (trialType == 1)
-            {
-                // different trial
-                swapCountB = 2;
-                if (swapCountBank.GetSize() > 0){swapCountB = swapCountBank.PopRandom();}
-            }
-
-            trialParams.Add("trialType", ""+trialType);
-            trialParams.Add("swapCount", ""+swapCountB);
-            trialParams.Add("dispCount", ""+trialDispCount);
-
-            AddTrial(trialParams, overallTrialNum+i, trialSetID);
-
-        }
-
-
-
-
-
-      
-
-    }*/
 
 
 
