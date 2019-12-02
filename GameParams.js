@@ -116,7 +116,7 @@ class GameParams
           
           if (split.length < 3)
           {
-              split = val.split("_"); // if the commas didn't work, try underscores
+              split = r.split("_"); // if the commas didn't work, try underscores
               if (split.length < 3)
               {
               //ErrorMan.AddError("", String.format("In attribute \"%s\", did not find color values! Must have r,g,b value for color! Found: %s",varName, val));

@@ -138,6 +138,17 @@ class GColor
         SetColor(rF,gF,bF, 1.0);
 
     }
+
+
+
+
+
+    GetColorStr()
+    {
+     var str = new String("%d_%d_%d", Math.floor(this.r*255),Math.floor(this.g*255),Math.floor(this.b*255));
+    return str;
+    }
+
     
     
     

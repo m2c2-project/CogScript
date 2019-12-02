@@ -14,6 +14,8 @@ function Init()
   // global cogtask variables
   SetName(GetName());
 
+  defaultBoxH = 450;
+
 }
 
 function GetName()
