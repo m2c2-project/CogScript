@@ -126,7 +126,7 @@ function Start()
 
     showAllFeedbackValues = GetParamInt("showAllFeedbackStim", false);
 
-    minResponseCount =  GetParamInt("minResponseCount", 0); //-1 - sets to targetStimCount
+    minResponseCount =  GetParamInt("minResponseCount", 1); //-1 - sets to targetStimCount
     maxResponseCount =  GetParamInt("maxResponseCount", -1); //-1 - sets to targetStimCount, 0 = infinite
 
     if (maxResponseCount < 0){maxResponseCount = trackingItems;}
@@ -262,6 +262,12 @@ function Start()
                 allStimList.Get(i).Move(allStimList);
               }
           }
+
+          /*for (var i = 0; i < allStimList.GetSize(); i++)
+              {
+
+                    allStimList.Get(i).position.
+              }*/
 
 
             submitButton = new GButton(imSubmitButton, boxX + boxW/2 - imSubmitButton.Get(0).w/2, GameEngine.GetHeight() - imSubmitButton.Get(0).h - 10);
@@ -545,7 +551,7 @@ function OnClickDown(tx,ty,click)
 
         var selectedCount = CountSelected();
 
-       if (submitButton.CheckPressed(tx,ty) && selectedCount > 0)
+       if (submitButton.CheckPressed(tx,ty) && selectedCount >= minResponseCount)
        {
         totalResponseTime = click.GetTime() - responseTimeHold;
         phase = 31;

@@ -18,6 +18,8 @@ function GameRunner_Init(paramKeyList, paramValList)
 
   trialList = new GList();
 
+   trialEntList = new GList();
+
    curParams = LoadParams(paramKeyList, paramValList);
 
 
@@ -123,12 +125,15 @@ function GameRunner_Update()
   else
   {
     // non class based trial
-    Update();
-
+   
+    // update all entities before the main update
     for (var i = 0; i < trialEntList.GetSize(); i++)
     {
-      trialEntList.Get(i).Draw();
+      trialEntList.Get(i).Update();
     }
+
+    // main update
+     Update();
   }
 
 
