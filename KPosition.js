@@ -40,8 +40,11 @@ class KPosition
 
      Update()
     {
-        this.x = this.x + this.velX;
-        this.y = this.y + this.velY;
+        if (this.type != KPosition.TYPE.NONE)
+        {
+            this.x = this.x + this.velX;
+            this.y = this.y + this.velY;
+        }
 
         if (this.type == KPosition.TYPE.GRAVITY)
         {
@@ -168,9 +171,15 @@ KPosition.TYPE =
 {
     MOVE_TO_TARGET:0,
 
-    GRAVITY:1
-}
+    GRAVITY:1,
 
-/*KPosition.MOVE_TO_TARGET = 0;
-KPosition.MOVE_TO_TARGET = 1;*/
+    FREEMOVE:2,
+
+    NONE:3
+}
+/*
+KPosition.TYPE.MOVE_TO_TARGET = 0;
+KPosition.TYPE.GRAVITY = 1;
+KPosition.TYPE.FREEMOVE = 2;
+KPosition.TYPE.NONE = 3;*/
 

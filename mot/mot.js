@@ -263,11 +263,7 @@ function Start()
               }
           }
 
-          /*for (var i = 0; i < allStimList.GetSize(); i++)
-              {
-
-                    allStimList.Get(i).position.
-              }*/
+     
 
 
             submitButton = new GButton(imSubmitButton, boxX + boxW/2 - imSubmitButton.Get(0).w/2, GameEngine.GetHeight() - imSubmitButton.Get(0).h - 10);
