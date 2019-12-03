@@ -830,8 +830,8 @@ function OnClickMove(x,y,clickTime)
 
                     while (check)
                     {
-                        rCheckX =  GameEngine.Random(0, gridW);
-                        rCheckY =  GameEngine.Random(0, gridH);
+                        rCheckX =  GameEngine.RandomInt(0, gridW);
+                        rCheckY =  GameEngine.RandomInt(0, gridH);
                         check = false;
 
                         if (InCorner(rCheckX, rCheckY) && cornerCount >= cornerMax) // corner check
@@ -927,8 +927,8 @@ function OnClickMove(x,y,clickTime)
                 var checkY = -1;
                 while (checkX == -1 || correctEF[checkX][checkY] == true)
                 {
-                    checkX = GameEngine.Random(0, efGridW);
-                    checkY = GameEngine.Random(0, efGridH);
+                    checkX = GameEngine.RandomInt(0, efGridW);
+                    checkY = GameEngine.RandomInt(0, efGridH);
                 }
                 correctEF[checkX][checkY] = true;
                 stimEF[checkX][checkY].SetImage(imGL_F);

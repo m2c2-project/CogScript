@@ -93,15 +93,7 @@
         this.position.velY = 0;
       }
 
-       OnCollide(e)
-      {
-      /* float holdVelX = position.velX;
-       float holdVelY = position.velY;
-       position.velX = e.position.velX;
-       position.velY = e.position.velY;
-          e.position.velX = holdVelX;
-          e.position.velY = holdVelY;*/
-      }
+     
 
       Move(stimList)
       {

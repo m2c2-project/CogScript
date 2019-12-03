@@ -164,6 +164,40 @@ class KPosition
 
     }
 
+
+
+    DistToKPos(pos)
+    {   
+      var xDist = this.x - pos.x;
+      var yDist = this.y - pos.y;
+
+
+
+      var dist = Math.sqrt(xDist*xDist + yDist*yDist);
+
+      return dist;
+
+    }
+
+
+
+    DistTo(ox, oy)
+    {
+        if (typeof ox == 'KPosition')
+        {
+            return this.DistToKPos(ox);
+        }
+        
+        var xDist = this.x - ox;
+        var yDist = this.y - oy;
+
+
+
+        var dist = Math.sqrt(xDist*xDist + yDist*yDist);
+
+        return dist;
+    }
+
 }
 
 

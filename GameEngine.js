@@ -94,7 +94,12 @@ class GameEngine
   static Random(low, hi)
     {
         // hi not included
-        return Math.floor(low + Math.random()*(hi-low));
+        return low + Math.random()*(hi-low); 
+    }
+
+    static RandomInt(low, hi)
+    {
+      return Math.floor(GameEngine.Random(low, hi));
     }
 
 
