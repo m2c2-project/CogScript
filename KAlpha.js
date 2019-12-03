@@ -33,7 +33,7 @@ class KAlpha
 
     SetSpeed(sSpeed)
     {
-     alphaSpeed = sSpeed;
+     this.alphaSpeed = sSpeed;
     }
 
     GetAlpha()

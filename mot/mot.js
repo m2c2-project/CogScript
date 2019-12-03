@@ -1,6 +1,7 @@
 Include("Entity.js");
 Include("Tools.js");
 Include("GButton.js");
+Include("mot_stim.js");
 Include("GImage_Create.js");
 
 // --------------------------------
@@ -34,6 +35,11 @@ function GetInstructions()
 }
 
 
+function ReadParamImage(var1, var2)
+{
+ return imCueText;
+}
+
 
 // create/load images
 function LoadImages()
@@ -51,7 +57,7 @@ function LoadImages()
 
     LogMan.Log("DOLPH_MOT", "start load images");
 
-
+   
    // LoadAllParamImages(gameParams, "CueScreenInstructions", 25);
   //  LoadAllParamImages(gameParams, "ResponseScreenInstructions", 25);
 
@@ -76,8 +82,16 @@ function DrawBlockTransition()
 // run at the start of each trial
 function Start()
 {
-      
+    responseTimeHold = -1
+    toggleFrame = 0;
+
+    boxW = 450;
     boxH = GetParam("frameHeight", defaultBoxH);
+
+    boxX = (GameEngine.GetWidth() - boxW)/2;
+    boxY = (GameEngine.GetHeight() - defaultBoxH)/2-60;
+    boxThickness = 4;
+    colorBox = new GColor(0,0,0);
 
     if (boxH < 400)
     {
@@ -250,16 +264,16 @@ function Start()
           }
 
 
-            submitButton = new GButton(imSubmitButton, boxX + boxW/2 - imSubmitButton[0].w/2, GameEngine.GetHeight() - imSubmitButton[0].h - 10);
+            submitButton = new GButton(imSubmitButton, boxX + boxW/2 - imSubmitButton.Get(0).w/2, GameEngine.GetHeight() - imSubmitButton.Get(0).h - 10);
             submitButton.alpha.Set(0);
             submitButton.alpha.SetSpeed(.2);
 
-            var imCueText = ReadParamImage(trialParams, trialCueText);
+            //var imCueText = ReadParamImage(trialParams, trialCueText);
             entCueText = new Entity(imCueText, imCueText.GetCenterX(), boxY - imCueText.h - 5);
             entCueText.alpha.Set(0);
             entCueText.alpha.SetSpeed(.2);
             entCueText.SetColor(new GColor(0,0,0));
-            var imResponseText = ReadParamImage(trialParams, trialResponseText);
+            //var imResponseText = ReadParamImage(trialParams, trialResponseText);
             entResponseText = new Entity(imResponseText, imResponseText.GetCenterX(), boxY - imResponseText.h - 5);
             entResponseText.alpha.Set(0);
             entResponseText.alpha.SetSpeed(.2);
@@ -521,9 +535,9 @@ function CountSelected()
             return selectedCount;
         }
 
-function OnClickDown(x,y,click)
+function OnClickDown(tx,ty,click)
 {
-  
+    
     if (phase == 30)
     {
        var isOn = -1;
@@ -581,12 +595,12 @@ function OnClickDown(x,y,click)
     }
 }
 
-function OnClickUp(x,y,click)
+function OnClickUp(tx,ty,click)
 {
  
 }
 
-function OnClickMove(x,y,click)
+function OnClickMove(tx,ty,click)
 {
   
 }
@@ -679,7 +693,14 @@ function ExportData()
 
             results.AddResult("touch_list", touchListString);*/
 
-            function ExportStimList(stimList)
+         
+
+
+
+          
+}
+
+   function ExportStimList(stimList)
             {
                 var expString = "";
                 for (var  i = 0; i < stimList.GetSize(); i++)
@@ -689,8 +710,3 @@ function ExportData()
                 }
                 return expString;
             }
-
-
-
-          
-}

@@ -19,7 +19,7 @@
 
        this.selected = false;
 
-       var touchR = (int)(r*trial.stimTouchFactor);
+       var touchR = Math.floor(this.r*this.trial.stimTouchFactor);
 
        this.hitBox = new GBox(-touchR,-touchR,touchR*2, touchR*2);
 
@@ -106,11 +106,11 @@
       Move(stimList)
       {
        // position.Move(heading, speed);
-        position.x = position.x + position.velX;
-        position.y = position.y + position.velY;
+        this.position.x = this.position.x + this.position.velX;
+        this.position.y = this.position.y + this.position.velY;
 
 
-        var noise = (float)(15 * Math.PI/180);
+        var noise = (15.0 * Math.PI/180);
 
        var headingRad = (Math.atan2(this.position.velY, this.position.velX));
 
@@ -154,10 +154,10 @@
                 {
 
                     // update vector direction
-                    headingRad = headingRad + (float)(sign * 0.05 * Math.PI);
+                    headingRad = headingRad + (sign * 0.05 * Math.PI);
 
-                    this.position.velX = Math.cos(headingRad) * this.speed);
-                    this.position.velY = Math.sin(headingRad) * this.speed);
+                    this.position.velX = (Math.cos(headingRad) * this.speed);
+                    this.position.velY = (Math.sin(headingRad) * this.speed);
 
                 }
                 else {tooClose=false;}

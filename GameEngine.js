@@ -74,6 +74,11 @@ class GameEngine
     GameEngine_MessageBox(text);
   }
 
+  static CloseMessageBox()
+  {
+    GameEngine_CloseMessageBox();
+  }
+
 
   static GetMilliTime()
   {

@@ -87,6 +87,8 @@ function GameRunner_Start(paramKeyList, paramValList)
     gameResultKey = new GList();
     gameResultVal = new GList();
 
+   // create entity list
+   trialEntList = new GList();
 
    // load images
     GImage.ReloadImages();
@@ -120,8 +122,16 @@ function GameRunner_Update()
   }
   else
   {
+    // non class based trial
     Update();
+
+    for (var i = 0; i < trialEntList.GetSize(); i++)
+    {
+      trialEntList.Get(i).Draw();
+    }
   }
+
+
 }
 
 function GameRunner_Draw()
@@ -131,8 +141,17 @@ function GameRunner_Draw()
   if (curTrial != null){curTrial.Draw();}
   else
   {
+    // non class based trial
     Draw();
+
+    for (var i = 0; i < trialEntList.GetSize(); i++)
+    {
+      trialEntList.Get(i).Draw();
+    }
   }
+
+
+  
 
 
 
@@ -194,6 +213,13 @@ function CreateTrigger(delay)
 
  return trigger;
  
+
+}
+
+function AddEnt(entity)
+{
+ 
+ trialEntList.Add(entity);
 
 }
 

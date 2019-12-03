@@ -63,6 +63,9 @@ class GList
  }
 
 
+
+
+
  
 
  RemoveAll()
@@ -81,6 +84,26 @@ class GList
 
 
    return ret;
+ }
+
+
+
+ FindElement(e)
+ {
+   // finds an element and returns the index
+
+   for (var i = 0; i < this.GetSize(); i++)
+   {
+    if (this.Get(i) == e)
+    {
+        return i;
+    } 
+   }
+
+
+   return -1;
+
+
  }
 
 
