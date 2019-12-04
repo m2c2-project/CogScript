@@ -226,6 +226,26 @@ function LoadAllParamImages(text, size)
    Game_LoadAllParamImages(text, size);
 }
 
+function ReadParamImage(text, defaultImage)
+{
+ // returns the image associated with the "text"
+ // if it is not found, return the default image
+
+ var ret = Game_ReadParamImage(text);
+
+ if (ret == -1){return defaultImage;}
+
+
+ var image = new GImage();
+
+ image.SetImage(ret);
+
+ return image;
+
+
+
+}
+
 function AddEnt(entity)
 {
  

@@ -266,7 +266,7 @@
         if (this.trial.debug_showRepulseFactor)
         {
           GameEngine.SetColor(0,0,1,.3);
-          GameDraw.DrawCircleCenter(this.position.x, this.position.y, this.r*2*repulseFactor,this.r*2*repulseFactor, 0, 1, false);
+          GameDraw.DrawCircleCenter(this.position.x, this.position.y, this.r*2*this.repulseFactor,this.r*2*this.repulseFactor, 0, 1, false);
         }
         GameEngine.ResetColor();
       }

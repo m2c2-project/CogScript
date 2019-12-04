@@ -8,6 +8,9 @@ class GImage
  constructor()
  {
   this.imageIndex = -1;
+
+  this.w = 1;
+  this.h = 1;
   
   
  }

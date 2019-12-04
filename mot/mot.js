@@ -35,10 +35,7 @@ function GetInstructions()
 }
 
 
-function ReadParamImage(var1, var2)
-{
- return imCueText;
-}
+
 
 
 // create/load images
@@ -63,8 +60,8 @@ function LoadImages()
 
 
 
-    imCueText = GImage_Create.CreateTextImage(cueText, 25, true);//GImage_Create.CreateKTextImage(surveyData, gameScreen, cueText, 25, true);
-    imResponseText = GImage_Create.CreateTextImage(responseText, 25, true); //GImage_Create.CreateKTextImage(surveyData, gameScreen, responseText, 25, true);
+    imCueTextDefault = GImage_Create.CreateTextImage(cueText, 25, true);//GImage_Create.CreateKTextImage(surveyData, gameScreen, cueText, 25, true);
+    imResponseTextDefault = GImage_Create.CreateTextImage(responseText, 25, true); //GImage_Create.CreateKTextImage(surveyData, gameScreen, responseText, 25, true);
 
 }
 
@@ -86,7 +83,10 @@ function Start()
     toggleFrame = 0;
 
     boxW = 450;
-    boxH = GetParam("frameHeight", defaultBoxH);
+    boxH = GetParamInt("frameHeight", defaultBoxH);
+
+   
+  
 
     boxX = (GameEngine.GetWidth() - boxW)/2;
     boxY = (GameEngine.GetHeight() - defaultBoxH)/2-60;
@@ -270,12 +270,12 @@ function Start()
             submitButton.alpha.Set(0);
             submitButton.alpha.SetSpeed(.2);
 
-            //var imCueText = ReadParamImage(trialParams, trialCueText);
+            var imCueText = ReadParamImage(trialCueText, imCueTextDefault);
             entCueText = new Entity(imCueText, imCueText.GetCenterX(), boxY - imCueText.h - 5);
             entCueText.alpha.Set(0);
             entCueText.alpha.SetSpeed(.2);
             entCueText.SetColor(new GColor(0,0,0));
-            //var imResponseText = ReadParamImage(trialParams, trialResponseText);
+            var imResponseText = ReadParamImage(trialResponseText, imResponseTextDefault);
             entResponseText = new Entity(imResponseText, imResponseText.GetCenterX(), boxY - imResponseText.h - 5);
             entResponseText.alpha.Set(0);
             entResponseText.alpha.SetSpeed(.2);
