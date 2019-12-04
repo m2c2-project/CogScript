@@ -197,6 +197,11 @@ function GetParam(key, defaultValue)
   return curParams.Get(key, defaultValue);
 }
 
+function GetParamString(key, defaultValue)
+{
+  return curParams.Get(key, defaultValue);
+}
+
 function GetParamInt(key, defaultValue)
 {
   return curParams.GetInt(key, defaultValue);
@@ -232,4 +237,42 @@ function CopyParams()
 function GetUsedParams()
 {
    return curParams.GetUsedParams();
+}
+
+
+
+
+function VarSubParam(text)
+{
+ // takes in a string and returns a string with all variables subbed in
+
+ return Game_VarSubParam(text);
+
+}
+
+function LoadAllParamImages(paramValue, size)
+{
+   // loads all images within param and sub params for the particular paramValue
+   // example: paramValue="InstructionText" loads text for each instance of "InstructionText" for all sub params
+   Game_LoadAllParamImages(paramValue, size);
+}
+
+function ReadParamImage(text, defaultImage)
+{
+ // returns the image associated with the "text"
+ // if it is not found, return the default image
+
+ var ret = Game_ReadParamImage(text);
+
+ if (ret == -1){return defaultImage;}
+
+
+ var image = new GImage();
+
+ image.SetImage(ret);
+
+ return image;
+
+
+
 }

@@ -162,8 +162,8 @@ function Start()
     debug_showRepulseFactor = GetParamBool("debug_showrepulsefactor", false);
 
 
-    //maxResponseInfoText = VarSubParam(trialParams,trialParams.GetString("maxResponseInfoText", "You cannot select any more options!"));
-     maxResponseInfoText = "You cannot select any more options!";
+    maxResponseInfoText = VarSubParam(GetParamString("maxResponseInfoText", "You cannot select any more options!"));
+     //maxResponseInfoText = "You cannot select any more options!";
 
 
 
