@@ -221,6 +221,11 @@ function CreateTrigger(delay)
 
 }
 
+function LoadAllParamImages(text, size)
+{
+   Game_LoadAllParamImages(text, size);
+}
+
 function AddEnt(entity)
 {
  

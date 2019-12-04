@@ -1,4 +1,5 @@
 
+// NOT FINISHED. DOES NOT CONNECT TO A REAL KTRIGGER.
 Include("KTime.js");
 
 class KTrigger

@@ -58,8 +58,8 @@ function LoadImages()
     LogMan.Log("DOLPH_MOT", "start load images");
 
    
-   // LoadAllParamImages(gameParams, "CueScreenInstructions", 25);
-  //  LoadAllParamImages(gameParams, "ResponseScreenInstructions", 25);
+    LoadAllParamImages("CueScreenInstructions", 25);
+    LoadAllParamImages("ResponseScreenInstructions", 25);
 
 
 
