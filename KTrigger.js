@@ -98,7 +98,7 @@ class KTrigger
      if (endFrame == null || startFrame == null){return -1;}
      return endFrame.endTime - startFrame.endTime;*/
 
-     return 1;
+     return this.end-this.start;
     }
 
     GetDelay()

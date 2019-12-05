@@ -613,67 +613,65 @@ function OnClickMove(tx,ty,click)
 
 function ExportData()
 {
-    /*results.NextTrial();
+   
 
-            ExportHeaderData(GetTrialUUID());
+          
 
-            ExportTrialHeader(results);
+            AddResult("movement_algorithm", "TMB_1.04");
 
-            results.AddResult("movement_algorithm", "TMB_1.04");
+            AddResult("target_num", trackingItems);
+            AddResult("distractor_num", distractorItems);
 
-            results.AddResult("target_num", trackingItems);
-            results.AddResult("distractor_num", distractorItems);
+            AddResult("min_response_count", minResponseCount);
+            AddResult("max_response_count", maxResponseCount);
 
-            results.AddResult("min_response_count", minResponseCount);
-            results.AddResult("max_response_count", maxResponseCount);
+            AddResult("stim_radius", stimR);
+            AddResult("stim_speed", ""+stimSpeed);
+            AddResult("stim_repulse_factor", ""+stimRepulseFactor);
+            AddResult("stim_touch_factor", ""+stimTouchFactor);
 
-            results.AddResult("stim_radius", stimR);
-            results.AddResult("stim_speed", ""+stimSpeed);
-            results.AddResult("stim_repulse_factor", ""+stimRepulseFactor);
-            results.AddResult("stim_touch_factor", ""+stimTouchFactor);
-
-            results.AddResult("target_stim_color", targetStimColor.GetColorStr());
-            results.AddResult("standard_stim_color", inactiveColor.GetColorStr());
-            results.AddResult("selected_color", stimSelectColor.GetColorStr());
-            results.AddResult("feedback_outline_color", feedbackOutlineColor.GetColorStr());
-            results.AddResult("incorrect_color", wrongFeedbackStimColor.GetColorStr());
+            AddResult("target_stim_color", targetStimColor.GetColorStr());
+            AddResult("standard_stim_color", inactiveColor.GetColorStr());
+            AddResult("selected_color", stimSelectColor.GetColorStr());
+            AddResult("feedback_outline_color", feedbackOutlineColor.GetColorStr());
+            AddResult("incorrect_color", wrongFeedbackStimColor.GetColorStr());
 
 
-            results.AddResult("t_cueBeforeTime", cueBeforeTime);
-            results.AddResult("a_cueBeforeTime", ""+cueBeforeTrigger.GetActualDisplayTime());
+            AddResult("t_cueBeforeTime", cueBeforeTime);
+            AddResult("a_cueBeforeTime", ""+cueBeforeTrigger.GetActualDisplayTime());
 
-            results.AddResult("t_cueBlinkTime", cueBlinkTime);
-            results.AddResult("a_cueBlinkTime", ""+cueBlinkTrigger.GetActualDisplayTime());
+            AddResult("t_cueBlinkTime", cueBlinkTime);
+            AddResult("a_cueBlinkTime", ""+cueBlinkTrigger.GetActualDisplayTime());
 
-            results.AddResult("t_cueShowTime", cueShowTime);
-            results.AddResult("a_cueShowTime", ""+cueShowTrigger.GetActualDisplayTime());
+            AddResult("t_cueShowTime", cueShowTime);
+            AddResult("a_cueShowTime", ""+cueShowTrigger.GetActualDisplayTime());
 
-            results.AddResult("t_cueAfterTime", cueAfterTime);
-            results.AddResult("a_cueAfterTime", ""+cueAfterTrigger.GetActualDisplayTime());
+            AddResult("t_cueAfterTime", cueAfterTime);
+            AddResult("a_cueAfterTime", ""+cueAfterTrigger.GetActualDisplayTime());
 
-            results.AddResult("t_movementTime", movementTime);
-            results.AddResult("a_movementTime", ""+movementTrigger.GetActualDisplayTime());
+            AddResult("t_movementTime", movementTime);
+            AddResult("a_movementTime", ""+movementTrigger.GetActualDisplayTime());
 
-            results.AddResult("stim_speed",""+stimSpeed);
-            results.AddResult("stim_repulse",""+stimRepulseFactor);
+            AddResult("stim_speed",""+stimSpeed);
+            AddResult("stim_repulse",""+stimRepulseFactor);
 
-            results.AddResult("t_feedbackTime", feedbackTime);
-            results.AddResult("a_feedbackTime", ""+feedbackTrigger.GetActualDisplayTime());
+            AddResult("t_feedbackTime", feedbackTime);
+            AddResult("a_feedbackTime", ""+feedbackTrigger.GetActualDisplayTime());
 
-            results.AddResult("t_responseTimeout", responseTimeoutTime);
-            results.AddResult("a_responseTimeout", ""+responseTimeoutTrigger.GetActualDisplayTime());
+            AddResult("t_responseTimeout", responseTimeoutTime);
+            AddResult("a_responseTimeout", ""+responseTimeoutTrigger.GetActualDisplayTime());
 
-            results.AddResult("totalResponseTime", "" + totalResponseTime);
+            AddResult("totalResponseTime", "" + totalResponseTime);
 
 
            // export stim lists
-            String endingStimExpString = ExportStimList(allStimList);
+            var endingStimExpString = ExportStimList(allStimList);
 
-            results.AddResult("starting_stim_list", startingStimExpString);
-            results.AddResult("ending_stim_list", endingStimExpString);
+            AddResult("starting_stim_list", startingStimExpString);
+            AddResult("ending_stim_list", endingStimExpString);
 
-            GList<Stim> stimSelectList = new GList<Stim>();
-            for (int i = 0; i < allStimList.GetSize(); i++)
+            var stimSelectList = new GList();
+            for (var i = 0; i < allStimList.GetSize(); i++)
             {
              if (allStimList.Get(i).IsSelected())
              {
@@ -681,19 +679,19 @@ function ExportData()
              }
             }
 
-            String selectedStimExpString = ExportStimList(stimSelectList);
+            var selectedStimExpString = ExportStimList(stimSelectList);
 
-            results.AddResult("selected_stim_list", selectedStimExpString);
+            AddResult("selected_stim_list", selectedStimExpString);
 
 
-            String touchListString = "";
-            for (int i = 0; i < touchList.GetSize(); i++)
+            var touchListString = "";
+            for (var i = 0; i < touchList.GetSize(); i++)
             {
              touchListString = touchListString + touchList.Get(i);
              if (i < touchList.GetSize() - 1){touchListString = touchListString + " ";}
             }
 
-            results.AddResult("touch_list", touchListString);*/
+            AddResult("touch_list", touchListString);
 
          
 
