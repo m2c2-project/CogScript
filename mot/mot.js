@@ -85,7 +85,7 @@ function Start()
     boxW = 450;
     boxH = GetParamInt("frameHeight", defaultBoxH);
 
-   
+    totalResponseTime = -1;
   
 
     boxX = (GameEngine.GetWidth() - boxW)/2;
