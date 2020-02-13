@@ -13,6 +13,10 @@ adb shell "mkdir %dolph%/test_game2"
 
 for %%i in (test_game2/*) do (adb push test_game2/%%i %dolph%/test_game2)
 
+adb shell "mkdir %dolph%/test_game4"
+
+for %%i in (test_game4/*) do (adb push test_game4/%%i %dolph%/test_game4)
+
 adb shell "mkdir %dolph%/newscript"
 
 for %%i in (newscript/*) do (adb push newscript/%%i %dolph%/newscript)
