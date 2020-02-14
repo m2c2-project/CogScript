@@ -209,6 +209,18 @@ function GameRunner_OnClickMove(x,y,clickTime)
   }
 }
 
+function GameRunner_GetExportIDList()
+{
+  if (typeof(GetExportIDList) === 'undefined')
+  {
+    return [];
+  }
+
+
+  return GetExportIDList();
+
+}
+
 
 function CreateTrigger(delay)
 {

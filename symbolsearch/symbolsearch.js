@@ -32,6 +32,9 @@ function GetInstructions()
  
 }
 
+
+
+
 // -c-END_INTRO--
 
 
@@ -516,8 +519,10 @@ function ExportData()
             AddResult("user_response", "" + selected);
             AddResult("correct_response", "" + correct);
 
+}
 
-           
-  
- 
+
+function GetExportIDList()
+{
+   return ["trial_type", "response_time", "response_time_OLD", "user_response", "correct_response"];
 }
