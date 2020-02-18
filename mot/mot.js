@@ -615,7 +615,8 @@ function ExportData()
 {
    
 
-          
+         
+
 
             AddResult("movement_algorithm", "TMB_1.04");
 
@@ -646,14 +647,14 @@ function ExportData()
             AddResult("t_cueShowTime", cueShowTime);
             AddResult("a_cueShowTime", ""+cueShowTrigger.GetActualDisplayTime());
 
+           
+
+
             AddResult("t_cueAfterTime", cueAfterTime);
             AddResult("a_cueAfterTime", ""+cueAfterTrigger.GetActualDisplayTime());
 
             AddResult("t_movementTime", movementTime);
             AddResult("a_movementTime", ""+movementTrigger.GetActualDisplayTime());
-
-            AddResult("stim_speed",""+stimSpeed);
-            AddResult("stim_repulse",""+stimRepulseFactor);
 
             AddResult("t_feedbackTime", feedbackTime);
             AddResult("a_feedbackTime", ""+feedbackTrigger.GetActualDisplayTime());
@@ -683,6 +684,8 @@ function ExportData()
 
             AddResult("selected_stim_list", selectedStimExpString);
 
+          
+
 
             var touchListString = "";
             for (var i = 0; i < touchList.GetSize(); i++)
@@ -709,4 +712,17 @@ function ExportData()
                     if (i < stimList.GetSize()-1){expString = expString + " ";}
                 }
                 return expString;
+            }
+
+
+
+
+            function GetExportIDList()
+            {
+               return  ["movement_algorithm", "target_num", "distractor_num", "min_response_count", "max_response_count", "stim_radius",
+               "stim_speed", "stim_repulse_factor", "stim_touch_factor", "target_stim_color", "standard_stim_color", "selected_color",
+               "feedback_outline_color", "incorrect_color", "t_cueBeforeTime", "a_cueBeforeTime", "t_cueBlinkTime", "a_cueBlinkTime",
+               "t_cueShowTime","a_cueShowTime", "t_cueAfterTime", "a_cueAfterTime", "t_movementTime", "a_movementTime", "t_feedbackTime",
+               "a_feedbackTime", "t_responseTimeout", "a_responseTimeout", "totalResponseTime",  "starting_stim_list",  "ending_stim_list",
+               "selected_stim_list", "touch_list"];
             }

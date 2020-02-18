@@ -427,3 +427,29 @@ function ExportData()
     }
 }
 
+
+function GetExportIDList()
+{
+   var  ret =  ["trial_type", "shape_count", "response_display_count","swap_count", "response_time",  "button_pressed"];
+
+   for (var i = 0; i < 6; i++)
+   {
+     ret.push("before_shape" + (i+1));
+     ret.push("before_shape" + (i+1)+"color");
+     ret.push("before_shape" + (i+1)+"x");
+     ret.push("before_shape" + (i+1)+"y");
+   }
+
+
+   for (var i = 0; i < 6; i++)
+   {
+     ret.push("after_shape" + (i+1));
+     ret.push("after_shape" + (i+1)+"color");
+     ret.push("after_shape" + (i+1)+"x");
+     ret.push("after_shape" + (i+1)+"y");
+   }
+   
+
+   return ret;
+}
+

@@ -1018,3 +1018,15 @@ function ExportData()
 
 
 }
+
+
+
+
+function GetExportIDList()
+{
+  return ["interference_zip", "dot_locations", "user_answers", "response_time",
+  "interference_ratio", "interference_time", "interference_text", "interference_size", 
+  "show_delay_time", "interference_page_targets", "interference_locations"];
+
+
+}
