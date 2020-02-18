@@ -28,9 +28,9 @@ function GetInstructions()
 {
  // return array of strings for the instructions
 
- 
 
- return ["--Thse are the instructions", "--Follow them."];
+ return ["Colored shapes will appear briefly on the screen.", "", "", "Try to remember the shapes and their colors, because they will soon disappear.",
+          "", "", "Next, you will see the same shapes reappear.", "", "", "Please answer whether the shapes have the SAME or DIFFERENT colors as they had before."];
  
 }
 
