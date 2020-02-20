@@ -590,8 +590,11 @@ function OnClickDown(tx,ty,click)
        }
 
 
-        touchList.Add(new String("%d_down_%d_%d_%d_%d", Math.floor(click.GetTime()-responseTimeHold), Math.floor(tx),Math.floor(ty), stimHit, isOn));
+        //touchList.Add(new String("%d_down_%d_%d_%d_%d", Math.floor(click.GetTime()-responseTimeHold), Math.floor(tx),Math.floor(ty), stimHit, isOn));
 
+
+        var addStr = "" + Math.floor(click.GetTime()-responseTimeHold) + "_down_" + Math.floor(tx) + "_" + Math.floor(ty) + "_" + stimHit + "_" + isOn;
+        touchList.Add(addStr);
         
 
     }

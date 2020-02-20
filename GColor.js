@@ -145,7 +145,7 @@ class GColor
 
     GetColorStr()
     {
-     var str = new String("%d_%d_%d", Math.floor(this.r*255),Math.floor(this.g*255),Math.floor(this.b*255));
+     var str = "" + Math.floor(this.r*255) + "_" + Math.floor(this.g*255) + "_" + Math.floor(this.b*255);
     return str;
     }
 
