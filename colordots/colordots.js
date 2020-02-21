@@ -571,4 +571,7 @@ function GetExportIDList()
 
   ret.push("ProbedLocation", "ColorChoice", "ColorRT", "TotalColorPicks", "ProbedColor", "FinalLocation", "LocRT");
 
+
+  return ret;
+
 }
