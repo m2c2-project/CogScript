@@ -26,10 +26,10 @@ function GetInstructions()
  //matchPairsTop = GetParam("MatchPairsTop", 4);
 
  return [
- "--Colored shapes will appear briefly on the screen.",
- "--Try to remember the shapes and their colors, because they will soon disappear.",
- "--Next, you will see the same shapes reappear.",
- "--Please answer whether the shapes have the SAME or DIFFERENT colors as they had before."
+ "Colored shapes will appear briefly on the screen.", "",
+ "Try to remember the shapes and their colors, because they will soon disappear.", "",
+ "Next, you will see the same shapes reappear.", "",
+ "Please answer whether the shapes have the SAME or DIFFERENT colors as they had before."
   ];
 
  

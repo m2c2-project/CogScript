@@ -103,14 +103,22 @@ function GetInstructions()
  
  var getDots =  GetParamInt("DotCount", 3);
 
-
+/*
  return [
 
 
     "--You will see " + getDots + " dots appear briefly on a grid.",
     "--Try to remember the location of these dots, because they will soon disappear.",
     "--Next you will see a screen full of E’s and F’s. Please tap all the F’s that you see.",
-    "--When you see the empty grid, tap the locations where you recall having seen the dots." ]
+    "--When you see the empty grid, tap the locations where you recall having seen the dots." ]*/
+
+
+    return ["You will see a grid with red dots.", "",
+    "Remember the location of the red dots.",  "",
+    "Then, you will see a grid with the letters E and F. Find the Fs and tap them as fast as you can.", "",
+    "An empty grid will follow where you will tap the boxes where you saw the red dots.", "", 
+    "You can remove an existing circle by tapping on it, and then tapping a place on the grid to place it elsewhere.", "",
+    "If a response is not provided after 20 seconds, the next trial will begin automatically."];
  
 }
 

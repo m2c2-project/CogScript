@@ -28,9 +28,19 @@ function GetInstructions()
 {
  // return array of strings for the instructions
 
-
+/*
  return ["Colored shapes will appear briefly on the screen.", "", "", "Try to remember the shapes and their colors, because they will soon disappear.",
           "", "", "Next, you will see the same shapes reappear.", "", "", "Please answer whether the shapes have the SAME or DIFFERENT colors as they had before."];
+ */
+
+  var targetCount = GetParamInt("targetStimCount", 3);
+  var responseTimeoutTime =  GetParamInt("responseTimeout", 20000)/1000;
+
+ return ["Keep track and follow the green dots that will flash briefly at the start of each trial to the best of your ability.", "",
+        "You will be asked to report their location at the end of each trial.", "",
+        "When selecting your responses, selected circles will highlight in blue.", "",
+        "After submitting your response, correctly recalled circles will highlight in green and incorrectly recalled circles will highlight in red.", "",
+        "If a response is not provided after " + responseTimeoutTime + " seconds, the next trial will begin automatically."];
  
 }
 
