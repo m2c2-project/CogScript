@@ -22,14 +22,17 @@ colorBkg = new GColor(1,1,1);
 
 function GetName()
 {
-    return "ColorDots";
+    return "Color Dots";
 }
 
 function GetInstructions()
 {
  // return array of strings for the instructions
- return ["instructions here"];
-
+ //return ["instructions here"];
+  return ["You will see 3 colored dots appear briefly on the screen.","",
+          "Try to remember both the location and color of these dots, because they will soon disappear.", "",
+          "Next, you will be asked to report the color of the dot that appeared at a marked location, followed by being asked to place a colored dot to its original location.", "",
+          "Tap a different portion of the screen to place the colored dot elsewhere, or tap and hold the colored dot to drag it elsewhere."]
 }
 
 
@@ -528,11 +531,44 @@ function OnClickMove(x,y,clickInfo)
 
 function ExportData()
 {
-      
+    
+
+          
+
+            
+            for (var i = 0; i < dotList.GetSize(); i++)
+            {
+             AddResult("Loc" + (i+1), "" + dotList.Get(i).x + " " + dotList.Get(i).y);
+             AddResult("Col" + (i+1), "" + (dotList.Get(i).color+1));
+            }
+
+            // colors export at (color+1) because we want colors to be 1-6
+
+            // test 1
+            AddResult("ProbedLocation", "" + Math.floor(probeDot.x) + " " + Math.floor(probeDot.y));
+            AddResult("ColorChoice", "" + Math.floor(panel.GetSelected()+1));
+            AddResult("ColorRT", "" + responseTimeTest1);
+            AddResult("TotalColorPicks", "" + panel.totalPicks);
+
+            // test 2
+            AddResult("ProbedColor", "" + (locDot.color+1));
+            AddResult("FinalLocation", "" + Math.floor(locDot.x - boxX) + " " + Math.floor(locDot.y - boxY));
+            AddResult("LocRT", "" + responseTimeTest2);
 }
 
 
 function GetExportIDList()
 {
-   return ["trial_type", "response_time", "response_time_OLD", "user_response", "correct_response"];
+   var ret = [];
+
+
+    for (var i = 0; i < 6; i++)
+    {
+        ret.push("Loc" + (i+1));
+        ret.push("Col" + (i+1));
+    }
+
+
+  ret.push("ProbedLocation", "ColorChoice", "ColorRT", "TotalColorPicks", "ProbedColor", "FinalLocation", "LocRT");
+
 }
