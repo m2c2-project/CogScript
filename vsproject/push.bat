@@ -41,6 +41,10 @@ adb shell "mkdir %dolph%/mot"
 
 for %%i in (mot/*) do (adb push mot/%%i %dolph%/mot)
 
+adb shell "mkdir %dolph%/colordots"
+
+for %%i in (colordots/*) do (adb push colordots/%%i %dolph%/colordots)
+
 adb shell "mkdir %dolph%/cogtask_demo1"
 
 for %%i in (cogtask_demo1/*) do (adb push cogtask_demo1/%%i %dolph%/cogtask_demo1)
