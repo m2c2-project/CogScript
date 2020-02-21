@@ -16,7 +16,7 @@ function Init()
  // SetUpdateLastTrial(true);
 
 // splitLineY = (GameEngine.GetHeight()*3.0/5);
-
+colorBkg = new GColor(1,1,1);
 
 }
 
@@ -78,7 +78,15 @@ function LoadImages()
 
 function DrawBlockTransition()
 {
-   
+       GameEngine.SetColor(colorBkg);
+         GameDraw.DrawBox(0,0,GameEngine.GetWidth(), GameEngine.GetHeight());
+         GameEngine.ResetColor();
+
+         GameEngine.SetColor(colorBox);
+         GameDraw.DrawBox(boxX, boxY, boxW, boxThickness);
+         GameDraw.DrawBox(boxX, boxY, boxThickness, boxH);
+         GameDraw.DrawBox(boxX, boxY + boxH - boxThickness, boxW, boxThickness);
+         GameDraw.DrawBox(boxX + boxW - boxThickness, boxY, boxThickness, boxH);
 /*
     GameEngine.SetColor(0,0,0);
     GameDraw.DrawImage(imFixation, (GameEngine.GetWidth()-imFixation.GetWidth())/2, (splitLineY-imFixation.GetHeight())/2);
@@ -144,7 +152,7 @@ function Start()
 
       var colorSelectList = new GList(); // int
 
-      panel = new DotPanel(this, boxX + boxW/2, boxY + boxH + DotRadius*2.5, DotRadius);
+      panel = new DotPanel(boxX + boxW/2, boxY + boxH + DotRadius*2.5, DotRadius);
 
       for (var i = 0; i < TOTAL_COLORS; i++)
       {
@@ -164,7 +172,7 @@ function Start()
        for (var a = 0; a < maxTries && !passLoc; a++)
        {
            passLoc = true;
-           dotList.Add(new Dot(this, setColor, DotRadius));
+           dotList.Add(new Dot(setColor, DotRadius));
            dotList.GetLast().x = GameEngine.Random(boxDotBorder, boxW - boxDotBorder);
            dotList.GetLast().y = GameEngine.Random(boxDotBorder, boxH - boxDotBorder);
 
@@ -192,13 +200,13 @@ function Start()
       colorProbeDot = GameEngine.RandomFull()%DotNum;
       dotBankList.Remove(colorProbeDot);
 
-      probeDot = new Dot(this, -1, DotRadius);
+      probeDot = new Dot(-1, DotRadius);
       probeDot.x = dotList.Get(colorProbeDot).x;
       probeDot.y = dotList.Get(colorProbeDot).y;
 
 
       locationSetDot = -1; // will be set after the color probe selection is made
-      locDot = new Dot(this, -1, DotRadius);
+      locDot = new Dot(-1, DotRadius);
 
 
       test2touchdown = false;
@@ -346,7 +354,7 @@ function Update()
 function Draw()
 {
         GameEngine.SetColor(colorBkg);
-         GameDraw.DrawBox(0,0,GameEngine.GetWdith(), GameEngine.GetHeight());
+         GameDraw.DrawBox(0,0,GameEngine.GetWidth(), GameEngine.GetHeight());
          GameEngine.ResetColor();
 
          GameEngine.SetColor(colorBox);
@@ -388,7 +396,7 @@ function Draw()
         if (Test1Mode == 1 && panel.GetSelected() != -1)
         {
          GameEngine.ResetColor();
-         GameDraw.DrawImage(imDone, (GameEngine.GetWidth() - imDone.w)/2, GameEngine.GetHeight() - imDone.h - 5);
+         GameDraw.DrawImage(imDone.Get(0), (GameEngine.GetWidth() - imDone.Get(0).w)/2, GameEngine.GetHeight() - imDone.Get(0).h - 5);
         }
        }
        else if (phase >= 40)
@@ -406,7 +414,7 @@ function Draw()
         if (InBox(locDot.x, locDot.y , locDot.r))
         {
             GameEngine.ResetColor();
-            GameDraw.DrawImage(imDone, (GameEngine.GetWidth() - imDone.w)/2, GameEngine.GetHeight() - imDone.h - 5);
+            GameDraw.DrawImage(imDone.Get(0), (GameEngine.GetWidth() - imDone.Get(0).w)/2, GameEngine.GetHeight() - imDone.Get(0).h - 5);
         }
 
 
@@ -429,10 +437,10 @@ function OnClickDown(x,y,clickInfo)
 
         if (Test1Mode == 1)
         {
-         if (ty >= GameEngine.GetHeight() - imDone[0].h - 5 && (panel.GetSelected() != -1))
+         if (ty >= GameEngine.GetHeight() - imDone.Get(0).h - 5 && (panel.GetSelected() != -1))
          {
           phase = 33;
-          responseTimeTest1 = click.GetTime() - responseTimeHold;
+          responseTimeTest1 = clickInfo.GetTime() - responseTimeHold;
          }
         }
         else if (Test1Mode == 0)
@@ -441,7 +449,7 @@ function OnClickDown(x,y,clickInfo)
          {
           phase = 31;
           probeDot.color = panel.GetSelected();
-          responseTimeTest1 = click.GetTime() - responseTimeHold;
+          responseTimeTest1 = clickInfo.GetTime() - responseTimeHold;
          }
         }
 
@@ -456,10 +464,10 @@ function OnClickDown(x,y,clickInfo)
             locDot.y = ty;
         }
 
-        else if (InBox(locDot.x, locDot.y , locDot.r) && ty >= GameEngine.GetHeight() - imDone[0].h - 5)
+        else if (InBox(locDot.x, locDot.y , locDot.r) && ty >= GameEngine.GetHeight() - imDone.Get(0).h - 5)
         {
          phase = 41;
-         responseTimeTest2 = click.GetTime() - responseTimeHold;
+         responseTimeTest2 = clickInfo.GetTime() - responseTimeHold;
         }
 
        }

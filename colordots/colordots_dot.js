@@ -3,7 +3,7 @@
 
     class Dot
     {
-     contructor(sColor, DotRadius)
+     constructor(sColor, DotRadius)
      {
       this.x = 50;
       this.y = 50;
@@ -11,8 +11,11 @@
 
       this.lockBox = true;
 
-      
 
+      this.colorBkg = new GColor(1,1,1);
+
+
+         
 
       this.color = sColor;
      }
@@ -27,12 +30,15 @@
 
      Draw(noColor = false)
      {
+
+
+
          var borderSize = 3;
 
          GameEngine.SetColor(0,0,0);
 
-         var drawX = x;
-         var drawY = y;
+         var drawX = this.x;
+         var drawY = this.y;
          if (this.lockBox)
          {
           drawX = drawX + boxX;
@@ -40,15 +46,15 @@
          }
 
 
-         GameDraw.DrawCircleCenter(drawX , drawY , this.r*2+borderSize, r*2+borderSize, 0,1,false); // draw outer
+         GameDraw.DrawCircleCenter(drawX , drawY , this.r*2+borderSize, this.r*2+borderSize, 0,1,false); // draw outer
 
-         if (!noColor && color > -1)
+         if (!noColor && this.color > -1)
          {
           GameEngine.SetColor(Color[this.color]);
          }
          else
          {
-          GameEngine.SetColor(colorBkg);
+          GameEngine.SetColor(this.colorBkg);
          }
           GameDraw.DrawCircleCenter(drawX , drawY , this.r*2, this.r*2, 0,1,false); // draw inner
 
@@ -58,8 +64,8 @@
 
      PointCollide(tx, ty)
      {
-         var drawX = x;
-         var drawY = y;
+         var drawX = this.x;
+         var drawY = this.y;
          if (this.lockBox)
          {
              drawX = drawX + boxX;
@@ -71,7 +77,7 @@
          var dist =  Math.sqrt(xDist+yDist);
 
 
-         return dist <= r;
+         return dist <= this.r;
 
 
      }
@@ -112,12 +118,12 @@
         this.spacingY = 20;
 
     
-         thickness = 4;
+         this.thickness = 4;
 
-         dotList = new GList();
+         this.dotList = new GList();
          for (var i = 0; i < TOTAL_COLORS; i++)
          {
-             dotList.Add(new Dot(i, dotRadius));
+             this.dotList.Add(new Dot(i, dotRadius));
          }
 
          this.targetW = this.spacingX*(TOTAL_COLORS+1) + this.DotRadius*2*TOTAL_COLORS;
@@ -167,8 +173,8 @@
      {
       GameEngine.SetColor(0,0,0);
 
-         GameDraw.DrawBox(this.x - this.w/2, this.y - this.h/2, w, this.thickness);
-         GameDraw.DrawBox(this.x - this.w/2, this.y - this.h/2, this.thickness,this. h);
+         GameDraw.DrawBox(this.x - this.w/2, this.y - this.h/2, this.w, this.thickness);
+         GameDraw.DrawBox(this.x - this.w/2, this.y - this.h/2, this.thickness,this.h);
          GameDraw.DrawBox(this.x - this.w/2, this.y - this.h/2 + this.h - this.thickness, this.w, this.thickness);
          GameDraw.DrawBox(this.x - this.w/2 + this.w - this.thickness, this.y - this.h/2, this.thickness, this.h);
 
@@ -177,12 +183,12 @@
 
       if (this.IsOpened())
       {
-       for (var i = 0; i < dotList.GetSize(); i++)
+       for (var i = 0; i < this.dotList.GetSize(); i++)
        {
-        dotList.Get(i).lockBox = false;
-        dotList.Get(i).x = this.x - this.w/2 + this.spacingX*(i+1) + this.DotRadius*2*i + this.DotRadius;
-        dotList.Get(i).y = this.y - this.h/2 + this.spacingY + this.DotRadius;
-        dotList.Get(i).Draw();
+        this.dotList.Get(i).lockBox = false;
+        this.dotList.Get(i).x = this.x - this.w/2 + this.spacingX*(i+1) + this.DotRadius*2*i + this.DotRadius;
+        this.dotList.Get(i).y = this.y - this.h/2 + this.spacingY + this.DotRadius;
+        this.dotList.Get(i).Draw();
        }
       }
 
@@ -192,9 +198,9 @@
 
      OnTouch(tx, ty)
      {
-      for (var i = 0; i < dotList.GetSize(); i++)
+      for (var i = 0; i < this.dotList.GetSize(); i++)
       {
-       if (dotList.Get(i).PointCollide(tx, ty))
+       if (this.dotList.Get(i).PointCollide(tx, ty))
        {
          this.selected = i;
          this.totalPicks++;
