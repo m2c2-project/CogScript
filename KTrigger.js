@@ -97,7 +97,7 @@ class KTrigger
 
      if (endFrame == null || startFrame == null){return -1;}
      return endFrame.endTime - startFrame.endTime;*/
-
+     if (this.end == -1 || this.start == -1){return -1;}
      return this.end-this.start;
     }
 
