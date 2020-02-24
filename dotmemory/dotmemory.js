@@ -287,7 +287,7 @@ function Start()
        }
    }
 
-   findFCount = (efGridW * efGridH) / (1 + EFRatio);
+   findFCount = Math.floor((efGridW * efGridH) / (1 + EFRatio));
 
 /*  if (tutorial != 0)
 {
@@ -419,7 +419,7 @@ function Update()
     else if (phase == 11) // wait to touch E's
     {
         // if all F's are found
-        var fCount = (efGridW * efGridH) / (1 + EFRatio);
+        var fCount = findFCount;
         if (efFindCount >= fCount)
         {
             efFindCount = 0;
