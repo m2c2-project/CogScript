@@ -224,13 +224,29 @@ function GameRunner_GetExportIDList()
 
 function CreateTrigger(delay)
 {
- // will add connection to outer engine later
+
+ var index = Trigger_CreateTrigger(delay);
  
- var trigger = new KTrigger(delay);
+ var trigger = new KTrigger(delay, index);
 
  return trigger;
  
 
+}
+
+function TriggerStart(index)
+{
+  Trigger_Start(index);
+}
+
+function TriggerEnd(index)
+{
+    Trigger_End(index);
+}
+
+function TriggerGetActualDisplayTime(index)
+{
+ return Trigger_GetActualDisplayTime(index);
 }
 
 

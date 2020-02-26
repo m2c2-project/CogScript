@@ -4,13 +4,15 @@ Include("KTime.js");
 
 class KTrigger
 {
-    constructor(delay)
+    constructor(delay, index)
     {
      this.delay = delay;
      this.start = -1;
      this.end = -1;
-    }
 
+     this.index = index; // index of the trigger in the native code
+    }
+    // native trigger only used for actual display time.
     
 
 
@@ -19,7 +21,8 @@ class KTrigger
     {
       if (this.start < 0)
       {
-        this.start = KTime.GetMilliTime();
+        //this.start = KTime.GetMilliTime();
+        this.Start();
       }
     }
 
@@ -28,11 +31,13 @@ class KTrigger
     Start()
     {
       this.start = KTime.GetMilliTime();
+      TriggerStart(this.index);
     }
 
     End()
     {
      this.end = KTime.GetMilliTime();
+     TriggerEnd(this.index);
     }
 
     Check()
@@ -47,7 +52,11 @@ class KTrigger
      var  diffTime = holdTime - this.start;
      if (diffTime >= this.delay)
      {
-      if (this.end < 0){this.end = holdTime;}
+      if (this.end < 0)
+      {
+           this.end = holdTime;
+           TriggerEnd(this.index);
+     }
       return true;
      }
 
@@ -97,8 +106,10 @@ class KTrigger
 
      if (endFrame == null || startFrame == null){return -1;}
      return endFrame.endTime - startFrame.endTime;*/
-     if (this.end == -1 || this.start == -1){return -1;}
-     return this.end-this.start;
+     //if (this.end == -1 || this.start == -1){return -1;}
+    // return this.end-this.start;
+
+     return TriggerGetActualDisplayTime(this.index);
     }
 
     GetDelay()

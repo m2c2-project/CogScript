@@ -80,6 +80,9 @@ function Draw()
         GameDraw.DrawText("hi" + KTime.GetMilliTime(), 5, 5);
         GameDraw.DrawText("trigger start:" + trigger.start, 5, 25);
         GameDraw.DrawText("trigger start:" + trigger.end, 5, 45);
+
+        GameDraw.DrawText("trigger actual:" + trigger.GetActual(), 5, 65);
+        GameDraw.DrawText("trigger disp actual:" + trigger.GetActualDisplayTime(), 5, 85);
   }
 
 
