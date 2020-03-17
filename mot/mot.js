@@ -36,11 +36,19 @@ function GetInstructions()
   var targetCount = GetParamInt("targetStimCount", 3);
   var responseTimeoutTime =  GetParamInt("responseTimeout", 20000)/1000;
 
- return ["Keep track and follow the green dots that will flash briefly at the start of each trial to the best of your ability.", "",
-        "You will be asked to report their location at the end of each trial.", "",
-        "When selecting your responses, selected circles will highlight in blue.", "",
-        "After submitting your response, correctly recalled circles will highlight in green and incorrectly recalled circles will highlight in red.", "",
-        "If a response is not provided after " + responseTimeoutTime + " seconds, the next trial will begin automatically."];
+ return [ ["Keep track of the " + targetCount + " green dots that will flash briefly at the start of each trial to the best of your ability.", 
+               "img:MOT1.png", "Press [b]Next[/b] to continue."],
+          
+ ["You will be asked to report their location at the end of each trial.", "img:MOT2.png", "Press [b]Next[/b] to continue."],
+
+ ["Selected circles will highlight in blue.", "img:MOT3.png", "Press [b]Next[/b] to continue."],
+
+ ["At the end of each trial, red circles represent items incorrectly recalled.", "img:MOT4.png", "Press [b]Next[/b] to continue."],
+
+ ["If a response is not provided after " + responseTimeoutTime + " seconds, the next trial will begin automatically.", "Press [b]Start[/b] to begin."]
+
+
+         ];
  
 }
 

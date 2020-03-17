@@ -119,7 +119,7 @@ function GetInstructions()
 
              ["You will then come back to the original grid. Touch the boxes that you saw the red boxes.", "img:dotmem3.png", 
               "When you see the empty grid, tap the locations where you recall having seen the dots. Tap an existing circle to remove it and place it elsewhere.", 
-               "Press [b]Start[/b] to begin."],];
+               "Press [b]Start[/b] to begin."]];
              
    
  

@@ -29,10 +29,15 @@ function GetInstructions()
 {
  // return array of strings for the instructions
  //return ["instructions here"];
-  return ["You will see 3 colored dots appear briefly on the screen.","",
-          "Try to remember both the location and color of these dots, because they will soon disappear.", "",
-          "Next, you will be asked to report the color of the dot that appeared at a marked location, followed by being asked to place a colored dot to its original location.", "",
-          "Tap a different portion of the screen to place the colored dot elsewhere, or tap and hold the colored dot to drag it elsewhere."]
+  return [["You will be asked to report the color of a dot at a marked location.", "img:colordots2.png", "Press [b]Next[/b] to continue."],
+
+          ["Then, you will be asked to place a colored dot to its original location.", "img:colordots3.png", "Press [b]Next[/b] to continue."],
+
+          ["You may tap a different portion of the screen to place a colored dot elsewhere, or tap and a hold a colored for to drag it elsewhere.", 
+          "img:colordots4.png", "Press [b]Next[/b] to continue."],
+
+          ["If a response is not provided after 20 seconds, the next trial will begin automatically.",  "Press [b]Start[/b] to begin."]];
+       
 }
 
 
