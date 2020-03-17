@@ -113,12 +113,15 @@ function GetInstructions()
     "--When you see the empty grid, tap the locations where you recall having seen the dots." ]*/
 
 
-    return ["You will see a grid with red dots.", "",
-    "Remember the location of the red dots.",  "",
-    "Then, you will see a grid with the letters E and F. Find the Fs and tap them as fast as you can.", "",
-    "An empty grid will follow where you will tap the boxes where you saw the red dots.", "", 
-    "You can remove an existing circle by tapping on it, and then tapping a place on the grid to place it elsewhere.", "",
-    "If a response is not provided after 20 seconds, the next trial will begin automatically."];
+    return [ ["You will see a grid with red dots.", "img:dotmem1.png", "Press [b]Next[/b] to continue."], 
+
+             ["You will then see a grid with the letter E and F", "img:dotmem2.png", "Find the Fs and touch them as fast as you can.", "Press [b]Next[/b] to continue."],
+
+             ["You will then come back to the original grid. Touch the boxes that you saw the red boxes.", "img:dotmem3.png", 
+              "When you see the empty grid, tap the locations where you recall having seen the dots. Tap an existing circle to remove it and place it elsewhere.", 
+               "Press [b]Start[/b] to begin."],];
+             
+   
  
 }
 
