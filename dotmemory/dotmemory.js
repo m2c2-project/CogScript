@@ -93,7 +93,7 @@ function Init()
 
 function GetName()
 {
-    return "DotMemory";
+    return "Dot Memory";
 }
 
 function GetInstructions()
@@ -134,8 +134,8 @@ function LoadImages()
     
     
 
-    imGL_E = GImage_Create.CreateTextImage("E", 42, true, 80, 80);//new OpenGLEngine.GImage(GameEngine.r.getDrawable(R.drawable.e));
-    imGL_F = GImage_Create.CreateTextImage("F", 42, true, 80, 80);//new OpenGLEngine.GImage(GameEngine.r.getDrawable(R.drawable.f));
+    imGL_E = GImage_Create.CreateTextImage("E", 42, true, -2, -2);//new OpenGLEngine.GImage(GameEngine.r.getDrawable(R.drawable.e));
+    imGL_F = GImage_Create.CreateTextImage("F", 42, true, -2, -2);//new OpenGLEngine.GImage(GameEngine.r.getDrawable(R.drawable.f));
 
     if (zipReader != null)
     {

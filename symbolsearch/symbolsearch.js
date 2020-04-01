@@ -19,7 +19,7 @@ function Init()
 
 function GetName()
 {
-    return "SymbolSearch";
+    return "Symbol Search";
 }
 
 function GetInstructions()
@@ -36,7 +36,7 @@ return [ "You will see a series of tiles at the top and bottom of the screen.", 
         */
 
 
-       return [ ["You will see a series of symbol tiles. Select the symbol tile from the bottom of the screen that matches a symbol tile on the top.",
+       return [ [ "You will see a series of symbol tiles. Select the symbol tile from the bottom of the screen that matches a symbol tile on the top.",
                   "img:symbol2.png", "Press [b]Next[/b] to continue."],
                  ["Here is an example of a correct response.", "img:symbol3.png", "Press [b]Start[/b] to begin."]];
 

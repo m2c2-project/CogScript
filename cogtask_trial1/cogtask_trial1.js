@@ -61,7 +61,7 @@ function GenerateTrialSet()
 function LoadImages()
 {
 
-    zipReader = cog("test.zip");
+    zipReader = new ZipReader("test.zip");
         zipReader.Open();
 
         imApple = new GImage();
