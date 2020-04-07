@@ -27,7 +27,7 @@ function Init()
 
 
 
-        efZip = GetParam(["efzip","InterferenceZip"], "");
+        efZip = GetParam(["efzip","InterferenceZip"], "dotmemory.zip");
 
 
 
