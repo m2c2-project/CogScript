@@ -29,7 +29,9 @@ function GetInstructions()
 {
  // return array of strings for the instructions
  //return ["instructions here"];
-  return [["You will be asked to report the color of a dot at a marked location.", "img:colordots2.png", "Press [b]Next[/b] to continue."],
+  return [["You will be presented with 3 dots.", "img:colordots1.png", "Press [b]Next[/b] to continue."],
+
+          ["You will be asked to report the color of a dot at a marked location.", "img:colordots2.png", "Press [b]Next[/b] to continue."],
 
           ["Then, you will be asked to place a colored dot to its original location.", "img:colordots3.png", "Press [b]Next[/b] to continue."],
 
