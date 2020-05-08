@@ -113,13 +113,35 @@ function GetInstructions()
     "--When you see the empty grid, tap the locations where you recall having seen the dots." ]*/
 
 
-    return [ ["You will see a grid with red dots.", "img:dotmem1.png", "Press [b]Next[/b] to continue."], 
+    return [["In this exercise you will try to remember the locations of 3 red dots.",
 
-             ["You will then see a grid with the letter E and F", "img:dotmem2.png", "Find the Fs and touch them as fast as you can.", "Press [b]Next[/b] to continue."],
+"img:dotmem1_grid.png",
 
-             ["You will then come back to the original grid. Touch the boxes that you saw the red boxes.", "img:dotmem3.png", 
-              "When you see the empty grid, tap the locations where you recall having seen the dots. Tap an existing circle to remove it and place it elsewhere.", 
-               "Press [b]Start[/b] to begin."]];
+"Touch [b]NEXT[/b] for instructions."],
+
+["This exercise begins by displaying 3 red dots randomly placed on a grid, just like the example below.",
+
+"img:dotmem1_grid.png",
+
+"You will have a few seconds to try to remember the locations of the dots.",
+
+"Press [b]Next[/b] to continue"],
+
+["Then the dots and grid will be replaced by rows of the letters E and F, like the example below." ,
+
+"img:dotmem2_fs.png",
+
+"You should try to touch as many Fs as you can!",
+
+"Press [b]Next[/b] to continue"],
+
+["Next, you will be shown an empty grid. You should touch the locations where you saw the red dots. A red dot will appear in each location you touch.",
+
+"img:dotmem3_fgrid.png",
+
+"After you have placed 3 dots on the grid, press DONE. Hint: You can move a red dot you’ve placed by touching it.",
+
+"Press [b]Start[/b] to begin."]];
              
    
  
