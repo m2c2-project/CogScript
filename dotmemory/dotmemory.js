@@ -139,7 +139,7 @@ function GetInstructions()
 
 "img:dotmem3_fgrid.png",
 
-"After you have placed 3 dots on the grid, press DONE. Hint: You can move a red dot you’ve placed by touching it.",
+"After you have placed 3 dots on the grid, press DONE. Hint: You can move a red dot you've placed by touching it.",
 
 "Press [b]Start[/b] to begin."]];
              
