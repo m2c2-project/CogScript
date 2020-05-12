@@ -742,10 +742,13 @@ function OnClickDown(x,y,click)
     if (phase == 11)
     { // EF Grid
        var hit = false;
+       var fTap = false;
         for (var sx = 0; sx < efGridW; sx++)
         {
+             if (fTap){break;} // only allow one touch each
             for (var sy = 0; sy < efGridH; sy++)
             {
+                 if (fTap){break;}
                 if (stimEF[sx][sy].pointCollide(tx, ty))
                 {
                     hit = true;
@@ -757,12 +760,13 @@ function OnClickDown(x,y,click)
                         //  efTouchLocations.Add(new Integer(sx + sy * efGridW + efGridW*efGridH*EFScreen));
                         correctTap = 1;
                         efFindCount++;
+                        fTap = true;
 
                     }
 
 
                     efTouchLocations.Add("" + (click.GetTime()-efHoldTime) + "_" + EFScreen + "_" + sx + "_" + sy + "_" + correctTap + "_" + Math.floor(tx) + "_" + Math.floor(ty));
-
+                    
 
                 }
             }
