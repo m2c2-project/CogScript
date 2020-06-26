@@ -1,4 +1,4 @@
-cd ..
+cd ../script
 SET dolph=sdcard/dolphin/script
 
 adb shell "mkdir %dolph%"
@@ -56,5 +56,10 @@ for %%i in (cogtask_demo2/*) do (adb push cogtask_demo2/%%i %dolph%/cogtask_demo
 adb shell "mkdir %dolph%/cogtask_trial1"
 
 for %%i in (cogtask_trial1/*) do (adb push cogtask_trial1/%%i %dolph%/cogtask_trial1)
+
+
+adb shell "mkdir %dolph%/acc_test"
+
+for %%i in (acc_test/*) do (adb push acc_test/%%i %dolph%/acc_test)
 
 pause

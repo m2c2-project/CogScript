@@ -62,6 +62,11 @@ class GameEngine
       return 800;
    //return GameEngine_GetHeight();
   }
+
+  static GetAcc()
+  {
+    return GameEngine_GetAccelerometer();
+  }
   
   static GetFPS()
   {
