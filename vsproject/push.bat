@@ -62,4 +62,8 @@ adb shell "mkdir %dolph%/acc_test"
 
 for %%i in (acc_test/*) do (adb push acc_test/%%i %dolph%/acc_test)
 
+adb shell "mkdir %dolph%/acc_test2"
+
+for %%i in (acc_test2/*) do (adb push acc_test2/%%i %dolph%/acc_test2)
+
 pause
