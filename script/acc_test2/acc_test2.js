@@ -24,7 +24,7 @@ function GetName()
 }
 
 
-
+/*
 function GetInstructions()
 {
  // return array of strings for the instructions
@@ -42,7 +42,7 @@ function GetInstructions()
  return instructions;
  
 }
-
+*/
 
 
 // create/load images

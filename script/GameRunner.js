@@ -226,6 +226,31 @@ function GameRunner_GetExportIDList()
 
 }
 
+function GameRunner_GetInstructions()
+{
+  if (typeof(GetInstructions)  === 'undefined')
+  {
+   // no instructions defined
+   if (typeof(cog_resource)  !== 'undefined')
+   {
+     // cog_resource is defined
+     
+      var instructions = cog_resource["instructions"];
+      ReplaceParamInStrArray(instructions);
+       return instructions;
+   }
+    
+  }
+  else
+  {
+   return GetInstructions();
+  }
+
+
+  return ["Enter instructions for cog task."];
+ 
+}
+
 
 function CreateTrigger(delay)
 {
