@@ -1,0 +1,5 @@
+{
+    "instructions":["first line", "second line", "there will be {TrialNum} trials."],
+"instructions2":[ ["title:page1", "yo dog read these instructions.", "you've got to do them.", "there will be {TrialNum} trials."],
+["title:page2", "this is the second page.", "get over it."] ]
+}

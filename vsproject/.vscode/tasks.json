@@ -10,7 +10,21 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "push current file",
+            "type": "shell",
+            "command": "adb push ${file} \\sdcard\\dolphin\\script\\${relativeFile}",
+            "problemMatcher": []
+        },
+        {
+            "label": "test",
+            "type": "shell",
+            "command": "wsl echo ${relativeFile}",
+            "problemMatcher": []
         }
+
     ]
 }

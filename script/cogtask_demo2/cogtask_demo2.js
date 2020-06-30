@@ -30,6 +30,7 @@ function GetInstructions()
  // return array of strings for the instructions
 
  var boxCount = GetParam("BoxCount", 4);
+ 
 
  return ["--You will see " + boxCount + "boxes.",
          "--Find the correct box."];

@@ -20,17 +20,17 @@ class Ball
    this.y = this.y + this.velY;
    
    
-   if (this.x - this.r <= 0 || this.x + this.r >= GameEngine.GetWidth())
+   if (this.x - this.r < 0 || this.x + this.r > GameEngine.GetWidth())
    {
-    if (this.x - this.r <= 0){this.x = -this.r;}
-    if (this.x + this.r >= GameEngine.GetWidth()){this.x = GameEngine.GetWidth() - this.r;}
+    if (this.x - this.r < 0){this.x = -this.r;}
+    if (this.x + this.r > GameEngine.GetWidth()){this.x = GameEngine.GetWidth() - this.r;}
     this.velX = this.velX * -1*1/2;
    }
    
-   if (this.y - this.r <= 0 || this.y + this.r >= GameEngine.GetHeight())
+   if (this.y - this.r < 0 || this.y + this.r > GameEngine.GetHeight())
    {
-    if (this.y - this.r <= 0){this.y = -this.r;}
-    if (this.y + this.r >= GameEngine.GetHeight()){this.y = GameEngine.GetHeight() - this.r;}
+    if (this.y - this.r < 0){this.y = -this.r;}
+    if (this.y + this.r > GameEngine.GetHeight()){this.y = GameEngine.GetHeight() - this.r;}
     this.velY = this.velY * -1*1/2;
    }
  
