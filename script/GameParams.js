@@ -276,3 +276,41 @@ function ReadParamImage(text, defaultImage)
 
 
 }
+
+
+// reads a string array and replaces all instances of curly braces with the correct parameter
+function ReplaceParamInStrArray(inArr)
+{
+  for (var i = 0; i < inArr.length; i++)
+  {
+   if (Array.isArray(inArr[i]))
+   {
+    // if inArr[i] is an array, replace all elements of the array
+     ReplaceParamInStrArray(inArr[i]);
+   }
+   else
+   {
+    // inArr[i] is a string, substitute params.
+    var matches = inArr[i].match("{[A-Za-z]+}");
+    if (matches != null)
+    {
+      
+      for (var j = 0; j < matches.length; j++)
+      {
+    
+        while (true)
+        {  
+           // ex: {TrialNum}
+          var newline = inArr[i].replace(matches[j], GetParam(matches[j].replace("{","").replace("}","")));
+          if (newline === inArr[i]){break;} // continue to replace until all replacements are made.
+          inArr[i] = newline; 
+        }
+      
+      }
+    }
+   }
+ 
+  }
+
+  return inArr;
+}

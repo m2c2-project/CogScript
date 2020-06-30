@@ -23,6 +23,8 @@ function GetName()
     return "Acc Test 2";
 }
 
+
+
 function GetInstructions()
 {
  // return array of strings for the instructions
@@ -30,21 +32,10 @@ function GetInstructions()
 
  var instructions = cog_resource["instructions"];
 
- for (var i = 0; i < instructions.length; i++)
- {
-   var line = instructions[i];
-  var matches = line.match("{[A-Za-z]+}");
-  if (matches != null)
-  {
-    for (var j = 0; j < matches.length; j++)
-    {
-    //  instructions[i] = line.replace(matches[j], GetParam(matches[j].replace("{","").replace("}","")));
 
-       instructions[i] = line.replace(matches[j], GetParam("TrialNum",1));
-    }
-  }
 
- }
+ ReplaceParamInStrArray(instructions);
+
 
  
 
