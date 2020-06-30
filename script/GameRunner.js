@@ -76,6 +76,11 @@ function LoadParams(paramKeyList, paramValList)
    return trialParams;
 }
 
+function LoadCurParams(paramKeyList, paramValList)
+{
+  curParams = LoadParams(paramKeyList, paramValList);
+}
+
 // called at the start of each trial
 function GameRunner_Start(paramKeyList, paramValList)
 {
