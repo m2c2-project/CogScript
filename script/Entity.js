@@ -16,7 +16,14 @@ class Entity
 
  constructor(im, sx, sy)
  {
-  this.sprite = new Sprite(im);
+  if (im instanceof Sprite)
+  { // in case a sprite is passed in instead of an image (legacy)
+    this.sprite = im;
+  }
+  else
+  {
+    this.sprite = new Sprite(im);
+  }
   this.position = new KPosition(sx, sy);
   this.alpha = new KAlpha();
   this.color = new GColor(1,1,1);

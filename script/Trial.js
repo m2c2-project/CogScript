@@ -24,12 +24,18 @@ class Trial
 
   Update()
   {
-
+      for (var i = 0; i < this.entList.GetSize(); i++)
+      {
+        this.entList.Get(i).Update();
+      }
   }
 
   Draw()
   {
-
+    for (var i = 0; i < this.entList.GetSize(); i++)
+    {
+      this.entList.Get(i).Draw();
+    }
   }
 
   OnClickUp(x,y,clickTime)

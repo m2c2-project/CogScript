@@ -128,10 +128,7 @@ function GameRunner_LoadImages()
        // load images for each trial object
       for (var i = 0; i < trialList.GetSize(); i++)
       {
-        if (typeof(trialList.Get(i).LoadImages)  !== 'undefined')
-        {
           trialList.Get(i).LoadImages();
-        }
       }
     }
 

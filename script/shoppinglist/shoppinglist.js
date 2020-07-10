@@ -55,9 +55,9 @@ class Item
   this.price = p;
   this.altPrice = a;
 
-  this.imName = new GImage();
-  this.imPrice = new GImage();
-  this.imAlt = new GImage();
+  this.imName = null;//new GImage();
+  this.imPrice = null;//new GImage();
+  this.imAlt = null;//new GImage();
  }
 
 }
@@ -243,6 +243,8 @@ class ShowPriceTrial extends Trial
 
     LoadImages()
     {
+        LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "load trial images" );
+
         this.item.imName = GImage_Create.CreateTextImage(this.item.name,60, true);
         this.item.imPrice = GImage_Create.CreateTextImage("$"+this.item.price,40, true);
         this.item.imAlt = GImage_Create.CreateTextImage("$"+this.item.altPrice,40, true);
@@ -251,7 +253,92 @@ class ShowPriceTrial extends Trial
      
     Update()
     {
-       
+        super.Update();
+
+        if (this.phase == -2)
+        {
+            this.holdTime = KTime.GetMilliTime();
+            this.phase = -1;
+        }
+        if (this.phase == -1)
+        {
+            if (KTime.GetMilliTime() - this.holdTime >= this.judgmentDelayTime)
+            {
+                this.phase = 0;
+            }
+        }
+
+        if (this.phase == 0)
+        {
+            this.itemText.position.SetTarget(GameEngine.GetMidW(this.itemText.sprite.image), this.itemText.GetY());
+            this.itemPrice.position.SetTarget(GameEngine.GetMidW(this.itemPrice.sprite.image), this.itemPrice.GetY());
+            this.buttonNo.kpos.SetTarget( GameEngine.GetMidW(imButtonNo.Get(0)), this.buttonNo.kpos.y);
+            this.buttonYes.kpos.SetTarget( GameEngine.GetMidW(imButtonYes.Get(0)), this.buttonYes.kpos.y);
+
+            this.textGoodPrice.alpha.SetTarget(1);
+
+            if (this.useTransitions == 0)
+            {
+                this.itemText.position.ForceToTarget();
+                this.itemPrice.position.ForceToTarget();
+                this.buttonNo.kpos.ForceToTarget();
+                this.buttonYes.kpos.ForceToTarget();
+                this.textGoodPrice.alpha.ForceToTarget();
+            }
+
+
+            this.phase = 1;
+        }
+        else if (this.phase == 1)
+        {
+            if (this.itemText.position.AtTarget())
+            {
+                this.phase = 5;
+                this.holdTime = KTime.GetMilliTime();
+            }
+        }
+
+        else if (this.phase == 5)
+        {
+            if (this.selected >= 0 && !this.buttonList.Get(selected).IsPressed() ||
+                    KTime.GetMilliTime() - this.holdTime >= this.judgmentTime)
+            {
+                this.phase = 6;
+            }
+        }
+
+        else if (this.phase == 6)
+        {
+          if (this.useTransitions > 0)
+          {
+            this.itemText.position.SetTarget(-this.itemText.sprite.image.w, this.itemText.GetY());
+            this.itemPrice.position.SetTarget(-this.itemPrice.sprite.image.w, this.itemPrice.GetY());
+
+            this.buttonNo.kpos.SetTarget( -this.imButtonNo[0].w , this.buttonNo.kpos.y);
+            this.buttonYes.kpos.SetTarget( -this.imButtonYes[0].w, this.buttonYes.kpos.y);
+
+            this.textGoodPrice.alpha.SetTarget(0);
+          }
+
+          this.phase = 7;
+        }
+
+        else if (this.phase == 7)
+        {
+            if (this.itemText.position.AtTarget())
+            {
+                this.ExportData();
+                this.complete = true;
+                this.phase = 8;
+            }
+
+        }
+
+
+        for (var i = 0; i < this.buttonList.GetSize(); i++)
+        {
+            this.buttonList.Get(i).Update();
+        }
 
     }
 
@@ -264,6 +351,26 @@ class ShowPriceTrial extends Trial
        GameDraw.DrawText("trial count:" + trialList.GetSize(), 300, 100);
    
        GameDraw.DrawText("item:" + this.item.name, 300, 200);
+
+
+       super.Draw();
+
+
+        for (var i = 0; i < this.buttonList.GetSize(); i++)
+        {
+            this.buttonList.Get(i).Draw();
+        }
+
+
+        if (this.debugInfo)
+        {
+            GameEngine.SetColor(1,0,0);
+            GameDraw.DrawText("file:" + this.useFile, 50 ,50);
+            var urf  = "false";
+            if (this.usedRandomFile){urf = "true";}
+            GameDraw.DrawText("usedRandomFile:" +  urf, 50, 100);
+            GameEngine.ResetColor();
+        }
 
     
    
