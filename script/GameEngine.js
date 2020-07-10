@@ -90,6 +90,11 @@ class GameEngine
     return KTime.GetMilliTime();
   }
 
+  static GetMidW(image)
+  {
+    return (GameEngine.GetWidth() - image.w)/2;
+  }
+
 
   static RandomFull()
   {

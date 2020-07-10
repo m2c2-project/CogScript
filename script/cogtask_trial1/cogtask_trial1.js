@@ -81,7 +81,7 @@ class TrialTask1 extends Trial
     // figure out how to call super class constructors
     constructor(params)
     {
-         super();
+         super(params);
         this.params = params; 
 
         this.testVal = params.GetInt(["testvalx", "testval"], 300);

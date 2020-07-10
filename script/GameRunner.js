@@ -59,6 +59,15 @@ function GameRunner_GenerateTrialSet(paramKeyList, paramValList)
    retList.push(generateTrialParamList.Get(i).varMap.CreateJSMap());
  }
 
+ // if no parameters were added, go through the trial list and add all parameters
+ if (retList.length == 0 && trialList.GetSize() > 0)
+ {
+   for (var i = 0; i < trialList.GetSize(); i++)
+   {
+     retList.push(trialList.Get(i).params.varMap.CreateJSMap());
+   }
+ }
+
  return retList;
 }
 
@@ -110,6 +119,27 @@ function GameRunner_Start(paramKeyList, paramValList)
     {
      Start();
     }
+}
+
+function GameRunner_LoadImages()
+{
+    if (trialList.GetSize() > 0)
+    {
+       // load images for each trial object
+      for (var i = 0; i < trialList.GetSize(); i++)
+      {
+        if (typeof(trialList.Get(i).LoadImages)  !== 'undefined')
+        {
+          trialList.Get(i).LoadImages();
+        }
+      }
+    }
+
+    if (typeof(LoadImages) !== 'undefined')
+    {
+      LoadImages();
+    }
+
 }
 
 

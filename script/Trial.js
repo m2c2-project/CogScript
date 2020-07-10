@@ -4,13 +4,20 @@
 
 class Trial
 {
-  constructor()
+  constructor(params)
   {
+    this.params = params;
     this.complete = false;
+    this.entList = new GList();
   }
 
 
   Start()
+  {
+
+  }
+
+  LoadImages()
   {
 
   }

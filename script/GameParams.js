@@ -45,6 +45,11 @@ class GameParams
     return r;
   }
 
+  GetString(key, defaultValue)
+  {
+    return this.Get(key, defaultValue);
+  }
+
   GetInt(key, defaultValue)
   {
 
