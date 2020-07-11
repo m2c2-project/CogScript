@@ -27,6 +27,14 @@ class ZipReader
     return GImage.CreateFromZipFile(this.ref, filename);
   }
 
+  GetFileContents(filename)
+  {
+   // gets string of entire file contents, returns in string array
+   var lines = ZipReader_GetFileContents(this.ref, filename);
+
+   return lines;
+  }
+
 
   Close()
   {

@@ -4,6 +4,7 @@ Include("Tools.js");
 Include("GButton.js");
 Include("GImage_Create.js");
 Include("Trial.js");
+Include("ZipReader.js");
 
 
 // --------------------------------
@@ -16,6 +17,21 @@ function Init()
 
   // global cogtask variables
   SetName(GetName());
+
+
+
+  zipReader = new ZipReader("shoppinglist.zip");
+  zipReader.Open();
+
+  var lines = zipReader.GetFileContents("set1_1.csv");
+
+  for (var i = 0; i < lines.length; i++)
+  {
+    LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "file:" + lines[i]);
+  }
+
+  zipReader.Close();
+
 
 }
 
