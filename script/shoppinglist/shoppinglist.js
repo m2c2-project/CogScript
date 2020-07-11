@@ -18,19 +18,9 @@ function Init()
   // global cogtask variables
   SetName(GetName());
 
-
-
   zipReader = new ZipReader("shoppinglist.zip");
-  zipReader.Open();
 
-  var lines = zipReader.GetFileContents("set1_1.csv");
-
-  for (var i = 0; i < lines.length; i++)
-  {
-    LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "file:" + lines[i]);
-  }
-
-  zipReader.Close();
+  
 
 
 }
@@ -127,11 +117,31 @@ function GenerateTrialSet()
         }
 
     }*/
+  {
+   
+    zipReader.Open();
+
+    var kfile = zipReader.GetKFile("set1_1.csv");
+
+    var csv = kfile.GetCSV(',');
+
+    // skip first line
+    for (var i = 1; i < csv.length; i++)
+    {
+        if ( csv[i].length >= 3)
+        {
+             // split.join for replaceall
+            itemList.Add(new Item(csv[i][0].split("\"").join(""), csv[i][1], csv[i][2]));
+        }
+    }
+
+    zipReader.Close();
+}
 
 
-    itemList.Add(new Item("apple", "1.00", "2.50"));
+    /*itemList.Add(new Item("apple", "1.00", "2.50"));
     itemList.Add(new Item("pizza", "3.00", "4.50"));
-    itemList.Add(new Item("ice cream", "5.00", "6.50"));
+    itemList.Add(new Item("ice cream", "5.00", "6.50"));*/
 
 
     // generate a trial (both trial types) for each item found

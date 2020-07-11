@@ -1,3 +1,5 @@
+Include("KFile.js");
+
 class ZipReader
 {
   constructor(zipname)
@@ -27,12 +29,15 @@ class ZipReader
     return GImage.CreateFromZipFile(this.ref, filename);
   }
 
-  GetFileContents(filename)
+  GetKFile(filename)
   {
    // gets string of entire file contents, returns in string array
-   var lines = ZipReader_GetFileContents(this.ref, filename);
+   var lines = ZipReader_GetFileLines(this.ref, filename);
 
-   return lines;
+   var kfile = new KFile(filename);
+   kfile.AddLines(lines);
+
+   return kfile;
   }
 
 
