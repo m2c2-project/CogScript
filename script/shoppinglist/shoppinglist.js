@@ -113,9 +113,9 @@ function GenerateTrialSet()
     }*/
 
 
-    itemList.Add(new Item("apple", "$1.00", "$2.50"));
-    itemList.Add(new Item("pizza", "$3.00", "$4.50"));
-    itemList.Add(new Item("ice cream", "$5.00", "$6.50"));
+    itemList.Add(new Item("apple", "1.00", "2.50"));
+    itemList.Add(new Item("pizza", "3.00", "4.50"));
+    itemList.Add(new Item("ice cream", "5.00", "6.50"));
 
 
     // generate a trial (both trial types) for each item found
@@ -300,7 +300,7 @@ class ShowPriceTrial extends Trial
 
         else if (this.phase == 5)
         {
-            if (this.selected >= 0 && !this.buttonList.Get(selected).IsPressed() ||
+            if (this.selected >= 0 && !this.buttonList.Get(this.selected).IsPressed() ||
                     KTime.GetMilliTime() - this.holdTime >= this.judgmentTime)
             {
                 this.phase = 6;
@@ -327,8 +327,8 @@ class ShowPriceTrial extends Trial
         {
             if (this.itemText.position.AtTarget())
             {
-                this.ExportData();
-                this.complete = true;
+             
+                CallEndTrial();
                 this.phase = 8;
             }
 
@@ -378,7 +378,34 @@ class ShowPriceTrial extends Trial
 
     OnClickDown(x,y,clickTime)
     {
-      this.CallTrialEnd();
+        if (this.phase == 5)
+        {
+            for (var i = 0; i < this.buttonList.GetSize(); i++)
+            {
+                if (this.buttonList.Get(i).CheckPressed(x, y))
+                {
+                    this.selected = i;
+                    this.responseTime = clickTime - this.holdTime;
+                }
+            }
+        }
+    }
+
+
+    ExportData()
+    {
+      
+
+        AddResult("item", this.item.name);
+        AddResult("target_price", "" + this.item.price);
+        var choice = "NONE_SELECTED";
+        if (this.selected == 0){choice = "yes";}
+        if (this.selected == 1){choice = "no";}
+        AddResult("choice", choice);
+        AddResult("judgement_RT", "" + this.responseTime);
+
+     
+
     }
 
 

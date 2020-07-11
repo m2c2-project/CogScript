@@ -320,27 +320,44 @@ function AddEnt(entity)
 function CallEndTrial()
 {
  //call trial ExportData()
- if (typeof(ExportData) !== 'undefined')
+ if (curTrial != null)
+ {
+    curTrial.ExportData();
+ }
+ else if (typeof(ExportData) !== 'undefined')
  {
   ExportData();
  }
 
+ // push to native
+ PushExportData();
 
- // create arrays to send as exported data for trial
+ // Call Native End Trial
+ Game_EndTrial();
+}
+
+function PushExportData()
+{
+  keyList = gameResultKey;
+  valList = gameResultVal;
+
+   // create arrays to send as exported data for trial
  var keyArr = [];
  var valArr = [];
 
- for (var i = 0; i < gameResultKey.GetSize(); i++)
+ for (var i = 0; i < keyList.GetSize(); i++)
  {
-   keyArr.push(gameResultKey.Get(i));
-   valArr.push(gameResultVal.Get(i));
+   keyArr.push(keyList.Get(i));
+   valArr.push(valList.Get(i));
  } 
 
  // call native Export Data
  Game_ExportData(keyArr, valArr);
 
- // Call Native End Trial
- Game_EndTrial();
+
+ // clear lists
+ keyList.RemoveAll();
+ valList.RemoveAll();
 }
 
 function SetUpdateLastTrial(b)
