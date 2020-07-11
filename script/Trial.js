@@ -38,25 +38,32 @@ class Trial
     }
   }
 
-  OnClickUp(x,y,clickTime)
+  OnClickUp(x,y,clickInfo)
   {
 
   }
 
-  OnClickDown(x,y,clickTime)
+  OnClickDown(x,y,clickInfo)
   {
 
   }
 
-  OnClickMove(x,y,clickTime)
+  OnClickMove(x,y,clickInfo)
   {
 
   }
 
 
-  CallTrialEnd()
+  CallEndTrial()
   {
-    this.complete = true;
+    //this.complete = true;
+    CallEndTrial(); // global func
+  }
+
+  ExportData()
+  {
+
+
   }
 
 

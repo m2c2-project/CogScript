@@ -131,7 +131,7 @@ function GenerateTrialSet()
         trialParams.Put("usedRandomFile", "" + usedRandomFile);
 
         showPriceTrialList.Add(new ShowPriceTrial(trialParams, item));
-
+        priceResponseTrialList.Add(new PriceResponseTrial(trialParams, item));
         //generateTrialParamList.Add(trialParams);
 
     }
@@ -153,6 +153,11 @@ function GenerateTrialSet()
     {
         AddTrial(priceResponseTrialList.PopRandom());
     }*/
+
+    for (var i = 0; i < priceResponseTrialList.GetSize(); i++)
+    {
+       AddTrial(priceResponseTrialList.Get(i));
+    }
 
     LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "finish all trial set trials:" );
 
@@ -328,7 +333,7 @@ class ShowPriceTrial extends Trial
             if (this.itemText.position.AtTarget())
             {
              
-                CallEndTrial();
+                this.CallEndTrial();
                 this.phase = 8;
             }
 
@@ -376,7 +381,7 @@ class ShowPriceTrial extends Trial
    
     }
 
-    OnClickDown(x,y,clickTime)
+    OnClickDown(x,y,clickInfo)
     {
         if (this.phase == 5)
         {
@@ -385,7 +390,7 @@ class ShowPriceTrial extends Trial
                 if (this.buttonList.Get(i).CheckPressed(x, y))
                 {
                     this.selected = i;
-                    this.responseTime = clickTime - this.holdTime;
+                    this.responseTime = clickInfo.GetTime() - this.holdTime;
                 }
             }
         }
@@ -394,7 +399,6 @@ class ShowPriceTrial extends Trial
 
     ExportData()
     {
-      
 
         AddResult("item", this.item.name);
         AddResult("target_price", "" + this.item.price);
@@ -404,9 +408,296 @@ class ShowPriceTrial extends Trial
         AddResult("choice", choice);
         AddResult("judgement_RT", "" + this.responseTime);
 
-     
 
     }
 
 
 }
+
+
+
+
+
+
+
+
+
+
+class PriceResponseTrial extends Trial
+{   
+    // figure out how to call super class constructors
+    constructor(params, item)
+    {
+        super(params);
+
+        this.item = item;
+        this.params = params;
+
+
+        this.responseDelayTime =  params.GetInt("ResponseDelayTime", 1000);
+
+        var uTransitions = params.GetBool("UseTransitions", false);
+        this.useTransitions = 1;
+        if (!uTransitions){this.useTransitions = 0;}
+
+    }
+
+    Start()
+    {
+        super.Start();
+
+        this.textPriceOf = new Entity(new Sprite(imTextPriceOf), GameEngine.GetMidW(imTextPriceOf) , 20);
+        this.textPriceOf.SetColor(new GColor(0,0,0));
+        this.textPriceOf.alpha.Set(0,0,.2);
+        this.entList.Add(this.textPriceOf);
+
+        this.itemText = new Entity(new Sprite(this.item.imName), GameEngine.GetWidth() + 10, (GameEngine.GetHeight()-this.item.imName.h)/2 - this.item.imName.h);
+        this.itemText.SetColor(new GColor(0,0,0));
+        this.itemText.position.SetSpeed(35.0,3.0);
+
+        this.entList.Add(this.itemText);
+
+        this.holdTime = -1;
+        this.responseTime = -1;
+
+
+        this.buttonList = new GList();
+
+        this.correctAnswer = GameEngine.RandomFull()%2;
+
+        this.buttonNo = new GButton(imButtonBlank, GameEngine.GetWidth()+10, GameEngine.GetHeight() - imButtonBlank.Get(0).h - 30 - 90, -1 );
+        this.buttonYes = new GButton(imButtonBlank, GameEngine.GetWidth()+10, GameEngine.GetHeight() - imButtonBlank.Get(0).h - imButtonBlank.Get(0).h - 60 - 90, -1 );
+
+      /*  if (correctAnswer == 1)
+        {
+         // correct answer on bottom
+         float hold = buttonNo.kpos.y;
+         buttonNo.kpos.y = buttonYes.kpos.y;
+         buttonYes.kpos.y = hold;
+
+        }*/
+
+        this.buttonNo.kpos.SetSpeed(35.0,3.0);
+
+        this.buttonYes.kpos.SetSpeed(35.0,3.0);
+
+        this.buttonList.Add(this.buttonYes);
+        this.buttonList.Add(this.buttonNo);
+
+        this.buttonNext = new GButton(imButtonNext, GameEngine.GetWidth()+10, GameEngine.GetHeight() - imButtonBlank.Get(0).h - 10, 100 );
+
+        this.phase = -2;
+        this.selected = -1;
+    }
+
+
+    Update()
+        {
+            super.Update();
+
+            if (this.phase == -2)
+            {
+                this.holdTime = KTime.GetMilliTime();
+                this.phase = -1;
+            }
+            if (this.phase == -1)
+            {
+                if (KTime.GetMilliTime() - this.holdTime >= this.responseDelayTime)
+                {
+                    this.phase = 0;
+                }
+            }
+
+            if (this.phase == 0)
+            {
+
+                this.textPriceOf.alpha.SetTarget(1);
+                this.itemText.position.SetTarget(GameEngine.GetMidW(this.itemText.sprite.image), this.itemText.GetY());
+                //itemPrice.position.SetTarget(GameEngine.GetMidW(itemPrice.sprite.image), itemPrice.GetY());
+
+                this.buttonNo.kpos.SetTarget( GameEngine.GetMidW(imButtonBlank.Get(0)), this.buttonNo.kpos.y);
+                this.buttonYes.kpos.SetTarget( GameEngine.GetMidW(imButtonBlank.Get(0)), this.buttonYes.kpos.y);
+
+                if (this.useTransitions == 0)
+                {
+                    this.itemText.position.ForceToTarget();
+                    this.textPriceOf.alpha.ForceToTarget();
+                    this.buttonNo.kpos.ForceToTarget();
+                    this.buttonYes.kpos.ForceToTarget();
+
+                }
+
+
+                this.phase = 1;
+            }
+            else if (this.phase == 1)
+            {
+                if (this.itemText.position.AtTarget())
+                {
+                    this.phase = 5;
+                    this.holdTime = KTime.GetMilliTime();
+                }
+            }
+
+            else if (this.phase == 5)
+            {
+                if (this.selected >= 0 && !this.buttonList.Get(this.selected).IsPressed())
+                {
+                    //phase = 6;
+                }
+            }
+
+            else if (this.phase == 6)
+            {
+               if (this.useTransitions > 0)
+               {
+                this.itemText.position.SetTarget(-this.itemText.sprite.image.w, this.itemText.GetY());
+
+                this.buttonNo.kpos.SetTarget( -this.imButtonBlank[0].w , this.buttonNo.kpos.y);
+                this.buttonYes.kpos.SetTarget( -this.imButtonBlank[0].w, this.buttonYes.kpos.y);
+
+                this.textPriceOf.alpha.SetTarget(0);
+               }
+
+               this.phase = 7;
+            }
+
+            else if (this.phase == 7)
+            {
+                if (this.itemText.position.AtTarget())
+                {
+                    this.CallEndTrial();
+                    this.phase = 8;
+                }
+
+            }
+
+
+            for (var i = 0; i < this.buttonList.GetSize(); i++)
+            {
+                this.buttonList.Get(i).Update();
+            }
+
+            this.buttonNext.Update();
+
+
+        }
+
+
+
+
+        Draw()
+        {
+            super.Draw();
+
+            //GameEngine.SetColor(1,0,0);
+
+            //  GameDraw.DrawText("trial: " + num, 40,40);
+
+            for (var i = 0; i < this.buttonList.GetSize(); i++)
+            {
+                this.buttonList.Get(i).Draw();
+            }
+
+            GameEngine.SetColor(0,0,0);
+            var im1 = this.item.imPrice;
+            var im2 = this.item.imAlt;
+
+            if (this.correctAnswer == 1) // swap the correct answer to the bottom
+            {
+             im1 = this.item.imAlt;
+             im2 = this.item.imPrice;
+            }
+
+            // top button
+            GameDraw.DrawImage(im1, this.buttonList.Get(0).kpos.x + (this.buttonList.Get(0).image.Get(0).w - im1.w)/2, this.buttonList.Get(0).kpos.y + (this.buttonList.Get(0).image.Get(0).h - im1.h)/2);
+
+            // bottom button
+            GameDraw.DrawImage(im2, this.buttonList.Get(1).kpos.x + (this.buttonList.Get(1).image.Get(0).w - im2.w)/2, this.buttonList.Get(1).kpos.y + (this.buttonList.Get(1).image.Get(0).h - im2.h)/2);
+
+            GameEngine.ResetColor();
+/*
+      for (int i = 0; i < itemList.GetSize(); i++)
+      {
+       GameDraw.DrawText(itemList.Get(i).name + " " + itemList.Get(i).price + " " + itemList.Get(i).altPrice,40,50+20*i);
+      }*/
+
+      this.buttonNext.Draw();
+
+
+        }
+
+
+
+
+
+OnClickDown(x,y,clickInfo)
+        {
+            var tx = x;
+            var ty = y;
+            if (this.phase == 5)
+            {
+                for (var i = 0; i < this.buttonList.GetSize(); i++)
+                {
+                    if (this.buttonList.Get(i).CheckPressed(tx, ty))
+                    {
+                        this.selected = i;
+                        for (var j = 0; j < this.buttonList.GetSize(); j++)
+                        {
+                            if (j != this.selected){this.buttonList.Get(j).SetPressed(false);}
+                        }
+
+                        this.buttonNext.GetPosition().SetTarget(GameEngine.GetWidth() - this.buttonNext.image.Get(0).w - 20, this.buttonNext.GetPosition().y);
+
+
+                    }
+
+
+
+                }
+
+                if (this.buttonNext.CheckPressed(tx, ty))
+                {
+                    this.responseTime = clickInfo.GetTime() - this.holdTime;
+                    if (this.selected == 0)
+                    {
+                     if (this.correctAnswer == 0){this.responseStr = this.item.price;}
+                     if (this.correctAnswer == 1){this.responseStr = this.item.altPrice;}
+
+                    }
+                    else
+                    {
+                        if (this.correctAnswer == 1){this.responseStr = this.item.price;}
+                        if (this.correctAnswer == 0){this.responseStr = this.item.altPrice;}
+                    }
+
+                    this.phase = 6;
+                    this.buttonNext.GetPosition().SetTarget(GameEngine.GetWidth()+5, this.buttonNext.GetPosition().y);
+                }
+
+
+                //phase = 6;
+
+            }
+        }
+
+
+
+        ExportData()
+        {
+          
+
+            AddResult("phase", "" + 2);
+            AddResult("item", this.item.name);
+            AddResult("target_price", "" + this.item.price);
+            AddResult("distractor_price", "" + this.item.altPrice);
+            AddResult("choice", "" + this.responseStr);
+            AddResult("choiceRT", "" + this.responseTime);
+
+
+          
+        }
+
+
+
+    }
