@@ -18,8 +18,8 @@ function Init()
   // global cogtask variables
   SetName(GetName());
 
-  zipReader = new ZipReader("shoppinglist.zip");
 
+   
   
 
 
@@ -69,6 +69,8 @@ class Item
 }
 
 
+
+
 function GenerateTrialSet()
 {
     LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "adding all trial set trials:" );
@@ -78,7 +80,7 @@ function GenerateTrialSet()
 
     var itemList = new GList();
 
-    var usedRandomFile = false;
+    var usedRandomFile = true;
     var useFile = "NA";
 
 
@@ -118,10 +120,24 @@ function GenerateTrialSet()
 
     }*/
   {
+
+
+    // get zip file
+
+    var zipFilename = GetParam("zipfile", "shoppinglist.zip")
+
+   
+
+    var zipReader = new ZipReader(zipFilename);
    
     zipReader.Open();
 
-    var kfile = zipReader.GetKFile("set1_1.csv");
+
+    var filename = zipReader.GetFileList().GetRandom();
+
+    useFile = filename;
+
+    var kfile = zipReader.GetKFile(filename);
 
     var csv = kfile.GetCSV(',');
 
@@ -214,17 +230,19 @@ class ShowPriceTrial extends Trial
         this.params = params; 
         this.item = item;
 
+        this.debugInfo = this.params.GetBool("debugInfo", false);
+
        
-        this.useFile = trialParams.GetString("useFile", "NA");
-        this.usedRandomFile = trialParams.GetBool("usedRandomFile", false);
+        this.useFile = this.params.GetString("useFile", "NA");
+        this.usedRandomFile = this.params.GetBool("usedRandomFile", false);
 
-        this.trialParams = trialParams;
+        this.trialParams = this.params;
 
-        this.judgmentTime =  trialParams.GetInt("JudgmentTime", 3000);
-        this.judgmentDelayTime =  trialParams.GetInt("JudgmentDelayTime", 1000);
+        this.judgmentTime =  this.params.GetInt("JudgmentTime", 3000);
+        this.judgmentDelayTime =  this.params.GetInt("JudgmentDelayTime", 1000);
 
 
-        var uTransitions = trialParams.GetBool("UseTransitions", false);
+        var uTransitions = this.params.GetBool("UseTransitions", false);
         this.useTransitions = 1;
         if (!uTransitions){this.useTransitions = 0;}
     }
@@ -375,13 +393,10 @@ class ShowPriceTrial extends Trial
 
     Draw()
     {
-       GameEngine.SetColor(1,0,0);
-       GameDraw.DrawBox(50,50,50,50);
+    
 
 
-       GameDraw.DrawText("trial count:" + trialList.GetSize(), 300, 100);
-   
-       GameDraw.DrawText("item:" + this.item.name, 300, 200);
+ 
 
 
        super.Draw();

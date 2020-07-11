@@ -41,6 +41,19 @@ class ZipReader
   }
 
 
+  GetFileList()
+  {
+    var files = ZipReader_GetFileList(this.ref);
+
+    var ret = new GList();
+
+    ret.AddArray(files);
+
+    return ret;
+
+  }
+
+
   Close()
   {
     ZipReader_Close(this.ref);

@@ -86,6 +86,14 @@ class GList
    return ret;
  }
 
+ GetRandom()
+ {
+  var i = Math.floor(Math.random()*this.arr.length);
+   var ret = this.Get(i);
+
+   return ret;
+ }
+
 
 
  FindElement(e)
