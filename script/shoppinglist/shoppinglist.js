@@ -7,7 +7,7 @@ Include("Trial.js");
 Include("ZipReader.js");
 Include("KReader.js");
 Include("KWriter.js");
-
+Include("datafile_tools.js");
 
 // --------------------------------
 // Global Cog Task Functions
@@ -19,38 +19,12 @@ function Init()
 
   // global cogtask variables
   SetName(GetName());
-
-  var reader = new KReader("9999_info.txt", 1);
-  reader.Open();
-
-  line =  reader.ReadNextLine();
-   
-  
-
-  LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "read test:" + line);
-
-
-  reader.Close();
-
-
-  var write = new KWriter("write_test", true);
-
- write.Open(); 
-
-  write.WriteLine("writer test");
-
-  write.Close();
-
-
 }
 
 function GetName()
 {
     return "Shopping List";
 }
-
-
-
 
 
 // create/load images
@@ -103,47 +77,12 @@ function GenerateTrialSet()
     var useFile = "NA";
 
 
-    // choose a csv file from the zip to use
-  /*  {
-        // read in all items //(readFiles.GetExtraFileList().GetRandom());
-        // KFile file = readFiles.GetExtraFile("set1_1.csv");
-        //       KFile file = readFiles.GetExtraFile(readFiles.GetExtraFileList().GetRandom());
-
-        useFile = GetNextDataFile();
-        if (useFile.equals("") || !GenTools.ContainsString(readFiles.GetExtraFileList(), useFile))
-        {
-            useFile = readFiles.GetExtraFileList().GetRandom();
-            usedRandomFile = true;
-        }
-
-        // must load in constructor so the images will load
-        // but only write that the file was used if the game is launched
-        WriteGameDataFile(useFile);
-
-
-        KFile file = readFiles.GetExtraFile(useFile);
-
-        GList<String> lineList = file.GetLineList();
-
-        // skip first line
-        for (int i = 1; i < lineList.GetSize(); i++)
-        {
-            String line = lineList.Get(i);
-            String split[] = line.split(",");
-            if (split.length == 3)
-            {
-                itemList.Add(new Item(split[0].replaceAll("\"",""), split[1], split[2]));
-            }
-
-        }
-
-    }*/
   {
 
 
     // get zip file
 
-    var zipFilename = GetParam("zipfile", "shoppinglist.zip")
+    var zipFilename = GetParam("zipfile", "shoppinglist.zip");
 
    
 
@@ -151,8 +90,8 @@ function GenerateTrialSet()
    
     zipReader.Open();
 
-
-    var filename = zipReader.GetFileList().GetRandom();
+    // get an unused file from the zip
+    var filename = GetUnusedDataFile(zipReader);
 
     useFile = filename;
 
@@ -169,6 +108,8 @@ function GenerateTrialSet()
             itemList.Add(new Item(csv[i][0].split("\"").join(""), csv[i][1], csv[i][2]));
         }
     }
+
+    RecordDataFile(zipFilename, useFile);
 
     zipReader.Close();
 }
@@ -760,3 +701,7 @@ OnClickDown(x,y,clickInfo)
 
 
     }
+
+
+
+ 

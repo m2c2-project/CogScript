@@ -4,7 +4,7 @@ class KReader
 {
  
 
- constructor(filename, fileLoc = 0)
+ constructor(filename, fileLoc = 1)
  {
   this.ref = KReader_Create(filename, fileLoc);
   this.filename = filename;

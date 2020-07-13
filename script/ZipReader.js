@@ -9,7 +9,10 @@ class ZipReader
   }
 
 
-
+  GetFileName()
+  {
+    return this.zipname;
+  }
 
   Open()
   {
@@ -22,6 +25,8 @@ class ZipReader
   {
     return "";
   }
+
+  
 
 
   GetImage(filename)
