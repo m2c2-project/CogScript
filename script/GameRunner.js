@@ -246,14 +246,6 @@ function GameRunner_Draw()
     }
   }
 
-  GameEngine.SetColor(0,0,1);
-  GameDraw.DrawText("trialList size:" + trialList.GetSize(), 0, 0);
-  GameEngine.ResetColor();
-
-
-  
-
-
 
 }
 

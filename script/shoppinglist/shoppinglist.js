@@ -7,7 +7,7 @@ Include("Trial.js");
 Include("ZipReader.js");
 Include("KReader.js");
 Include("KWriter.js");
-Include("datafile_tools.js");
+Include("shoppinglist_tools.js");
 
 // --------------------------------
 // Global Cog Task Functions
@@ -124,7 +124,7 @@ function GenerateTrialSet()
     // generate a trial (both trial types) for each item found
     for (var i = 0; i < itemList.GetSize(); i++)
     {
-        if (i >= 2){break;} // debugging purposes... keep the testing time low. remove for production.
+        //if (i >= 2){break;} // debugging purposes... keep the testing time low. remove for production.
 
         var item = itemList.Get(i);
 
@@ -152,15 +152,15 @@ function GenerateTrialSet()
 
     // then the "price response" trials
     // randomize
-   /* while (priceResponseTrialList.GetSize() > 0)
+    while (priceResponseTrialList.GetSize() > 0)
     {
         AddTrial(priceResponseTrialList.PopRandom());
-    }*/
+    }
 
-    for (var i = 0; i < priceResponseTrialList.GetSize(); i++)
+  /*  for (var i = 0; i < priceResponseTrialList.GetSize(); i++)
     {
        AddTrial(priceResponseTrialList.Get(i));
-    }
+    }*/
 
     LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "finish all trial set trials:" );
 
