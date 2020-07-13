@@ -102,6 +102,7 @@ function GenerateTrialSet()
     // skip first line
     for (var i = 1; i < csv.length; i++)
     {
+         if (i > 2){break;}
         if ( csv[i].length >= 3)
         {
              // split.join for replaceall

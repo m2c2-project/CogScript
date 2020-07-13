@@ -35,6 +35,18 @@ function AddTrial(trial)
 
 function GameRunner_GenerateTrialSet(paramKeyList, paramValList)
 {
+  // this function handles two styles of trial generation for a script cog task
+  // basic: 1. all trial functions are handled by global functions (ie Start(), Update(), Draw(), OnClickDown(), ...)
+  //        2. this is the default style that will be used
+  //        3. no information can be passed between trials. 
+  //        4. GenerateTrialSet is called and the resulting parameters for each trial are held 
+  //            in the native code and re sent to the script as the trial starts in "Start()"
+  // advanced: 1. trials are handled within a class inherited from Trial
+  //           2. this style will be used if any trials are added to "trialList".
+  //           3. use this style if information must be passed or remembered between trials
+  //           4. each Trial class in the script saves its own parameters and holds them in the script
+  //           5. blocks and trial sets are handled by the native. all trials are save in "trialList" in the order they will be used.
+
 
    // do not run this function if GenerateTrialSet() is not defined
   if (typeof(GenerateTrialSet) === 'undefined')
@@ -48,6 +60,9 @@ function GameRunner_GenerateTrialSet(paramKeyList, paramValList)
  // the list of trial param maps to send back to the native app to generate one TrialSet
  generateTrialParamList = new GList();
 
+ // hold the starting trial list size for calulating the added new trials
+ var startingTrialListSize = trialList.GetSize();
+
  GenerateTrialSet();
 
  // returns the list of trial set maps in v8 format
@@ -60,9 +75,9 @@ function GameRunner_GenerateTrialSet(paramKeyList, paramValList)
  }
 
  // if no parameters were added, go through the trial list and add all parameters
- if (retList.length == 0 && trialList.GetSize() > 0)
+ if (retList.length == 0 && trialList.GetSize() > startingTrialListSize)
  {
-   for (var i = 0; i < trialList.GetSize(); i++)
+   for (var i = startingTrialListSize; i < trialList.GetSize(); i++)
    {
      retList.push(trialList.Get(i).params.varMap.CreateJSMap());
    }
@@ -186,6 +201,10 @@ function GameRunner_Draw()
       trialEntList.Get(i).Draw();
     }
   }
+
+  GameEngine.SetColor(0,0,1);
+  GameDraw.DrawText("trialList size:" + trialList.GetSize(), 0, 0);
+  GameEngine.ResetColor();
 
 
   
