@@ -6,6 +6,7 @@ Include("GImage_Create.js");
 Include("Trial.js");
 Include("ZipReader.js");
 Include("KReader.js");
+Include("KWriter.js");
 
 
 // --------------------------------
@@ -28,7 +29,17 @@ function Init()
 
   LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "read test:" + line);
 
+
   reader.Close();
+
+
+  var write = new KWriter("write_test", true);
+
+ write.Open(); 
+
+  write.WriteLine("writer test");
+
+  write.Close();
 
 
 }
