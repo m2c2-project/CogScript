@@ -5,6 +5,7 @@ Include("GButton.js");
 Include("GImage_Create.js");
 Include("Trial.js");
 Include("ZipReader.js");
+Include("KReader.js");
 
 
 // --------------------------------
@@ -18,9 +19,16 @@ function Init()
   // global cogtask variables
   SetName(GetName());
 
+  var reader = new KReader("9999_info.txt", 1);
+  reader.Open();
 
+  line =  reader.ReadNextLine();
    
   
+
+  LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "read test:" + line);
+
+  reader.Close();
 
 
 }
@@ -736,8 +744,6 @@ OnClickDown(x,y,clickInfo)
             AddResult("choice", "" + this.responseStr);
             AddResult("choiceRT", "" + this.responseTime);
 
-
-          
         }
 
 
