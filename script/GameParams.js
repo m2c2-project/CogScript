@@ -158,6 +158,12 @@ class GameParams
   return copyParams;
   }
 
+  CopyParams()
+  {
+   // returns a copy of the params
+   return new GameParams(this.CopyParamsMap());
+  }
+
 
 
   GetUsedParams()

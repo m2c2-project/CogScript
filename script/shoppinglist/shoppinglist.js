@@ -102,7 +102,7 @@ function GenerateTrialSet()
     // skip first line
     for (var i = 1; i < csv.length; i++)
     {
-         if (i > 2){break;}
+        // if (i > 2){break;}
         if ( csv[i].length >= 3)
         {
              // split.join for replaceall
@@ -124,7 +124,7 @@ function GenerateTrialSet()
     // generate a trial (both trial types) for each item found
     for (var i = 0; i < itemList.GetSize(); i++)
     {
-        //if (i > 2){break;} // debugging purposes... keep the testing time low. remove for production.
+        if (i >= 2){break;} // debugging purposes... keep the testing time low. remove for production.
 
         var item = itemList.Get(i);
 

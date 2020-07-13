@@ -79,7 +79,12 @@ function GameRunner_GenerateTrialSet(paramKeyList, paramValList)
  {
    for (var i = startingTrialListSize; i < trialList.GetSize(); i++)
    {
-     retList.push(trialList.Get(i).params.varMap.CreateJSMap());
+    var sendParams = trialList.Get(i).params.CopyParams();
+    sendParams.Put("RAW_TRIAL_ID", i); // add raw trial id to launch from native
+                                      // the native will use this raw ID to connect the "native trial" to the "script trial"
+                                      // mostly needed for trial randomization purposes.
+    trialList.Get(i).params = sendParams; // set the trial parameters to the "sendParams" to make sure each trial has a unique params
+     retList.push(sendParams.varMap.CreateJSMap());
    }
  }
 
@@ -127,7 +132,46 @@ function GameRunner_Start(paramKeyList, paramValList)
     // Call Trial Start
     if (trialList.GetSize() > 0)
     {
-      curTrial = trialList.PopFirst();
+       var useTrialID = -1;
+
+
+       LogMan.Log("DOLPH_SCRIPT_RUNNER", "loading trial");
+
+      // check if a raw trial id is given
+      if (curParams.Has("RAW_TRIAL_ID"))
+      {
+        useTrialID = curParams.Get("RAW_TRIAL_ID");
+        LogMan.Log("DOLPH_SCRIPT_RUNNER", "raw id:" + useTrialID);
+      }
+
+      if (useTrialID == -1)
+      { // no raw trial id given
+        curTrial = trialList.PopFirst();
+      }
+      else
+      {
+         var foundTrial = false;
+        for (var i = 0; i < trialList.GetSize(); i++)
+        {
+          // find trial with match RAW_TRIAL_ID
+          if (trialList.Get(i).params.Has("RAW_TRIAL_ID") && 
+          trialList.Get(i).params.GetInt("RAW_TRIAL_ID") == useTrialID)
+          {
+            LogMan.Log("DOLPH_SCRIPT_RUNNER", "found trial with correct raw id");
+            // found trial, set to current trial and remove from list
+            curTrial = trialList.Get(i);
+            trialList.Remove(i);
+            foundTrial = true;
+            break;
+          }
+        }
+
+        if (!foundTrial)
+        {
+          LogMan.Log("DOLPH_SCRIPT_RUNNER", "raw id not found!");
+           curTrial = trialList.PopFirst();
+        }
+      }
       curTrial.Start();
     }
     else
