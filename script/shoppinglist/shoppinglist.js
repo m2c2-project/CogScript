@@ -441,6 +441,7 @@ class ShowPriceTrial extends Trial
     ExportData()
     {
 
+        AddResult("filename", this.useFile);
         AddResult("item", this.item.name);
         AddResult("target_price", "" + this.item.price);
         var choice = "NONE_SELECTED";
@@ -474,7 +475,7 @@ class PriceResponseTrial extends Trial
         this.item = item;
         this.params = params;
 
-
+        this.useFile = this.params.GetString("useFile", "NA");
         this.responseDelayTime =  params.GetInt("ResponseDelayTime", 1000);
 
         var uTransitions = params.GetBool("UseTransitions", false);
@@ -726,7 +727,7 @@ OnClickDown(x,y,clickInfo)
 
         ExportData()
         {
-          
+            AddResult("filename", this.useFile);
 
             AddResult("phase", "" + 2);
             AddResult("item", this.item.name);
