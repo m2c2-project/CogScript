@@ -1,0 +1,19 @@
+{
+    "instructions":[
+				["3 colored dots will appear briefly on the screen.", 
+				"img:cdn1.png", 
+				"Please note that the color and position are [b]BOTH[/b] important.", 
+				"Try to remember where the dots are located", 
+				"Press [b]Next[/b] to continue."],
+				
+			["What color was this dot?", 
+			"img:cdn2.png", 
+			"Choose the color of the dot from the options at the bottom of the screen.", 
+			"Press [b]Next[/b] to continue."],
+			
+          ["Now you are asked to place another dot.", 
+		  "img:cdn3.png", 
+		  "Please touch the screen where you remember seeing the dot.", 
+          "You may tap or drag this dot if you need to move its position",  "Press [b]Start[/b] to begin the task."]]
+
+}
