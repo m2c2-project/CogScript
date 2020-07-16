@@ -1,4 +1,5 @@
 {
-    "instructions":[ ["title:page1", "read these instructions.", "you've got to do them.", "there will be {TrialNum} trials."],
-    ["title:page2", "this is the second page.", "second page istructions here."] ]
+    "instructions":[ ["title:Instructions", "During the first phase, please judge whether the price listed beneath each shopping item is a good price for the item.", "img:sl_1.png", "Press [b]Next[/b] to continue."],
+    ["title:Instructions", "During the second phase, you will be asked to touch which of two possible prices was associated with the shopping item in the first phase.", "img:sl_2.png", "Press [b]Next[/b] to continue."],
+     ["title:Instructions", "Press [b]Start[/b] to begin the task."]]
 }
