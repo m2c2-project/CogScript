@@ -1,10 +1,12 @@
 {
     "instructions":[ 
+    	["On the next screen, you will be presented with instructions for the [b]Symbol Search[/b] task.", "Press [b]Next[/b] to continue."],
 	            ["You will see 3 sets of symbols on top and 2 on the bottom.",
 				"img:symboln1.png", 
 				"Press [b]Next[/b] to continue."],
        			["Please touch the set on the bottom that is exactly the same as a set above.",
 				"img:symboln2.png",  
-				"Press [b]Start[/b] to begin the task."]]
+				"Press [b]Next[/b] to continue."],
+       			["Press [b]Start[/b] to begin the task."]]
 
 }

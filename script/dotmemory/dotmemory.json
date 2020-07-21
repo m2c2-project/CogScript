@@ -1,5 +1,6 @@
 {
-    "instructions":[["You will see 3 red dots appear briefly on a grid.",
+    "instructions":[["On the next screen, you will be presented with instructions for the [b]Dot Memory[/b] task.", "Press [b]Next[/b] to continue."],
+    	["You will see 3 red dots appear briefly on a grid.",
 
 					"img:dotmem1_grid.png",
 
@@ -21,6 +22,7 @@
 
 					"[b]Hint:[/b] You can tap and untap to move the dots.",
 
-					 "Press [b]Start[/b] to begin the task."]]
+					 "Press [b]Next[/b] to continue."],
+					["Press [b]Start[/b] to begin the task."]]
 
 }
