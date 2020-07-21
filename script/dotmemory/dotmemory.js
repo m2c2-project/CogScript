@@ -96,56 +96,6 @@ function GetName()
     return "Dot Memory";
 }
 
-function GetInstructions()
-{
- // return array of strings for the instructions
-
- 
- var getDots =  GetParamInt("DotCount", 3);
-
-/*
- return [
-
-
-    "--You will see " + getDots + " dots appear briefly on a grid.",
-    "--Try to remember the location of these dots, because they will soon disappear.",
-    "--Next you will see a screen full of E’s and F’s. Please tap all the F’s that you see.",
-    "--When you see the empty grid, tap the locations where you recall having seen the dots." ]*/
-
-
-    return [["In this exercise you will try to remember the locations of 3 red dots.",
-
-"img:dotmem1_grid.png",
-
-"Touch [b]NEXT[/b] for instructions."],
-
-["This exercise begins by displaying 3 red dots randomly placed on a grid, just like the example below.",
-
-"img:dotmem1_grid.png",
-
-"You will have a few seconds to try to remember the locations of the dots.",
-
-"Press [b]Next[/b] to continue"],
-
-["Then the dots and grid will be replaced by rows of the letters E and F, like the example below." ,
-
-"img:dotmem2_fs.png",
-
-"You should try to touch as many Fs as you can!",
-
-"Press [b]Next[/b] to continue"],
-
-["Next, you will be shown an empty grid. You should touch the locations where you saw the red dots. A red dot will appear in each location you touch.",
-
-"img:dotmem3_fgrid.png",
-
-"After you have placed 3 dots on the grid, press DONE. Hint: You can move a red dot you've placed by touching it.",
-
-"Press [b]Start[/b] to begin."]];
-             
-   
- 
-}
 
 
 
