@@ -24,37 +24,6 @@ function GetName()
     return "Multiple Object Tracking";
 }
 
-function GetInstructions()
-{
- // return array of strings for the instructions
-
-/*
- return ["Colored shapes will appear briefly on the screen.", "", "", "Try to remember the shapes and their colors, because they will soon disappear.",
-          "", "", "Next, you will see the same shapes reappear.", "", "", "Please answer whether the shapes have the SAME or DIFFERENT colors as they had before."];
- */
-
-  var targetCount = GetParamInt("targetStimCount", 3);
-  var responseTimeoutTime =  GetParamInt("responseTimeout", 20000)/1000;
-
- return [ ["Keep track of the " + targetCount + " green dots that will flash briefly at the start of each trial to the best of your ability.", 
-               "img:MOT1.png", "Press [b]Next[/b] to continue."],
-          
- ["You will be asked to report their location at the end of each trial.", "img:MOT2.png", "Press [b]Next[/b] to continue."],
-
- ["Selected circles will highlight in blue.", "img:MOT3.png", "Press [b]Next[/b] to continue."],
-
- ["At the end of each trial, red circles represent items incorrectly recalled.", "img:MOT4.png", "Press [b]Next[/b] to continue."],
-
- ["If a response is not provided after " + responseTimeoutTime + " seconds, the next trial will begin automatically.", "Press [b]Start[/b] to begin."]
-
-
-         ];
- 
-}
-
-
-
-
 
 // create/load images
 function LoadImages()
