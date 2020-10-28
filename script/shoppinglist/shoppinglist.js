@@ -16,10 +16,14 @@ Include("shoppinglist_tools.js");
 // -----------------
 // Parameters:
 // zipFile (S) - file name of zip file to use. contains all csv files of lists. (default: shoppinglist.zip)
-// listFile (S) - file name of the csv file within the "zipFile" to use for this trialSet
+// listSelect (S) - "ordered":select list files from zip in order; "random":select list files from zip randomly, no replacement;
+//                  "random_all":select list files from zip randomly, with replacement; 
+//                  OR
+//                  exact file name of the csv file within the "zipFile" to use for this trialSet.
 // usephase (I) - 1:phase 1 only, 2:phase 2 only, any other value: use both phase 1 and 2 (default)
 // randomizePhase1(B) - true:randomize the order of phase 1 (default: false)
 // randomizePhase2(B) - true:randomize the order of phase 2 (default: true)
+
 // -----------------
 
 function Init()
@@ -114,13 +118,32 @@ function GenerateTrialSet()
     var randomizePhase1 = GetParamBool("randomizePhase1", false);
     var randomizePhase2 = GetParamBool("randomizePhase2", true);
 
+    var listSelect = GetParam("listselect", "random");
+
 
     var zipReader = new ZipReader(zipFilename);
    
     zipReader.Open();
 
     // get an unused file from the zip
-    var filename = GetUnusedDataFile(zipReader);
+    var filename = listSelect;
+    
+    if (listSelect == "random")
+    {
+     // random without using the same file until all have been used
+     filename = GetUnusedDataFile(zipReader, true);
+    }
+    else if (listSelect == "random_all")
+    {
+     // random choosing any file any time
+     var allFileList = zipReader.GetFileList();
+     filename = allFileList.GetRandom();
+    }
+    else if (listSelect == "ordered")
+    {
+     // choose the next file in the zip which hasn't been used yet.
+     filename = GetUnusedDataFile(zipReader, false);
+    }
 
     useFile = filename;
 

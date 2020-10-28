@@ -63,9 +63,12 @@ function HasUsedDataFile(usedFileList, checkFile)
 
 
 
-function GetUnusedDataFile(zipReader)
+function GetUnusedDataFile(zipReader, random)
 {
-    // get an unused data file from the zip reader
+    // get an unused data file from the zip reader. files will not repeat until they have all been used.
+
+    // random  - true: choose randomly; false:choose in order of zip file.
+                 
 
     
         
@@ -78,7 +81,14 @@ function GetUnusedDataFile(zipReader)
 
         while (allFileList.GetSize() > 0)
         {
-            getFilename = allFileList.PopRandom();
+            if (random)
+            {
+              getFilename = allFileList.PopRandom();
+            }
+            else
+            { 
+              getFilename = allFileList.PopFirst();
+            }
             if (!HasUsedDataFile(usedFileList, getFilename))
             {
                 // unused file found
