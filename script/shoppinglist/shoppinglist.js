@@ -13,6 +13,15 @@ Include("shoppinglist_tools.js");
 // Global Cog Task Functions
 // --------------------------------
 
+// -----------------
+// Parameters:
+// zipFile (S) - file name of zip file to use. contains all csv files of lists. (default: shoppinglist.zip)
+// listFile (S) - file name of the csv file within the "zipFile" to use for this trialSet
+// usephase (I) - 1:phase 1 only, 2:phase 2 only, any other value: use both phase 1 and 2 (default)
+// randomizePhase1(B) - true:randomize the order of phase 1 (default: false)
+// randomizePhase2(B) - true:randomize the order of phase 2 (default: true)
+// -----------------
+
 function Init()
 { 
   trialNum = 0;
@@ -53,6 +62,7 @@ class Item
   this.name = i;
   this.price = p;
   this.altPrice = a;
+  this.loaded = false;
 
   this.imName = null;//new GImage();
   this.imPrice = null;//new GImage();
@@ -84,7 +94,26 @@ function GenerateTrialSet()
 
     var zipFilename = GetParam("zipfile", "shoppinglist.zip");
 
-   
+    var phase2Only = GetParamBool("phase2Only", false); 
+
+
+    var usePhase1 = true;
+    var usePhase2 = true;
+
+    var usePhase = GetParam("usephase", "0");
+
+    if (usePhase == "1")
+    {
+        usePhase2 = false;
+    }
+    else if (usePhase == "2")
+    {
+        usePhase1 = false;
+    }
+
+    var randomizePhase1 = GetParamBool("randomizePhase1", false);
+    var randomizePhase2 = GetParamBool("randomizePhase2", true);
+
 
     var zipReader = new ZipReader(zipFilename);
    
@@ -133,8 +162,16 @@ function GenerateTrialSet()
         trialParams.Put("useFile", useFile);
         trialParams.Put("usedRandomFile", "" + usedRandomFile);
 
-        showPriceTrialList.Add(new ShowPriceTrial(trialParams, item));
-        priceResponseTrialList.Add(new PriceResponseTrial(trialParams, item));
+
+     
+        if (usePhase1)
+        {
+          showPriceTrialList.Add(new ShowPriceTrial(trialParams, item));
+        }
+        if (usePhase2)
+        {
+            priceResponseTrialList.Add(new PriceResponseTrial(trialParams, item));
+        }
         //generateTrialParamList.Add(trialParams);
 
     }
@@ -143,18 +180,23 @@ function GenerateTrialSet()
 
     // add all the trials to the block
 
+    
+    // randomizePhase1
+    // randomizePhase2
 
     // first the "show price" trials
-    for (var i = 0; i < showPriceTrialList.GetSize(); i++)
+    while (showPriceTrialList.GetSize() > 0)
     {
-       AddTrial(showPriceTrialList.Get(i));
+       if (randomizePhase1){AddTrial(showPriceTrialList.PopRandom());}
+       else {AddTrial(showPriceTrialList.PopFirst());}
     }
 
     // then the "price response" trials
     // randomize
     while (priceResponseTrialList.GetSize() > 0)
     {
-        AddTrial(priceResponseTrialList.PopRandom());
+        if (randomizePhase2){AddTrial(priceResponseTrialList.PopRandom());}
+        else {AddTrial(priceResponseTrialList.PopFirst());}
     }
 
   /*  for (var i = 0; i < priceResponseTrialList.GetSize(); i++)
@@ -255,9 +297,14 @@ class ShowPriceTrial extends Trial
     {
         LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "load trial images" );
 
+        if (!this.item.loaded)
+        {
+
         this.item.imName = GImage_Create.CreateTextImage(this.item.name,60, true);
         this.item.imPrice = GImage_Create.CreateTextImage("$"+this.item.price,40, true);
         this.item.imAlt = GImage_Create.CreateTextImage("$"+this.item.altPrice,40, true);
+        this.item.loaded = true;
+        }
     }
 
      
@@ -443,6 +490,20 @@ class PriceResponseTrial extends Trial
         this.useTransitions = 1;
         if (!uTransitions){this.useTransitions = 0;}
 
+    }
+
+    LoadImages()
+    {
+        LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "load trial images" );
+
+        if (!this.item.loaded)
+        {
+
+        this.item.imName = GImage_Create.CreateTextImage(this.item.name,60, true);
+        this.item.imPrice = GImage_Create.CreateTextImage("$"+this.item.price,40, true);
+        this.item.imAlt = GImage_Create.CreateTextImage("$"+this.item.altPrice,40, true);
+        this.item.loaded = true;
+        }
     }
 
     Start()
