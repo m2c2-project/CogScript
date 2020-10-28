@@ -317,8 +317,10 @@ function GameRunner_GetInstructions()
    {
      // cog_resource is defined
      
-      var instructions = cog_resource["instructions"];
-      ReplaceParamInStrArray(instructions);
+     // get the 'instructions' parameter and use that if available
+     var inst_str = GetParam("instructions", "instructions");
+     var instructions = cog_resource[inst_str];
+     ReplaceParamInStrArray(instructions);
        return instructions;
    }
     
