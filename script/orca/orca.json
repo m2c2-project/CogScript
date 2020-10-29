@@ -1,0 +1,8 @@
+{
+    "instructions":[ 
+        ["title:Instructions", "instruction page 1", "Press [b]Next[/b] to continue."],
+
+    ["title:Instructions", "page 2", "Press [b]Next[/b] to continue."],
+
+     ["title:Instructions", "Press [b]Start[/b] to begin the task."]]
+}
