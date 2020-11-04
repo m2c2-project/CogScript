@@ -52,8 +52,8 @@ function LoadImages()
 
  
 
-    imButtonYes = GImage_Create.CreateButtonSet( "Match", 64, true, 200, 100);
-    imButtonNo = GImage_Create.CreateButtonSet( "No Match", 64, true, 200, 100);
+    imButtonYes = GImage_Create.CreateButtonSet( "Match", 32, true, 200, 100);
+    imButtonNo = GImage_Create.CreateButtonSet( "No Match", 32, true, 200, 100);
 
     imButtonBlank = GImage_Create.CreateButtonSet( "   ", 64, true, 150, 100);
 
@@ -237,11 +237,15 @@ class ResponseTrial extends Trial
 
     LoadImages()
     {
-        LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "load trial images" );
 
-        this.item.imName = GImage_Create.CreateTextImage(this.item.name,60, true);
-       // this.item.image = zipReader.GetImage(this.item.imageFile);
+
+        LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "load trial images:" + this.item.imageFile );
+        this.zipReader.Open();
+        // add in this space so some of the text doesn't get cut off. remove after the image generation is fixed in v1.4 update
+        this.item.imName = GImage_Create.CreateTextImage(this.item.name + " ",46, true);
+        this.item.image = this.zipReader.GetImage(this.item.imageFile);
         //this.item.image.LoadImage(this.item.imageFile);
+        this.zipReader.Close();
         
     }
 
@@ -254,7 +258,11 @@ class ResponseTrial extends Trial
         this.textPriceOf.alpha.Set(0,0,.2);
         this.entList.Add(this.textPriceOf);*/
 
-        this.itemText = new Entity(new Sprite(this.item.imName), GameEngine.GetWidth() + 10, (GameEngine.GetHeight()-this.item.imName.h)/2 - this.item.imName.h);
+        this.itemImage = new Entity(new Sprite(this.item.image),  GameEngine.GetWidth() + 10, (GameEngine.GetHeight() - this.item.image.h)/2);
+
+        this.entList.Add(this.itemImage);
+
+        this.itemText = new Entity(new Sprite(this.item.imName), GameEngine.GetWidth() + 10, 20);
         this.itemText.SetColor(new GColor(0,0,0));
         this.itemText.position.SetSpeed(35.0,3.0);
 
@@ -268,11 +276,17 @@ class ResponseTrial extends Trial
 
         this.correctAnswer = this.item.match;
 
-        this.buttonNo = new GButton(imButtonNo, GameEngine.GetWidth()+10, GameEngine.GetHeight() - imButtonBlank.Get(0).h - 30 - 90, -1 );
-        this.buttonYes = new GButton(imButtonYes, GameEngine.GetWidth()+10, GameEngine.GetHeight() - imButtonBlank.Get(0).h - imButtonBlank.Get(0).h - 60 - 90, -1 );
+        
+        this.buttonNo = new GButton(imButtonNo, GameEngine.GetWidth()+10, GameEngine.GetHeight() - imButtonYes.Get(0).h - 25, -1 );
+        this.buttonYes = new GButton(imButtonYes, GameEngine.GetWidth()+10, GameEngine.GetHeight() - imButtonYes.Get(0).h - 25, -1 );
        
       // this.buttonNo = new GButton(imButtonNo, GameEngine.GetWidth()+10, GameEngine.GetHeight() - 30 - 90, -1 );
       //  this.buttonYes = new GButton(imButtonYes, GameEngine.GetWidth()+10, GameEngine.GetHeight() - 60 - 90, -1 );
+
+       // set up the selection button locations
+      var buttonSpacing = (GameEngine.GetWidth() - imButtonNo.Get(0).w - imButtonYes.Get(0).w)/3;
+       this.buttonNoTargetX = buttonSpacing;
+       this.buttonYesTargetX = buttonSpacing*2 + imButtonNo.Get(0).w;
 
  
  
@@ -311,14 +325,18 @@ class ResponseTrial extends Trial
 
               
                 this.itemText.position.SetTarget(GameEngine.GetMidW(this.itemText.sprite.image), this.itemText.GetY());
+
+                this.itemImage.position.SetTarget((GameEngine.GetWidth() - this.item.image.w)/2,  this.itemImage.GetY());
               
 
-                this.buttonNo.kpos.SetTarget( GameEngine.GetMidW(imButtonBlank.Get(0)), this.buttonNo.kpos.y);
-                this.buttonYes.kpos.SetTarget( GameEngine.GetMidW(imButtonBlank.Get(0)), this.buttonYes.kpos.y);
+                this.buttonNo.kpos.SetTarget( this.buttonNoTargetX, this.buttonNo.kpos.y);
+                this.buttonYes.kpos.SetTarget( this.buttonYesTargetX, this.buttonYes.kpos.y);
 
                 if (this.useTransitions == 0)
                 {
                     this.itemText.position.ForceToTarget();
+
+                    this.itemImage.position.ForceToTarget();
                    
                     this.buttonNo.kpos.ForceToTarget();
                     this.buttonYes.kpos.ForceToTarget();
