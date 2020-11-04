@@ -50,10 +50,18 @@ function LoadImages()
 
  //   imTextPriceOf = GImage_Create.CreateTextImage("What was the price\n of the:",45, true);
 
- 
+    var matchText = GetParam("matchText", "Match");
+    var noMatchText = GetParam("noMatchText", "No Match");
 
-    imButtonYes = GImage_Create.CreateButtonSet( "Match", 32, true, 200, 100);
-    imButtonNo = GImage_Create.CreateButtonSet( "No Match", 32, true, 200, 100);
+    // dimensions for buttons
+    var matchTextDim = GetParam("matchTextDim", "200,100,32");
+    var noMatchTextDim = GetParam("noMatchTextDim", "200,100,32");
+
+    matchTextSplit = matchTextDim.split(",");
+    noMatchTextSplit = noMatchTextDim.split(",");
+
+    imButtonYes = GImage_Create.CreateButtonSet( matchText, ToInt(matchTextSplit[2]), true, ToInt(matchTextSplit[0]), ToInt(matchTextSplit[1]));
+    imButtonNo = GImage_Create.CreateButtonSet( noMatchText, ToInt(noMatchTextSplit[2]), true, ToInt(noMatchTextSplit[0]), ToInt(noMatchTextSplit[1]));
 
     imButtonBlank = GImage_Create.CreateButtonSet( "   ", 64, true, 150, 100);
 
@@ -229,6 +237,10 @@ class ResponseTrial extends Trial
         this.useFile = this.params.GetString("useFile", "NA");
         this.responseDelayTime =  params.GetInt("ResponseDelayTime", 1000);
 
+        this.matchButtonLeft = this.params.GetBool("matchButtonLeft", true);
+
+        
+
         var uTransitions = params.GetBool("UseTransitions", false);
         this.useTransitions = 1;
         if (!uTransitions){this.useTransitions = 0;}
@@ -258,11 +270,11 @@ class ResponseTrial extends Trial
         this.textPriceOf.alpha.Set(0,0,.2);
         this.entList.Add(this.textPriceOf);*/
 
-        this.itemImage = new Entity(new Sprite(this.item.image),  GameEngine.GetWidth() + 10, (GameEngine.GetHeight() - this.item.image.h)/2);
+        this.itemImage = new Entity(new Sprite(this.item.image),  GameEngine.GetWidth() + 10, (GameEngine.GetHeight() - this.item.image.h - imButtonYes.Get(0).h - 25)/3);
 
         this.entList.Add(this.itemImage);
 
-        this.itemText = new Entity(new Sprite(this.item.imName), GameEngine.GetWidth() + 10, 20);
+        this.itemText = new Entity(new Sprite(this.item.imName), GameEngine.GetWidth() + 10, this.itemImage.position.y + this.itemImage.sprite.image.h + 20);
         this.itemText.SetColor(new GColor(0,0,0));
         this.itemText.position.SetSpeed(35.0,3.0);
 
@@ -285,8 +297,16 @@ class ResponseTrial extends Trial
 
        // set up the selection button locations
       var buttonSpacing = (GameEngine.GetWidth() - imButtonNo.Get(0).w - imButtonYes.Get(0).w)/3;
-       this.buttonNoTargetX = buttonSpacing;
-       this.buttonYesTargetX = buttonSpacing*2 + imButtonNo.Get(0).w;
+       this.buttonYesTargetX = buttonSpacing;
+       this.buttonNoTargetX = buttonSpacing*2 + imButtonNo.Get(0).w;
+
+       if (!this.matchButtonLeft)
+       {
+        // if matchButtonLeft param is set to false, swap the locations of the buttons
+        var holdVal = this.buttonYesTargetX;
+        this.buttonYesTargetX = this.buttonNoTargetX;
+        this.buttonNoTargetX = holdVal;
+       }
 
  
  
