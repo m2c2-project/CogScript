@@ -15,14 +15,18 @@ Include("orca_tools.js");
 
 // -----------------
 // Parameters:
-// zipFile (S) - file name of zip file to use. contains all csv files of lists. (default: shoppinglist.zip)
+// zipFile (S) - ALL FILES IN ZIP MUST BE LOWER CASE! file name of zip file to use. contains all csv files of lists. (default: shoppinglist.zip)
 // listSelect (S) - "ordered":select list files from zip in order; "random":select list files from zip randomly, no replacement;
 //                  "random_all":select list files from zip randomly, with replacement; 
 //                  OR
 //                  exact file name of the csv file within the "zipFile" to use for this trialSet.
-// usephase (I) - 1:phase 1 only, 2:phase 2 only, any other value: use both phase 1 and 2 (default)
-// randomizePhase1(B) - true:randomize the order of phase 1 (default: false)
-// randomizePhase2(B) - true:randomize the order of phase 2 (default: true)
+// randomizeList(B) - true:randomize the order of the list; false: use order given in csv file. (default:false)
+// matchText(S) - text for the "match" button.
+// noMatchText(S) - text for the "no match" button
+// autoAdvanceTime (I) - millisecond time to make selection before automatically moving to the next trial. -1 is infinite.
+// trialDelayTime (I) - millisecond time to show blank screen between trials.
+
+
 
 // -----------------
 
@@ -36,7 +40,7 @@ function Init()
 
 function GetName()
 {
-    return "ORCA";
+    return cog_resource["name"];
 }
 
 
@@ -72,11 +76,20 @@ function LoadImages()
 class Item
 {
 
- constructor (name, imageFile, match)
+ constructor ()
  {
-  this.name = name;
-  this.imageFile = imageFile;
-  this.match = match; // 0 or 1
+  this.name = "NA"; // name to be displayed (may not be correct)
+  this.imageFile = "NA";
+  this.match = -1; // 0 or 1
+
+  this.setName = "NA";
+  this.category = "NA";
+  this.character = "NA";
+  this.correctName = "NA"; // actual correct name for the image/character
+  this.md5hash = "NA";
+
+  this.incorrect1 = "NA";
+  this.incorrect2 = "NA";
 
 
   this.image = null;
@@ -147,13 +160,27 @@ function GenerateTrialSet()
     var csv = kfile.GetCSV(',');
 
     // skip first line
-    for (var i = 0; i < csv.length; i++)
+    for (var i = 1; i < csv.length; i++)
     {
         // if (i > 2){break;}
         if ( csv[i].length >= 3)
         {
              // split.join for replaceall
-            itemList.Add(new Item(csv[i][1], csv[i][0], csv[i][2]));
+
+             var item = new Item();
+            // read item
+            item.setName = csv[i][0].split(" ").join("");
+            item.category = csv[i][1].split(" ").join("");
+            item.character = csv[i][2].split(" ").join("");
+            item.imageFile = csv[i][3].split(" ").join("");
+            item.name = csv[i][4].split(" ").join("");
+            item.correctName = csv[i][5].split(" ").join("");
+            item.md5hash = csv[i][6].split(" ").join("");
+
+            item.match = 0;
+            if (item.name == item.correctName){item.match = 1;}
+
+            itemList.Add(item);
         }
     }
 
@@ -235,9 +262,12 @@ class ResponseTrial extends Trial
         this.params = params;
 
         this.useFile = this.params.GetString("useFile", "NA");
-        this.responseDelayTime =  params.GetInt("ResponseDelayTime", 1000);
+        this.responseDelayTime =  params.GetInt("trialDelayTime", 1000);
 
         this.matchButtonLeft = this.params.GetBool("matchButtonLeft", true);
+
+
+        this.autoAdvanceTime = params.GetInt("autoAdvanceTime", 4000);
 
         
 
@@ -254,7 +284,7 @@ class ResponseTrial extends Trial
         LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "load trial images:" + this.item.imageFile );
         this.zipReader.Open();
         // add in this space so some of the text doesn't get cut off. remove after the image generation is fixed in v1.4 update
-        this.item.imName = GImage_Create.CreateTextImage(this.item.name + " ",46, true);
+        this.item.imName = GImage_Create.CreateTextImage(this.item.name,46, true);
         this.item.image = this.zipReader.GetImage(this.item.imageFile);
         //this.item.image.LoadImage(this.item.imageFile);
         this.zipReader.Close();
@@ -283,10 +313,12 @@ class ResponseTrial extends Trial
         this.holdTime = -1;
         this.responseTime = -1;
 
+        this.selectedResponse = -1;
+
 
         this.buttonList = new GList();
 
-        this.correctAnswer = this.item.match;
+        
 
         
         this.buttonNo = new GButton(imButtonNo, GameEngine.GetWidth()+10, GameEngine.GetHeight() - imButtonYes.Get(0).h - 25, -1 );
@@ -377,9 +409,9 @@ class ResponseTrial extends Trial
 
             else if (this.phase == 5)
             {
-                if (this.selected >= 0 && !this.buttonList.Get(this.selected).IsPressed())
+                if (this.autoAdvanceTime > 0 && KTime.GetMilliTime() - this.holdTime >= this.autoAdvanceTime)
                 {
-                    //phase = 6;
+                    this.phase = 6;
                 }
             }
 
@@ -476,6 +508,18 @@ OnClickDown(x,y,clickInfo)
 
                         this.phase = 6;
 
+                        this.responseTime = clickInfo.GetTime() - this.holdTime;
+                        
+                        if (this.buttonList.Get(i) == this.buttonNo)
+                        {
+                            this.selectedResponse = 0;
+                        }
+                        else if (this.buttonList.Get(i) == this.buttonYes)
+                        {
+                            this.selectedResponse = 1;
+                        }
+
+
                      
 
                     }
@@ -484,28 +528,7 @@ OnClickDown(x,y,clickInfo)
 
                 }
 
-                /*if (this.buttonNext.CheckPressed(tx, ty))
-                {
-                    this.responseTime = clickInfo.GetTime() - this.holdTime;
-                    if (this.selected == 0)
-                    {
-                     if (this.correctAnswer == 0){this.responseStr = this.item.price;}
-                     if (this.correctAnswer == 1){this.responseStr = this.item.altPrice;}
-
-                    }
-                    else
-                    {
-                        if (this.correctAnswer == 1){this.responseStr = this.item.price;}
-                        if (this.correctAnswer == 0){this.responseStr = this.item.altPrice;}
-                    }
-
-                    this.phase = 6;
-                    this.buttonNext.GetPosition().SetTarget(GameEngine.GetWidth()+5, this.buttonNext.GetPosition().y);
-                }*/
-
-
-                //phase = 6;
-
+            
             }
         }
 
@@ -514,13 +537,21 @@ OnClickDown(x,y,clickInfo)
         ExportData()
         {
             AddResult("filename", this.useFile);
-/*
-            AddResult("phase", "" + 2);
-            AddResult("item", this.item.name);
-            AddResult("target_price", "" + this.item.price);
-            AddResult("distractor_price", "" + this.item.altPrice);
-            AddResult("choice", "" + this.responseStr);
-            AddResult("choiceRT", "" + this.responseTime);*/
+
+            
+            AddResult("item_name", this.item.name);
+            AddResult("item_correct_name", this.item.correctName);
+            AddResult("item_image", this.item.imageFile);
+            AddResult("item_set", this.item.setName);
+            AddResult("item_category", this.item.category);
+            AddResult("item_character", this.item.character);
+      
+            AddResult("item_md5", this.item.md5hash);
+
+         
+            AddResult("response", "" + this.selectedResponse);
+            AddResult("correct_response", "" + this.item.match);
+            AddResult("response_time", "" + this.responseTime);
 
         }
 

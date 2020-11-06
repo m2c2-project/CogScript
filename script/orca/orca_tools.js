@@ -69,8 +69,8 @@ function GetUnusedDataFile(zipReader, random)
 
     // random  - true: choose randomly; false:choose in order of zip file.
 
-    return "1.csv";
-                 
+ //   return "set_A_createid_1.csv";
+          
 
     
         
@@ -78,6 +78,17 @@ function GetUnusedDataFile(zipReader, random)
         // get filename that has not yet been used.
         var usedFileList = GetUsedFiles(zipReader.GetFileName());
         var allFileList = zipReader.GetFileList();
+
+        // get only .csv files
+        for (var i = 0; i < allFileList.GetSize(); i++)
+        {
+          if (!allFileList.Get(i).includes(".csv"))
+          {
+              allFileList.Remove(i);
+              i--;
+          }
+        }
+
 
         var getFilename = allFileList.GetRandom();
 
@@ -109,7 +120,7 @@ function GetUnusedDataFile(zipReader, random)
             }
         }
 
-    
+        LogMan.Log("DOLPH_ORCA", "read file:" + getFilename);     
 
         return getFilename;
 
