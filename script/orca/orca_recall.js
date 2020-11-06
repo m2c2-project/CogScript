@@ -98,6 +98,8 @@ Include("orca_tools.js");
 
         var buttonSpacing = 20;
         var startButtonY = GameEngine.GetHeight() - this.buttonList.GetSize()*buttonSpacing - this.buttonList.GetSize()*this.buttonH;
+
+        this.responseButtonOrder = "";
     
         for (var i = 0; i < this.buttonList.GetSize(); i++)
         {
@@ -105,8 +107,21 @@ Include("orca_tools.js");
           b.kpos.SetSpeed(35.0,3.0);
           b.kpos.SetSpeed(35.0,3.0);
           b.kpos.SetY(startButtonY + buttonSpacing*(i) + this.buttonH*i);
+
+        
         
           if (b == buttonCorrect){this.correctResponse = i;}
+      
+            if (this.buttonList.Get(i) == buttonCorrect){this.responseButtonOrder = this.responseButtonOrder + this.item.correctName;}
+            else if (this.buttonList.Get(i) == buttonIncorrect1){this.responseButtonOrder = this.responseButtonOrder + this.item.incorrect1;}
+            else if (this.buttonList.Get(i) == buttonIncorrect2){this.responseButtonOrder = this.responseButtonOrder + this.item.incorrect2;}
+
+
+         if (i < this.buttonList.GetSize()-1)
+         {
+            this.responseButtonOrder = this.responseButtonOrder + "+";
+         }
+
         }
 
         this.phase = -2;
@@ -293,17 +308,17 @@ OnClickDown(x,y,clickInfo)
             AddResult("item_md5", this.item.md5hash);
 
          
-            var opt_order = "";
+           /* var opt_order = "";
             for (var i = 0; i < this.buttonList.GetSize(); i++)
             {
                 opt_order = opt_order + this.buttonList.Get(i);
                 if (i < this.buttonList.GetSize() -1){opt_order = opt_order + ",";}
-            }
+            }*/
 
-            AddResult("option_order", opt_order);
+            AddResult("option_order", this.responseButtonOrder);
 
             AddResult("response", "" + this.selectedResponse);
-            AddResult("correct_response", "" + this.item.correctResponse);
+            AddResult("correct_response", "" + this.correctResponse);
             AddResult("response_time", "" + this.responseTime);
 
         }

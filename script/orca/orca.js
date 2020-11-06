@@ -110,6 +110,7 @@ function GenerateTrialSet()
 
    
     var responseTrialList = new GList();
+    var recallTrialList = new GList();
 
     var itemList = new GList();
 
@@ -126,6 +127,29 @@ function GenerateTrialSet()
 
 
     var randomizeList = GetParamBool("randomizeList", false);
+
+
+    var usePhase1 = true;
+    var usePhase2 = false;
+
+    var usePhase = GetParam("usephase", "1");
+
+    if (usePhase == "0")
+    {
+        usePhase1 = true;
+        usePhase2 = true;
+    }
+    else if (usePhase == "1")
+    {
+        usePhase1 = true;
+        usePhase2 = false;
+    }
+    else if (usePhase == "2")
+    {
+        usePhase1 = false;
+        usePhase2 = true;
+    }
+
 
 
     var listSelect = GetParam("listselect", "random");
@@ -215,8 +239,14 @@ function GenerateTrialSet()
 
      
      
-         //responseTrialList.Add(new ResponseTrial(zipReader, trialParams, item));
-         responseTrialList.Add(new RecallTrial(zipReader, trialParams, item));
+         if (usePhase1)
+         {
+          responseTrialList.Add(new ResponseTrial(zipReader, trialParams, item));
+         }
+         if (usePhase2)
+         {
+           recallTrialList.Add(new RecallTrial(zipReader, trialParams, item));
+         }
 
     }
 
@@ -231,6 +261,12 @@ function GenerateTrialSet()
     {
         if (randomizeList){AddTrial(responseTrialList.PopRandom());}
         else {AddTrial(responseTrialList.PopFirst());}
+    }
+
+    while (recallTrialList.GetSize() > 0)
+    {
+        if (randomizeList){AddTrial(recallTrialList.PopRandom());}
+        else {AddTrial(recallTrialList.PopFirst());}
     }
 
 
