@@ -8,6 +8,7 @@ Include("ZipReader.js");
 Include("KReader.js");
 Include("KWriter.js");
 Include("orca_tools.js");
+Include("orca_recall.js");
 
 // --------------------------------
 // Global Cog Task Functions
@@ -25,6 +26,7 @@ Include("orca_tools.js");
 // noMatchText(S) - text for the "no match" button
 // autoAdvanceTime (I) - millisecond time to make selection before automatically moving to the next trial. -1 is infinite.
 // trialDelayTime (I) - millisecond time to show blank screen between trials.
+// usePhase(I) - 0: both phases, response and recall; 1: response phase only (default); 2. recall only
 
 
 
@@ -177,6 +179,9 @@ function GenerateTrialSet()
             item.correctName = csv[i][5].split(" ").join("");
             item.md5hash = csv[i][6].split(" ").join("");
 
+            item.incorrect1 = "incorrect 1";
+            item.incorrect2 = "incorrect 2";
+
             item.match = 0;
             if (item.name == item.correctName){item.match = 1;}
 
@@ -210,8 +215,8 @@ function GenerateTrialSet()
 
      
      
-         responseTrialList.Add(new ResponseTrial(zipReader, trialParams, item));
-   
+         //responseTrialList.Add(new ResponseTrial(zipReader, trialParams, item));
+         responseTrialList.Add(new RecallTrial(zipReader, trialParams, item));
 
     }
 
@@ -245,7 +250,7 @@ function DrawBlockTransition()
 }
 
 // --------------------------------
-// Individual Trial Functions
+// Response Trial (shows an image, select "match" or "nomatch")
 // --------------------------------
 
 
@@ -558,6 +563,12 @@ OnClickDown(x,y,clickInfo)
 
 
     }
+
+
+
+
+
+    
 
 
 

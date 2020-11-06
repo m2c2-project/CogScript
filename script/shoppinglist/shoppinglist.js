@@ -641,8 +641,8 @@ class PriceResponseTrial extends Trial
                {
                 this.itemText.position.SetTarget(-this.itemText.sprite.image.w, this.itemText.GetY());
 
-                this.buttonNo.kpos.SetTarget( -this.imButtonBlank[0].w , this.buttonNo.kpos.y);
-                this.buttonYes.kpos.SetTarget( -this.imButtonBlank[0].w, this.buttonYes.kpos.y);
+                this.buttonNo.kpos.SetTarget( -this.imButtonBlank.Get(0).w , this.buttonNo.kpos.y);
+                this.buttonYes.kpos.SetTarget( -this.imButtonBlank.Get(0).w, this.buttonYes.kpos.y);
 
                 this.textPriceOf.alpha.SetTarget(0);
                }
