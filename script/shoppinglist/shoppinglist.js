@@ -481,7 +481,7 @@ class ShowPriceTrial extends Trial
         if (this.selected == 1){choice = "no";}
         AddResult("choice", choice);
         AddResult("judgement_RT", "" + this.responseTime);
-
+        AddResult("use_phase", "" + this.params.Get("usephase", "0"));
 
     }
 
