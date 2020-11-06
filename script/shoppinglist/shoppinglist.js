@@ -776,6 +776,7 @@ OnClickDown(x,y,clickInfo)
             AddResult("filename", this.useFile);
 
             AddResult("phase", "" + 2);
+            AddResult("use_phase", "" + this.params.Get("usephase", "0"));
             AddResult("item", this.item.name);
             AddResult("target_price", "" + this.item.price);
             AddResult("distractor_price", "" + this.item.altPrice);
