@@ -201,10 +201,12 @@ function GenerateTrialSet()
             item.imageFile = csv[i][3].split(" ").join("");
             item.name = csv[i][4].split(" ").join("");
             item.correctName = csv[i][5].split(" ").join("");
-            item.md5hash = csv[i][6].split(" ").join("");
+            
 
-            item.incorrect1 = "incorrect 1";
-            item.incorrect2 = "incorrect 2";
+            item.incorrect1 = csv[i][6].split(" ").join("");
+            item.incorrect2 = csv[i][7].split(" ").join("");
+
+            item.md5hash = csv[i][8].split(" ").join("");
 
             item.match = 0;
             if (item.name == item.correctName){item.match = 1;}
