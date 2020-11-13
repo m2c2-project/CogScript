@@ -112,6 +112,11 @@ class KTrigger
      return TriggerGetActualDisplayTime(this.index);
     }
 
+    GetTargetTime()
+    {
+        return this.GetDelay();
+    }
+
     GetDelay()
     {
      return this.delay;

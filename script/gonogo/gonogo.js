@@ -34,10 +34,12 @@ function Init()
 
  for (var i = 0; i < 26; i++)
  {
-    if (i == 88-65){continue;}
+    if (i >= 88-65){continue;}
    goImageBank.Add(imLetterBank[i]);
  }
  noImageBank.Add(imLetterBank[88-65]);
+ noImageBank.Add(imLetterBank[89-65]);
+ //noImageBank.Add(imLetterBank[90-65]);
 
 }
 
@@ -761,22 +763,23 @@ ExportData()
 
 
 
+        // must export either image or letter depending on the stim type
 
           //AddResult("image", "" +  image.GetFilename());
-/*
-          AddResult("targetFadeTime", "" +  fadeTrigger.GetTargetTime());
-          AddResult("actualFadeTime", "" +  fadeTrigger.GetActualDisplayTime());
 
-          AddResult("targetFullShowTime", "" +  showFullTrigger.GetTargetTime());
-          AddResult("actualFullShowTime", "" +  showFullTrigger.GetActualDisplayTime());
+          AddResult("targetFadeTime", "" +  this.fadeTrigger.GetTargetTime());
+          AddResult("actualFadeTime", "" +  this.fadeTrigger.GetActualDisplayTime());
 
-          AddResult("correct_response", "" + type);
+          AddResult("targetFullShowTime", "" +  this.showFullTrigger.GetTargetTime());
+          AddResult("actualFullShowTime", "" +  this.showFullTrigger.GetActualDisplayTime());
 
-          AddResult("response", "" + response); // 0 - no tap, 1 - tap
+          AddResult("correct_response", "" + this.type);
 
-          AddResult("responseTime", "" + responseTime);
+          AddResult("response", "" + this.response); // 0 - no tap, 1 - tap
 
-          AddResult("responseAssignment", "" + responseAssignCode);*/
+          AddResult("responseTime", "" + this.responseTime);
+
+          AddResult("responseAssignment", "" + this.responseAssignCode);
 
 
 }

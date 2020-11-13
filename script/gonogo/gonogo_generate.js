@@ -6,7 +6,7 @@ function GenerateTrialSet()
 {
 
 
-  var params = CopyParams();
+/*  var params = CopyParams();
 
   
   var lastTrial = null;
@@ -16,7 +16,7 @@ function GenerateTrialSet()
  // if (GameEngine.RandomFull()%8 == 0){im = 1;}
   lastTrial = new GNGTrial(params, i, imLetterBank[i%26], 1, lastTrial);
   AddTrial(lastTrial);
- }
+ }*/
 
  // return
 
