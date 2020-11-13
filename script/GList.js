@@ -19,6 +19,14 @@ class GList
    }
  }
 
+ AddAll(oList)
+ {
+  for (var i = 0; i < oList.GetSize(); i++)
+  {
+    this.Add(oList.Get(i));
+  }
+ }
+
  Set(index, val)
  {
   this.arr[index] = val;
@@ -93,6 +101,19 @@ class GList
 
    return ret;
  }
+
+ Randomize()
+ {
+  var holdList = new GList();
+  holdList.AddAll(this);
+
+  this.RemoveAll();
+  while (holdList.GetSize() > 0)
+  {
+   this.Add(holdList.PopRandom());
+  }
+ }
+
 
 
 

@@ -5,7 +5,7 @@ Include("GButton.js");
 Include("GImage_Create.js");
 Include("GList.js");
 Include("Trial.js");
-
+Include("gonogo_generate.js");
 
 class GNGImage
 {
@@ -24,12 +24,20 @@ function Init()
  noImageBank = new GList();
 
 
-
+// must be here because LoadImages() is after GeneratTrials in v1.3. should change for v1.4
  imLetterBank = [];
  for (var i = 0; i < 26; i++)
  {
     imLetterBank.push(new GNGImage());
  }
+
+
+ for (var i = 0; i < 26; i++)
+ {
+    if (i == 88-65){continue;}
+   goImageBank.Add(imLetterBank[i]);
+ }
+ noImageBank.Add(imLetterBank[88-65]);
 
 }
 
@@ -75,9 +83,9 @@ function LoadImages()
 
   for (var i = 0; i < 26; i++)
   {
-    //  imLetterBank[i] = GImage_Create.CreateTextImage("" + String.fromCharCode(65+i),72, true);
+      imLetterBank[i].image = GImage_Create.CreateTextImage("" + String.fromCharCode(65+i),72, true);
     
-     imLetterBank[i].image = GImage_Create.CreateTextImage("A",72, true);
+     //imLetterBank[i].image = GImage_Create.CreateTextImage("A",72, true);
   }
 
   imCountDown = [];
@@ -94,18 +102,16 @@ function LoadImages()
 
 
 
- 
-  goImageBank.Add(imLetterBank[0]);
-  noImageBank.Add(imLetterBank[1]);
+
 
 
  // to do later: load images from zip file
  // load images in first trial? to allow different image sets at different trial sets.
  // image loader trial?
-/*
-  zipReader.Open();
 
-  String defFilename = fileheaderDefault + ".png";
+  /*zipReader.Open();
+
+  var defFilename = fileheaderDefault + ".png";
   InputStream defIS = zipReader.GetFile(defFilename);
 
   if (defIS != null)
@@ -141,8 +147,8 @@ function LoadImages()
   }
 
   zipReader.Close();
-*/
 
+*/
 
         var skipButtonStr = "Skip";
        
@@ -158,21 +164,7 @@ function LoadImages()
 }
 
 
-function GenerateTrialSet()
-{
 
-
-  var params = CopyParams();
-
-  
-
- for (var i = 0; i < 3; i++)
- {
-  var lastTrial = null;
-  lastTrial = new GNGTrial(params, i, imLetterBank[0], 1, lastTrial);
-  AddTrial(lastTrial);
- }
-}
 
 
 // --------------------------------
@@ -296,11 +288,25 @@ Start()
     this.skipButton = new GButton(imSkipButton, GameEngine.GetWidth()-imSkipButton.Get(0).w-10, 10 );
   }
 
-  var buttonShowPress = this.AfterTapDelay;
+  //var buttonShowPress = this.AfterTapDelay;
+  
+ // use buttonShowPress for button delay?
 
-  this.tapButton = new GButton(imButtonTap, (GameEngine.GetWidth() - imButtonTap.Get(0).w)/2, GameEngine.GetWidth() - imButtonTap.Get(0).h*2, buttonShowPress);
+  this.tapButton = new GButton(imButtonTap, (GameEngine.GetWidth() - imButtonTap.Get(0).w)/2, GameEngine.GetHeight() - imButtonTap.Get(0).h*2, 100);
 
   this.tapButton.SetPressBorder(40);
+
+
+  // if the button from the previous trial was pressed, set this trial's button to also be pressed
+  // this is to prevent the button tap effect from being turned off when the trial switches
+  if (this.lastTrial != null)
+  {
+    if (this.lastTrial.tapButton.pressed)
+    {
+      this.tapButton.pressed = true;
+      this.tapButton.onPressTime = this.lastTrial.tapButton.onPressTime;
+    }
+  }
 
    
 }
@@ -399,7 +405,7 @@ Update()
    {
     this.ExportData();
    }
-   this.complete = true;
+   this.CallEndTrial();
 
   }
 
@@ -554,24 +560,196 @@ GetFadePerc()
  }
 
 
- OnClickDown(x,y,clickTime)
+ OnClickDown(x,y,clickInfo)
 {
-  this.CallEndTrial();
+  //this.CallEndTrial();
+
+  var tx = x;
+  var ty = y;
+
+  {
+    if (this.tapButton.CheckPressed(tx,ty))
+    {
+      this.AssignRT(clickInfo.GetTime());
+
+        // response was given to this trial
+        if (this.responseTime >= 0)
+        {
+           if (this.response == 1 && this.type == 1)
+           {
+            if (this.AdvanceAfterTap){ this.phase = 4;}
+           }
+           else
+           {
+            if (this.requireCorrect && this.response == 1 && this.type == 0)
+            {
+              this.phase = -1;
+              this.failedAttempts++;
+
+            //  var msgText = "Incorrect. You should only press the button when you see " + goObjectName[1] + "!";
+            /*var msgText = "Incorrect. You should only press the button when you see " + goObjectName[1] + "!";
+              GameEngine.MessageBox(msgText, new KPopup.PopupResponse() {
+                  @Override
+                  public void OnRespond(String resp)
+                  {
+                      Start();
+                      return;
+                  }
+              });*/
+
+              return;
+            }
+           }
+
+
+           if (this.FeedbackTime > 0)
+           {
+            // go to feedback phase
+            this.phase = 8;
+
+           }
+
+        }
+
+    }
+}
 
  
 }
 
-OnClickUp(x,y,clickTime)
-{
-
-}
-
-OnClickMove(x,y,clickTime)
-{
-
-}
 
 
+
+
+
+ //Assigns RT based on given instructions
+        /*
+        RESPONSE ASSIGNMENT ALGORITHM (also see source of link above):
+
+                ImageN --> image for current trial: currently transitioning in, i.e. becoming more visible
+                ImageN-1 --> image for previous trial: currently transitioning out, i.e. becoming less visible
+
+                When participant makes a response...
+                IF ImageN > 80% visible THEN assign RT to current trial
+                IF ImageN < 40% visible THEN assign RT to previous trial
+
+                IF ImageN >= 40% visible AND ImageN <= 80% visible THEN:
+                <1> IF  RT assigned to previous trial, but no RT assigned to current trial, THEN assign RT to current trial ELSE
+                <2> IF RT assigned to current trial, but no RT assigned to previous trial, THEN assign RT to previous trial ELSE
+                <3> if RT assigned to current and previous trial THEN ignore response.  ELSE
+                <4> If RT NOT assigned to current trial and RT NOT assigned to previous trial THEN:
+                <<4a>> IF the current trial is a mountain and previous trial is a city THEN assign RT to previous trial ELSE
+                <<4b>> IF previous trial is a mountain(NoGo) and current trial is a city(Go) THEN assign RT to current trial ELSE
+                <<4c>> IF previous and current trial are both mountain(NoGo) or both city(Go) THEN:
+                <<<4c1>>> IF imageN > 60% THEN assign RT to current trial
+                <<<4c2>>> IF imageN <= 60% THEN assign RT to previous trial
+         */
+
+         // these rules create an odd response time because the current trial must have at least 40% of the image showing before a response can be made
+         // this means a response can never be lower than ~400 ms (when the fade time 1000ms) because a response is only accepted when 40% fade is in (ie 400ms)
+         AssignRT(clickTime)
+         {
+ 
+ 
+             var rTime = clickTime;
+ 
+ 
+               var fade  = this.GetFadePerc();
+               var lastFade = -1;
+               if (this.lastTrial != null)
+               {
+                 lastFade = this.lastTrial.GetFadePerc();
+               }
+ 
+               if (this.FadeTime <= 0)
+               {
+                   this.SetResponse(rTime, "0");
+                   return;
+               }
+ 
+ 
+               var minAlphaReq = this.ImageVisibilityRequiredPerc*1.0/100;
+ 
+ 
+ 
+ 
+               // v# represents the response type given by the algorithm
+ 
+               // check to see which trial we are assigning this tap to
+               if (this.GetFadePerc() > .8 || this.lastTrial == null)
+               {
+                   // v0
+                   this.SetResponse(rTime, "0");
+               }
+               else if (this.GetFadePerc() < minAlphaReq)
+               {
+                   // v0
+                   this.lastTrial.SetResponse(rTime, "0");
+ 
+               }
+               else if (this.fade >= minAlphaReq && fade <= .8)
+               {
+                 if (this.lastTrial.responseTime >= 0 && this.responseTime < 0)
+                 {
+                  // v1
+                  this.SetResponse(rTime, "1");
+ 
+                 }
+                 else if (this.responseTime >= 0 && this.lastTrial.responseTime < 0)
+                 {
+                  //v2
+                  this.lastTrial.SetResponse(rTime, "2");
+                 }
+                 else if (this.responseTime >= 0 && this.lastTrial.responseTime >= 0)
+                 {
+                  // v3
+                  // ignore response
+ 
+                 }
+                 else if (this.responseTime < 0 && this.lastTrial.responseTime < 0)
+                 {
+                   // v 4 (with sub versions)
+ 
+                   if (this.type == 0 && this.lastTrial.type == 1)
+                   {
+                     // v4a
+                     this.lastTrial.SetResponse(rTime, "4a");
+                   }
+                   else if (this.lastTrial.type == 0 && this.type == 1)
+                   {
+                      //v4b
+                      this.SetResponse(this.rTime, "4b");
+                   }
+                   else if (this.lastTrial.type == 1 && this.type == 1 || this.lastTrial.type == 0 && this.type == 0)
+                   {
+                     //v4c
+                       if (fade > .6){this.SetResponse(rTime, "4c1");} // v4c1
+                       else{this.lastTrial.SetResponse(rTime, "4c2");} // v4c2
+ 
+                   }
+ 
+ 
+ 
+ 
+                 }
+ 
+
+           }
+         }
+ 
+
+         SetResponse(clickTime, assignCode)
+         {
+ 
+             if (this.responseTime < 0) // if the response has not yet been assigned
+             {
+              this.response  = 1;
+              this.responseTime = clickTime-this.holdTime;
+              this.responseAssignCode = assignCode;
+             }
+ 
+ 
+         }
  
 
 
@@ -579,7 +757,28 @@ ExportData()
 {
    
           //  AddResult("trial_type", "" + strType);
- 
+
+
+
+
+
+          //AddResult("image", "" +  image.GetFilename());
+/*
+          AddResult("targetFadeTime", "" +  fadeTrigger.GetTargetTime());
+          AddResult("actualFadeTime", "" +  fadeTrigger.GetActualDisplayTime());
+
+          AddResult("targetFullShowTime", "" +  showFullTrigger.GetTargetTime());
+          AddResult("actualFullShowTime", "" +  showFullTrigger.GetActualDisplayTime());
+
+          AddResult("correct_response", "" + type);
+
+          AddResult("response", "" + response); // 0 - no tap, 1 - tap
+
+          AddResult("responseTime", "" + responseTime);
+
+          AddResult("responseAssignment", "" + responseAssignCode);*/
+
+
 }
 
 }
