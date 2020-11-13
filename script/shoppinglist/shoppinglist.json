@@ -3,7 +3,7 @@
     ["title:Instructions", "During the first phase, please judge whether the price listed beneath each shopping item is a good price for the item.", "img:sl_1.png", "Press [b]Next[/b] to continue."],
 ["title:Instructions", "During the second phase, you will be asked to touch which of two possible prices was associated with the shopping item in the first phase.", "img:sl_2.png", "Press [b]Next[/b] to continue."],
  ["title:Instructions", "Press [b]Start[/b] to begin the task."]],
- "phase2only_instructions":[ ["title:Instructions", "Over the previous week you have learnt some shopping lists and prices of the items on those lists", "img:sl_1.png", "Press [b]Next[/b] to continue."],
- ["title:Instructions", "You will be asked to touch which of two possible prices was associated with the shopping item from the lists that you learned during the week.", "img:sl_2.png", "Press [b]Next[/b] to continue."],
+ "phase2only_instructions":[ ["title:Instructions", "Over the previous week you learned some shopping lists and prices of the items on those lists", "Press [b]Next[/b] to continue."],
+ ["title:Instructions", "On the following screens you will see two prices that you may have seen paired with a shopping list item. Choose the price you believe was paired with the shopping item", "img:sl_2.png", "Press [b]Next[/b] to continue."],
   ["title:Instructions", "Press [b]Start[/b] to begin the task."]]
 }
