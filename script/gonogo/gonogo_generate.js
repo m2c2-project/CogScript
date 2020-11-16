@@ -4,7 +4,63 @@
 
 function GenerateTrialSet()
 {
+  var trialSetParam = CopyParams();
 
+   // read zip file
+
+   var fileheaderGo = trialSetParam.GetString("GoFileHeader", "city");//"Go");
+   var fileheaderNoGo = trialSetParam.GetString("NoGoFileHeader", "mountain");//"No");
+   var fileheaderDefault = trialSetParam.GetString("DefaultFileHeader", "fixation");//"No");
+ 
+   var zipFilename = trialSetParam.GetString("imagezip", "gonogofade.zip");
+ 
+   var zipReader = new ZipReader(zipFilename);
+ 
+  // to do later: load images from zip file
+  // load images in first trial? to allow different image sets at different trial sets.
+  // image loader trial?
+
+  goImageBank = new GList();
+  noImageBank = new GList();
+
+ 
+   zipReader.Open();
+ 
+   var defFilename = fileheaderDefault + ".png";
+   
+   imDefault = zipReader.GetImage(defFilename);
+ 
+   var fileList = zipReader.GetFileList();
+ 
+ 
+   // load Go images
+   for (var i = 1; i < 100; i++)
+   {
+     var fn = fileheaderGo + i + ".png";
+     
+     if (fileList.Contains(fn))
+     {
+       var im = new GNGImage();
+       im.image = zipReader.GetImage(fn);
+       goImageBank.Add(im);
+     }
+ 
+   }
+ 
+   // load no go images
+   for (var i = 1; i < 100; i++)
+   {
+     var fn = fileheaderNoGo + i + ".png";
+
+     if (fileList.Contains(fn))
+     {
+      var im = new GNGImage();
+      im.image = zipReader.GetImage(fn);
+       noImageBank.Add(im);
+     }
+   }
+ 
+   zipReader.Close();
 
 /*  var params = CopyParams();
 
@@ -20,7 +76,7 @@ function GenerateTrialSet()
 
  // return
 
-     var trialSetParam = CopyParams();
+     
 
 
       var  tutorialPhase = trialSetParam.GetInt("TutorialPhase", 0);

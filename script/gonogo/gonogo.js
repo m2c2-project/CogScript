@@ -5,6 +5,7 @@ Include("GButton.js");
 Include("GImage_Create.js");
 Include("GList.js");
 Include("Trial.js");
+Include("ZipReader.js");
 Include("gonogo_generate.js");
 
 class GNGImage
@@ -82,7 +83,7 @@ function LoadImages()
   imTextReady = GImage_Create.CreateTextImage("Ready",60, true);
 
 
-
+/*
   for (var i = 0; i < 26; i++)
   {
       imLetterBank[i].image = GImage_Create.CreateTextImage("" + String.fromCharCode(65+i),72, true);
@@ -95,62 +96,13 @@ function LoadImages()
   {
       imCountDown[i] = GImage_Create.CreateTextImage("" + (i+1), 72, true);
    
-  }
+  }*/
 
 
 
 
 
 
-
-
-
-
-
- // to do later: load images from zip file
- // load images in first trial? to allow different image sets at different trial sets.
- // image loader trial?
-
-  /*zipReader.Open();
-
-  var defFilename = fileheaderDefault + ".png";
-  InputStream defIS = zipReader.GetFile(defFilename);
-
-  if (defIS != null)
-  {
-    imDefault = new GImage(defIS);
-    imDefault.LoadData();
-    imDefault.SetFilename(defFilename);
-  }
-
-  GList<String> fileList = zipReader.GetFileList();
-
-
-  // load Go images
-  for (int i = 1; i < 100; i++)
-  {
-    String fn = fileheaderGo + i + ".png";
-    InputStream is = zipReader.GetFile(fn);
-    if (is == null){break;}
-    goImageBank.Add(new GImage(is));
-    goImageBank.GetLast().LoadData();
-    goImageBank.GetLast().SetFilename(fn);
-  }
-
-  // load no go images
-  for (int i = 1; i < 100; i++)
-  {
-      String fn = fileheaderNoGo + i + ".png";
-      InputStream is = zipReader.GetFile(fn);
-      if (is == null){break;}
-      noImageBank.Add(new GImage(is));
-      noImageBank.GetLast().LoadData();
-      noImageBank.GetLast().SetFilename(fn);
-  }
-
-  zipReader.Close();
-
-*/
 
         var skipButtonStr = "Skip";
        

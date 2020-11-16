@@ -136,4 +136,12 @@ class GList
  }
 
 
+ Contains(e)
+ {
+  if (this.FindElement(e) >= 0){return true;}
+
+  return false;
+ }
+
+
 }
