@@ -264,6 +264,8 @@ Start()
   this.responseTime = -1;
   this.responseAssignCode = "NA";
 
+  this.letterMoveY = -50;
+
 
   this.fadeTrigger = CreateTrigger(this.FadeTime);
   this.showFullTrigger = CreateTrigger(this.ShowFullTime);
@@ -466,7 +468,7 @@ Draw()
       GameEngine.SetColor(0,0,0);
 
 
-      GameDraw.DrawImage(imTextPlus, (GameEngine.GetWidth() - imTextPlus.w)/2, (GameEngine.GetWidth() - imTextPlus.h)/2 + this.letterMoveY );
+      GameDraw.DrawImage(imTextPlus, (GameEngine.GetWidth() - imTextPlus.w)/2, (GameEngine.GetHeight() - imTextPlus.h)/2 + this.letterMoveY );
 
       GameEngine.ResetColor();
 
@@ -487,7 +489,7 @@ Draw()
       {
         // if a last trial exists, draw its image
           GameEngine.SetColor(1,1,1,1-a);
-          GameDraw.DrawImage(this.lastTrial.image, (GameEngine.GetWidth() - this.image.w)/2, (GameEngine.GetWidth()- this.image.h)/2 + this.letterMoveY);
+          GameDraw.DrawImage(this.lastTrial.image, (GameEngine.GetWidth() - this.lastTrial.image.w)/2, (GameEngine.GetHeight()- this.lastTrial.image.h)/2 + this.letterMoveY);
       }
       else
       {
@@ -495,12 +497,12 @@ Draw()
         if (this.imDefault != null)
         {
           GameEngine.SetColor(1,1,1,1-a);
-          GameDraw.DrawImage(this.imDefault, (GameEngine.GetWidth() - this.imDefault.w)/2, (GameEngine.GetWidth() - imDefault.h)/2 + this.letterMoveY);
+          GameDraw.DrawImage(this.imDefault, (GameEngine.GetWidth() - this.imDefault.w)/2, (GameEngine.GetHeight() - imDefault.h)/2 + this.letterMoveY);
         }
       }
 
       GameEngine.SetColor(1,1,1,a);
-      GameDraw.DrawImage(this.image, (GameEngine.GetWidth() - this.image.w)/2, (GameEngine.GetWidth() - this.image.h)/2 + this.letterMoveY);
+      GameDraw.DrawImage(this.image, (GameEngine.GetWidth() - this.image.w)/2, (GameEngine.GetHeight() - this.image.h)/2 + this.letterMoveY);
 
       GameEngine.ResetColor();
 
@@ -526,7 +528,7 @@ Draw()
 
       if (!this.IsResponseCorrect()){imFeedback = imIncorrect;}
 
-      GameDraw.DrawImage(imFeedback, imFeedback.GetCenterX(), (GameEngine.GetWidth() - this.image.h)/2 +  this.image.h + this.letterMoveY + 10);
+      GameDraw.DrawImage(imFeedback, imFeedback.GetCenterX(), (GameEngine.GetHeight() - this.image.h)/2 +  this.image.h + this.letterMoveY + 10);
 
       GameEngine.ResetColor();
 
