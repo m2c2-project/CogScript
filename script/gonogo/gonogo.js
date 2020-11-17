@@ -8,25 +8,18 @@ Include("Trial.js");
 Include("ZipReader.js");
 Include("gonogo_generate.js");
 
-class GNGImage
-{
-   constructor()
-   {
-     this.image = null;
-   }
-}
+
 
 function Init()
 {
   SetName(GetName());
  // SetUpdateLastTrial(true);
 
- goImageBank = new GList();
- noImageBank = new GList();
+
 
 
 // must be here because LoadImages() is after GeneratTrials in v1.3. should change for v1.4
- imLetterBank = [];
+ /*imLetterBank = [];
  for (var i = 0; i < 26; i++)
  {
     imLetterBank.push(new GNGImage());
@@ -40,7 +33,23 @@ function Init()
  }
  noImageBank.Add(imLetterBank[88-65]);
  noImageBank.Add(imLetterBank[89-65]);
- //noImageBank.Add(imLetterBank[90-65]);
+ //noImageBank.Add(imLetterBank[90-65]);*/
+
+
+ imLetterBank = [];
+  for (var i = 0; i < 26; i++)
+  {
+      imLetterBank[i] = GImage_Create.CreateTextImage("" + String.fromCharCode(65+i),72, true);
+  }
+
+  imCountDown = [];
+  for (var i = 0; i < 10; i++)
+  {
+      imCountDown[i] = GImage_Create.CreateTextImage("" + (i+1), 72, true);
+  }
+
+
+ 
 
 }
 
@@ -83,20 +92,7 @@ function LoadImages()
   imTextReady = GImage_Create.CreateTextImage("Ready",60, true);
 
 
-/*
-  for (var i = 0; i < 26; i++)
-  {
-      imLetterBank[i].image = GImage_Create.CreateTextImage("" + String.fromCharCode(65+i),72, true);
-    
-     //imLetterBank[i].image = GImage_Create.CreateTextImage("A",72, true);
-  }
 
-  imCountDown = [];
-  for (var i = 0; i < 10; i++)
-  {
-      imCountDown[i] = GImage_Create.CreateTextImage("" + (i+1), 72, true);
-   
-  }*/
 
 
 
@@ -128,14 +124,15 @@ function LoadImages()
 class GNGTrial extends Trial
 {   
   
-    constructor(params, tnum, image, type, lastTrial)
+    constructor(params, tnum, image, type, lastTrial, useImages)
     {
         super(params);
 
         this.num = tnum;
-        this.gngimage = image;
+        this.image = image;
         this.type = type;
         this.lastTrial = lastTrial;
+        this.useImages = useImages;
 
 
 
@@ -209,7 +206,7 @@ class GNGTrial extends Trial
 // run at the start of each trial
 Start()
 {
-   this.image = this.gngimage.image;
+  
   this.phase = 0;
 
   this.response = 0;
@@ -412,7 +409,7 @@ Draw()
   //   GameEngine.SetColor(1,0,0);
   //GameDraw.DrawText("trial:" + (int)(KTime.GetMilliTime()-holdTime), 50, 50);
 
-  GameEngine.SetColor(0,0,0);
+  GameEngine.ResetColor();
   GameDraw.DrawBox(0,0,GameEngine.GetWidth(), GameEngine.GetHeight());
 
   if (this.phase == 0)
@@ -440,7 +437,9 @@ Draw()
       if (this.lastTrial != null)
       {
         // if a last trial exists, draw its image
-          GameEngine.SetColor(1,1,1,1-a);
+          
+          if (this.useImages){GameEngine.SetColor(1,1,1,1-a);}
+          else{GameEngine.SetColor(0,0,0,1-a);}
           GameDraw.DrawImage(this.lastTrial.image, (GameEngine.GetWidth() - this.lastTrial.image.w)/2, (GameEngine.GetHeight()- this.lastTrial.image.h)/2 + this.letterMoveY);
       }
       else
@@ -448,12 +447,14 @@ Draw()
         // if no last trial exists, draw the default image (blank if no default image)
         if (this.imDefault != null)
         {
-          GameEngine.SetColor(1,1,1,1-a);
+          if (this.useImages){GameEngine.SetColor(1,1,1,1-a);}
+          else{GameEngine.SetColor(0,0,0,1-a);}
           GameDraw.DrawImage(this.imDefault, (GameEngine.GetWidth() - this.imDefault.w)/2, (GameEngine.GetHeight() - imDefault.h)/2 + this.letterMoveY);
         }
       }
 
-      GameEngine.SetColor(1,1,1,a);
+      if (this.useImages){GameEngine.SetColor(1,1,1,a);}
+      else{GameEngine.SetColor(0,0,0,a);}
       GameDraw.DrawImage(this.image, (GameEngine.GetWidth() - this.image.w)/2, (GameEngine.GetHeight() - this.image.h)/2 + this.letterMoveY);
 
       GameEngine.ResetColor();

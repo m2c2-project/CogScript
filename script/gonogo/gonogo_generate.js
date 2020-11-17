@@ -6,75 +6,92 @@ function GenerateTrialSet()
 {
   var trialSetParam = CopyParams();
 
-   // read zip file
+ // read zip file
 
-   var fileheaderGo = trialSetParam.GetString("GoFileHeader", "city");//"Go");
-   var fileheaderNoGo = trialSetParam.GetString("NoGoFileHeader", "mountain");//"No");
-   var fileheaderDefault = trialSetParam.GetString("DefaultFileHeader", "fixation");//"No");
+
+
+ var useImages = trialSetParam.GetString("useImages", false);
+
+ var goLetters = trialSetParam.GetString("GoLetters", "ABCDEFGHIJKLMNOPQRSTUVWZ").toUpperCase();
+ var noGoLetters = trialSetParam.GetString("NoGoLetters", "XY").toUpperCase();
  
-   var zipFilename = trialSetParam.GetString("imagezip", "gonogofade.zip");
+
+ var zipFilename = trialSetParam.GetString("imagezip", "gonogofade.zip");
+
+ var fileheaderGo = trialSetParam.GetString("GoFileHeader", "city");//"Go");
+ var fileheaderNoGo = trialSetParam.GetString("NoGoFileHeader", "mountain");//"No");
+ var fileheaderDefault = trialSetParam.GetString("DefaultFileHeader", "fixation");//"No");
+
+
+
+ goImageBank = new GList();
+ noImageBank = new GList();
  
-   var zipReader = new ZipReader(zipFilename);
- 
-  // to do later: load images from zip file
-  // load images in first trial? to allow different image sets at different trial sets.
-  // image loader trial?
+ if (useImages)
+ {
+  var zipReader = new ZipReader(zipFilename);
 
   goImageBank = new GList();
   noImageBank = new GList();
 
- 
-   zipReader.Open();
- 
-   var defFilename = fileheaderDefault + ".png";
-   
-   imDefault = zipReader.GetImage(defFilename);
- 
-   var fileList = zipReader.GetFileList();
- 
- 
-   // load Go images
-   for (var i = 1; i < 100; i++)
-   {
-     var fn = fileheaderGo + i + ".png";
-     
-     if (fileList.Contains(fn))
-     {
-       var im = new GNGImage();
-       im.image = zipReader.GetImage(fn);
-       goImageBank.Add(im);
-     }
- 
-   }
- 
-   // load no go images
-   for (var i = 1; i < 100; i++)
-   {
-     var fn = fileheaderNoGo + i + ".png";
 
-     if (fileList.Contains(fn))
-     {
-      var im = new GNGImage();
-      im.image = zipReader.GetImage(fn);
-       noImageBank.Add(im);
-     }
-   }
- 
-   zipReader.Close();
+  zipReader.Open();
 
-/*  var params = CopyParams();
-
+  var defFilename = fileheaderDefault + ".png";
   
-  var lastTrial = null;
- for (var i = 0; i < 100; i++)
- {
-  //var im = 0;
- // if (GameEngine.RandomFull()%8 == 0){im = 1;}
-  lastTrial = new GNGTrial(params, i, imLetterBank[i%26], 1, lastTrial);
-  AddTrial(lastTrial);
- }*/
+  imDefault = zipReader.GetImage(defFilename);
 
- // return
+  var fileList = zipReader.GetFileList();
+
+
+  // load Go images
+  for (var i = 1; i < 100; i++)
+  {
+    var fn = fileheaderGo + i + ".png";
+    
+    if (fileList.Contains(fn))
+    {
+      var im = zipReader.GetImage(fn);
+      goImageBank.Add(im);
+    }
+
+  }
+
+  // load no go images
+  for (var i = 1; i < 100; i++)
+  {
+    var fn = fileheaderNoGo + i + ".png";
+
+    if (fileList.Contains(fn))
+    {
+
+      var im = zipReader.GetImage(fn);
+      noImageBank.Add(im);
+    }
+  }
+
+  zipReader.Close();
+
+
+
+
+}  
+else
+{
+  // handle letters
+  for (var i = 0; i < goLetters.length; i++)
+  {
+   goImageBank.Add( imLetterBank[goLetters.charCodeAt(i)-65] ); 
+  }
+
+  for (var i = 0; i < noGoLetters.length; i++)
+  {
+   noImageBank.Add( imLetterBank[noGoLetters.charCodeAt(i)-65] ); 
+  }
+  
+
+}
+
 
      
 
@@ -389,7 +406,7 @@ function GenerateTrialSet()
 
 
 
-            var trial = new GNGTrial(trialSetParam, i, setImage, setTrialType, lastTrial);
+            var trial = new GNGTrial(trialSetParam, i, setImage, setTrialType, lastTrial, useImages);
 
             lastImage = setImage;
 
