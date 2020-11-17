@@ -168,7 +168,7 @@ class GNGTrial extends Trial
 
 
 
-        this.FixationTime = params.GetInt("StimFixTime", 0); // no fixation time in fading
+        this.FixationTime = params.GetInt("TrialFixationTime", 0); // no fixation time in fading
 
         this.StartDelay = params.GetInt("StartFixTime", 0);//3000);
         this.ShowStartCountDown = params.GetInt("ShowCountDown", 1);
@@ -190,13 +190,6 @@ class GNGTrial extends Trial
 
 
 
-
-
-
-   
-
-
-
         this.phase = 0;
 
         this.failedAttempts = 0;
@@ -215,7 +208,7 @@ Start()
 
   this.letterMoveY = -50;
 
-
+  this.fixationTrigger = CreateTrigger(this.FixationTime);
   this.fadeTrigger = CreateTrigger(this.FadeTime);
   this.showFullTrigger = CreateTrigger(this.ShowFullTime);
   this.feedbackTrigger = CreateTrigger(this.FeedbackTime);
@@ -289,10 +282,10 @@ Update()
 
   if (this.phase == 0)
   {
-    this.phase = 2;
-
+    //this.phase = 2;
+    this.fixationTrigger.TriggerStart();
       // fixation phase
-      if (KTime.GetMilliTime() - this.holdTime >= this.FixationTime)
+      if (this.fixationTrigger.Check())
       {
         this.fadeTrigger.TriggerStart();
         this.phase = 2;
@@ -433,8 +426,16 @@ Draw()
       if (a > 1){a = 1;}
       if (a < 0){a = 0;}
 
+      if (this.FixationTime > 0)
+      {
+         // if there was fixation time, draw the fixation image
+         if (this.useImages){GameEngine.SetColor(1,1,1,1-a);}
+         else{GameEngine.SetColor(0,0,0,1-a);}
+         GameDraw.DrawImage(imTextPlus, (GameEngine.GetWidth() - imTextPlus.w)/2, (GameEngine.GetHeight()- imTextPlus.w)/2 + this.letterMoveY);
 
-      if (this.lastTrial != null)
+
+      }
+      else if (this.lastTrial != null)
       {
         // if a last trial exists, draw its image
           
