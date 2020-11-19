@@ -18,8 +18,8 @@ function GenerateTrialSet()
 
  var zipFilename = trialSetParam.GetString("imagezip", "gonogofade.zip");
 
- var fileheaderGo = trialSetParam.GetString("GoFileHeader", "city");//"Go");
- var fileheaderNoGo = trialSetParam.GetString("NoGoFileHeader", "mountain");//"No");
+ var fileheaderGo = trialSetParam.GetString("GoFileHeader", "go");//"Go");
+ var fileheaderNoGo = trialSetParam.GetString("NoGoFileHeader", "nogo");//"No");
  var fileheaderDefault = trialSetParam.GetString("DefaultFileHeader", "fixation");//"No");
 
 

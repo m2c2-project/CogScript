@@ -374,20 +374,26 @@ function AddEnt(entity)
 
 
 
-function CallEndTrial()
+function CallEndTrial(exportData = true)
 {
  //call trial ExportData()
- if (curTrial != null)
- {
-    curTrial.ExportData();
- }
- else if (typeof(ExportData) !== 'undefined')
- {
-  ExportData();
- }
 
- // push to native
- PushExportData();
+ if (exportData)
+ {
+  if (curTrial != null)
+  {
+      curTrial.ExportData();
+  }
+  else if (typeof(ExportData) !== 'undefined')
+  {
+    ExportData();
+  }
+
+
+  // push to native
+  PushExportData();
+
+ } 
 
  // Call Native End Trial
  Game_EndTrial();

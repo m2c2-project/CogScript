@@ -54,10 +54,10 @@ class Trial
   }
 
 
-  CallEndTrial()
+  CallEndTrial(exportData = true)
   {
     //this.complete = true;
-    CallEndTrial(); // global func
+    CallEndTrial(exportData); // global func
   }
 
   ExportData()

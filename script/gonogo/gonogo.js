@@ -139,7 +139,7 @@ class GNGTrial extends Trial
         this.skipButtonEnabled = params.GetBool("SkipButtonEnabled", false);
 
 
-        this.FadeTime = params.GetInt("FadeTime", 1000);
+        this.FadeTime = params.GetInt("FadeTime", 0);
         this.ShowFullTime = params.GetInt("ShowFullTime", 1000);
 
         this.FeedbackTime = params.GetInt("FeedbackTime", 0);
@@ -289,6 +289,7 @@ Update()
       {
         this.fadeTrigger.TriggerStart();
         this.phase = 2;
+        if (this.fadeTime <= 0){this.phase = 3; this.showFullTrigger.TriggerStart();}
       }
 
   }
@@ -307,6 +308,7 @@ Update()
   }
   else if (this.phase == 3) // show full time
   {
+    this.showFullTrigger.TriggerStart();
       if (this.showFullTrigger.Check())
       {
           if (this.response == 0 && this.type == 1)
@@ -351,7 +353,7 @@ Update()
    {
     this.ExportData();
    }
-   this.CallEndTrial();
+   this.CallEndTrial(false);
 
   }
 
@@ -555,6 +557,10 @@ GetFadePerc()
                   }
               });*/
 
+              var msgText = "Incorrect. Try again.";
+
+              GameEngine.MessageBox(msgText);
+
               return;
             }
            }
@@ -726,8 +732,8 @@ ExportData()
           AddResult("targetFadeTime", "" +  this.fadeTrigger.GetTargetTime());
           AddResult("actualFadeTime", "" +  this.fadeTrigger.GetActualDisplayTime());
 
-          AddResult("targetFullShowTime", "" +  this.showFullTrigger.GetTargetTime());
-          AddResult("actualFullShowTime", "" +  this.showFullTrigger.GetActualDisplayTime());
+          AddResult("targetShowFullTime", "" +  this.showFullTrigger.GetTargetTime());
+          AddResult("actualShowFullTime", "" +  this.showFullTrigger.GetActualDisplayTime());
 
           AddResult("correct_response", "" + this.type);
 
@@ -736,6 +742,8 @@ ExportData()
           AddResult("responseTime", "" + this.responseTime);
 
           AddResult("responseAssignment", "" + this.responseAssignCode);
+
+          PushExportData();
 
 
 }
