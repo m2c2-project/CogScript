@@ -97,7 +97,7 @@ function GenerateTrialSet()
 
     // get zip file
 
-    var zipFilename = GetParam("zipfile", "shoppinglist.zip");
+    zipFilename = GetParam("zipfile", "shoppinglist.zip");
 
     var phase2Only = GetParamBool("phase2Only", false); 
 
@@ -267,6 +267,9 @@ class ShowPriceTrial extends Trial
 
         this.judgmentTime =  this.params.GetInt("JudgmentTime", 3000);
         this.judgmentDelayTime =  this.params.GetInt("JudgmentDelayTime", 1000);
+
+
+        this.usePhase =  this.params.Get("usephase", "0");
 
 
         var uTransitions = this.params.GetBool("UseTransitions", false);
@@ -472,7 +475,7 @@ class ShowPriceTrial extends Trial
 
     ExportData()
     {
-
+        AddResult("zipfile", zipFilename);
         AddResult("filename", this.useFile);
         AddResult("item", this.item.name);
         AddResult("target_price", "" + this.item.price);
@@ -481,7 +484,12 @@ class ShowPriceTrial extends Trial
         if (this.selected == 1){choice = "no";}
         AddResult("choice", choice);
         AddResult("judgement_RT", "" + this.responseTime);
-        AddResult("use_phase", "" + this.params.Get("usephase", "0"));
+
+        AddResult("use_phase", "" + this.usePhase);
+        var runTypeStr = "full";
+        if (this.usePhase > 0) {runTypeStr = "single-phase";}
+
+        AddResult("experiment_run_type", runTypeStr);
 
     }
 
@@ -509,6 +517,8 @@ class PriceResponseTrial extends Trial
 
         this.useFile = this.params.GetString("useFile", "NA");
         this.responseDelayTime =  params.GetInt("ResponseDelayTime", 1000);
+
+        this.usePhase =  this.params.Get("usephase", "0");
 
         var uTransitions = params.GetBool("UseTransitions", false);
         this.useTransitions = 1;
@@ -773,15 +783,22 @@ OnClickDown(x,y,clickInfo)
 
         ExportData()
         {
+            AddResult("zipfile", zipFilename);
             AddResult("filename", this.useFile);
 
             AddResult("phase", "" + 2);
-            AddResult("use_phase", "" + this.params.Get("usephase", "0"));
+           
             AddResult("item", this.item.name);
             AddResult("target_price", "" + this.item.price);
             AddResult("distractor_price", "" + this.item.altPrice);
             AddResult("choice", "" + this.responseStr);
             AddResult("choiceRT", "" + this.responseTime);
+
+            AddResult("use_phase", "" + this.usePhase);
+            var runTypeStr = "full";
+            if (this.usePhase > 0) {runTypeStr = "single-phase";}
+            
+            AddResult("experiment_run_type", "" + runTypeStr);
 
         }
 
