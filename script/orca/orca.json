@@ -2,12 +2,8 @@
     "name":"ORCA",
     "instructions":[ 
         ["title:Instructions", "For this task, you will see some Chinese characters and English words…", "Press [b]Next[/b] to continue."],
-
     ["title:Instructions", "Respond with your first instinct whether the English word and Chinese character are a correct match.", "img:orca_1.jpg", "Press [b]Next[/b] to continue."],
-
     ["title:Instructions", "After you make your choice, a new pair of words will be shown.", "img:orca_2.jpg", "Press [b]Next[/b] to continue."],
-
     ["title:Instructions", "For each pair, you will not be told whether you made the correct choice or not. [br][/br] You will learn the correct matches by seeing the pairs repeated over time.", "Press [b]Next[/b] to continue."],
-
      ["title:Instructions", "Press [b]Start[/b] to begin the task."]]
 }
