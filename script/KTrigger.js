@@ -31,7 +31,7 @@ class KTrigger
     Start()
     {
       this.start = KTime.GetMilliTime();
-      TriggerStart(this.index);
+      TriggerStart(this.index); // this is the Global TriggerStart function that calls the native Trigger_Start function
     }
 
     End()
