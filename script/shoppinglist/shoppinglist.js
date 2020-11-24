@@ -159,7 +159,7 @@ function GenerateTrialSet()
         if ( csv[i].length >= 3)
         {
              // split.join for replaceall
-            itemList.Add(new Item(csv[i][0].split("\"").join(""), csv[i][1], csv[i][2]));
+            itemList.Add(new Item(csv[i][0].split("\"").join(""), csv[i][1].split("\"").join(""), csv[i][2].split("\"").join("")));
         }
     }
 
@@ -477,6 +477,7 @@ class ShowPriceTrial extends Trial
     {
         AddResult("zipfile", zipFilename);
         AddResult("filename", this.useFile);
+        AddResult("phase", "" + 1);
         AddResult("item", this.item.name);
         AddResult("target_price", "" + this.item.price);
         var choice = "NONE_SELECTED";
