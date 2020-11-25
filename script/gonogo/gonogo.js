@@ -40,7 +40,9 @@ function Init()
  imLetterBank = [];
   for (var i = 0; i < 26; i++)
   {
-      imLetterBank[i] = GImage_Create.CreateTextImage("" + String.fromCharCode(65+i),72, true);
+      var letter = "" + String.fromCharCode(65+i);
+      imLetterBank[i] = GImage_Create.CreateTextImage(letter,72, true);
+      imLetterBank[i].title = letter;
   }
 
   imCountDown = [];
@@ -134,6 +136,7 @@ class GNGTrial extends Trial
         this.type = type;
         this.lastTrial = lastTrial;
         this.useImages = useImages;
+     
 
 
 
@@ -194,6 +197,23 @@ class GNGTrial extends Trial
         this.phase = 0;
 
         this.failedAttempts = 0;
+
+
+        
+        this.letter = "NA";
+        if (!this.useImages)
+        {
+          // find the matching letter
+          for (var i = 0; i < imLetterBank.length; i++)
+          {
+            if (this.image == imLetterBank[i])
+            {
+              // add 65 as the starting characte code
+              this.letter = String.fromCharCode(65+i);
+              
+            }
+          }
+        }
 
     }
 
@@ -749,14 +769,14 @@ SaveExportData()
 {
     // must save values like this before exporting them because the values aren't exported until the next trial is completed. this means that the trigger values will be reset so we must save them before the trial ends.
 
-    this.exportMap.Put("targetFixationTime", "" +  this.fixationTrigger.GetTargetTime());
+   /* this.exportMap.Put("targetFixationTime", "" +  this.fixationTrigger.GetTargetTime());
     this.exportMap.Put("actualFixationTime", "" +  this.fixationTrigger.GetActualDisplayTime());
 
     this.exportMap.Put("targetFadeTime", "" +  this.fadeTrigger.GetTargetTime());
     this.exportMap.Put("actualFadeTime", "" +  this.fadeTrigger.GetActualDisplayTime());
 
     this.exportMap.Put("targetShowFullTime", "" +  this.showFullTrigger.GetTargetTime());
-    this.exportMap.Put("actualShowFullTime", "" +  this.showFullTrigger.GetActualDisplayTime());
+    this.exportMap.Put("actualShowFullTime", "" +  this.showFullTrigger.GetActualDisplayTime());*/
 
    
 }
@@ -778,6 +798,9 @@ ExportData()
          AddResult("responseTime", "" + this.responseTime);
      
          AddResult("responseAssignment", "" + this.responseAssignCode);
+
+  
+         AddResult("stim", "" + this.image.title);
 
 
           PushExportData();

@@ -52,6 +52,7 @@ function GenerateTrialSet()
     if (fileList.Contains(fn))
     {
       var im = zipReader.GetImage(fn);
+      im.title = fn;
       goImageBank.Add(im);
     }
 
@@ -66,6 +67,7 @@ function GenerateTrialSet()
     {
 
       var im = zipReader.GetImage(fn);
+      im.title = fn;
       noImageBank.Add(im);
     }
   }
