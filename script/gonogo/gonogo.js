@@ -4,6 +4,7 @@ Include("Tools.js");
 Include("GButton.js");
 Include("GImage_Create.js");
 Include("GList.js");
+Include("GMap.js");
 Include("Trial.js");
 Include("ZipReader.js");
 Include("gonogo_generate.js");
@@ -165,7 +166,7 @@ class GNGTrial extends Trial
         this.isLastTrial = false;
 
 
-
+        this.exportMap = new GMap();
 
 
         this.FixationTime = params.GetInt("TrialFixationTime", 0); // no fixation time in fading
@@ -240,7 +241,7 @@ Start()
 
   this.tapButton = new GButton(imButtonTap, (GameEngine.GetWidth() - imButtonTap.Get(0).w)/2, GameEngine.GetHeight() - imButtonTap.Get(0).h*2, 100);
 
-  this.tapButton.SetPressBorder(40);
+  this.tapButton.SetPressBorder(100);
 
 
   // if the button from the previous trial was pressed, set this trial's button to also be pressed
@@ -309,13 +310,16 @@ Update()
   else if (this.phase == 3) // show full time
   {
     this.showFullTrigger.TriggerStart();
+    
       if (this.showFullTrigger.Check())
       {
+        //LogMan.Log("DOLPH_GNG", "phase 3 activated:" + this.num);
           if (this.response == 0 && this.type == 1)
           {
            // no response, but it was a Go trial
            if (this.requireCorrect)
            {
+          //  LogMan.Log("DOLPH_GNG", "phase 3 require correct");
             this.phase = -1;
             this.failedAttempts++;
 
@@ -345,6 +349,8 @@ Update()
   {
    // showing is complete
 
+   this.SaveExportData();
+
    if (this.lastTrial != null)
    {
     this.lastTrial.ExportData();
@@ -353,6 +359,7 @@ Update()
    {
     this.ExportData();
    }
+
    this.CallEndTrial(false);
 
   }
@@ -506,6 +513,18 @@ Draw()
 
 }
 
+IsResponseCorrect()
+{
+  if (this.type == this.response)
+  {
+    return true;
+  }
+
+  return false;
+
+}
+
+
 
 GetFadePerc()
 {
@@ -528,12 +547,12 @@ GetFadePerc()
   var ty = y;
 
   {
-    if (this.tapButton.CheckPressed(tx,ty))
+    if (this.tapButton.CheckPressed(tx,ty) && this.phase >=2 && this.phase < 8)
     {
       this.AssignRT(clickInfo.GetTime());
 
         // response was given to this trial
-        if (this.responseTime >= 0)
+        if (this.responseTime >= 0 )
         {
            if (this.response == 1 && this.type == 1)
            {
@@ -613,17 +632,18 @@ GetFadePerc()
          // this means a response can never be lower than ~400 ms (when the fade time 1000ms) because a response is only accepted when 40% fade is in (ie 400ms)
          AssignRT(clickTime)
          {
- 
+            LogMan.Log("DOLPH_GNG", "assign RT");
  
              var rTime = clickTime;
  
  
                var fade  = this.GetFadePerc();
-               var lastFade = -1;
+              /* var lastFade = -1;
                if (this.lastTrial != null)
                {
+              
                  lastFade = this.lastTrial.GetFadePerc();
-               }
+               }*/
  
                if (this.FadeTime <= 0)
                {
@@ -634,24 +654,24 @@ GetFadePerc()
  
                var minAlphaReq = this.ImageVisibilityRequiredPerc*1.0/100;
  
- 
+      
  
  
                // v# represents the response type given by the algorithm
  
                // check to see which trial we are assigning this tap to
-               if (this.GetFadePerc() > .8 || this.lastTrial == null)
+               if (fade > .8 || this.lastTrial == null)
                {
                    // v0
                    this.SetResponse(rTime, "0");
                }
-               else if (this.GetFadePerc() < minAlphaReq)
+               else if (fade < minAlphaReq)
                {
                    // v0
                    this.lastTrial.SetResponse(rTime, "0");
  
                }
-               else if (this.fade >= minAlphaReq && fade <= .8)
+               else if (fade >= minAlphaReq && fade <= .8)
                {
                  if (this.lastTrial.responseTime >= 0 && this.responseTime < 0)
                  {
@@ -691,14 +711,24 @@ GetFadePerc()
                        else{this.lastTrial.SetResponse(rTime, "4c2");} // v4c2
  
                    }
+
+                   
  
  
  
  
                  }
+
+                 
  
 
            }
+
+           LogMan.Log("DOLPH_GNG", "assign RT current:" + this.responseAssignCode);
+          if (this.lastTrial != null)
+          {
+           LogMan.Log("DOLPH_GNG", "assign RT last:" + this.lastTrial.responseAssignCode);
+          }
          }
  
 
@@ -715,33 +745,40 @@ GetFadePerc()
  
          }
  
+SaveExportData()
+{
+    // must save values like this before exporting them because the values aren't exported until the next trial is completed. this means that the trigger values will be reset so we must save them before the trial ends.
 
+    this.exportMap.Put("targetFixationTime", "" +  this.fixationTrigger.GetTargetTime());
+    this.exportMap.Put("actualFixationTime", "" +  this.fixationTrigger.GetActualDisplayTime());
+
+    this.exportMap.Put("targetFadeTime", "" +  this.fadeTrigger.GetTargetTime());
+    this.exportMap.Put("actualFadeTime", "" +  this.fadeTrigger.GetActualDisplayTime());
+
+    this.exportMap.Put("targetShowFullTime", "" +  this.showFullTrigger.GetTargetTime());
+    this.exportMap.Put("actualShowFullTime", "" +  this.showFullTrigger.GetActualDisplayTime());
+
+   
+}
 
 ExportData()
 {
    
-          //  AddResult("trial_type", "" + strType);
+         for (var i = 0; i < this.exportMap.keyList.GetSize(); i++)
+         {
+            var key = this.exportMap.keyList.Get(i);
+            AddResult(key, this.exportMap.Get(key));
+         }
 
 
+         AddResult("correct_response", "" + this.type);
 
+         AddResult("response", "" + this.response); // 0 - no tap, 1 - tap
+     
+         AddResult("responseTime", "" + this.responseTime);
+     
+         AddResult("responseAssignment", "" + this.responseAssignCode);
 
-        // must export either image or letter depending on the stim type
-
-          //AddResult("image", "" +  image.GetFilename());
-
-          AddResult("targetFadeTime", "" +  this.fadeTrigger.GetTargetTime());
-          AddResult("actualFadeTime", "" +  this.fadeTrigger.GetActualDisplayTime());
-
-          AddResult("targetShowFullTime", "" +  this.showFullTrigger.GetTargetTime());
-          AddResult("actualShowFullTime", "" +  this.showFullTrigger.GetActualDisplayTime());
-
-          AddResult("correct_response", "" + this.type);
-
-          AddResult("response", "" + this.response); // 0 - no tap, 1 - tap
-
-          AddResult("responseTime", "" + this.responseTime);
-
-          AddResult("responseAssignment", "" + this.responseAssignCode);
 
           PushExportData();
 
