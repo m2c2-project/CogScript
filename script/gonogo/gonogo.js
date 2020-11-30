@@ -137,7 +137,16 @@ class GNGTrial extends Trial
         this.lastTrial = lastTrial;
         this.useImages = useImages;
      
-
+        // SkipButtonEnabled - not enabled
+        // FadeTime - time to fade in the image of the stim (default: 0ms)
+        // ShowFullTime - time to show the full stim after it has completely faded in (default: 1000) 
+        // FeedbackTime - time to display the feedback text (default: 0ms)
+        // AdvanceAfterTap - automatically go to the next trial after the button has been pressed (default: false)
+        // ImageVisibiltyRequiredPerc - percentage of the image that must be faded in for the button press to count for this image's trial (default: 40)
+        // ButtonShowPress - ms to show the button lit up after a press (default: 50ms)
+        // FixationTime - ms to show the fixation image in between trials (default: 0ms)
+        // RequireCorrect - true: requires the response to be correct before moving to the next trial; false: any response continues to the next trial (default: false)
+        // 
 
 
         this.skipButtonEnabled = params.GetBool("SkipButtonEnabled", false);
@@ -172,10 +181,10 @@ class GNGTrial extends Trial
         this.exportMap = new GMap();
 
 
-        this.FixationTime = params.GetInt("TrialFixationTime", 0); // no fixation time in fading
+        this.FixationTime = params.GetInt("FixationTime", 0); // no fixation time in fading
 
-        this.StartDelay = params.GetInt("StartFixTime", 0);//3000);
-        this.ShowStartCountDown = params.GetInt("ShowCountDown", 1);
+        //this.StartDelay = params.GetInt("StartFixationTime", 0);//3000); // not implemented
+        //this.ShowStartCountDown = params.GetInt("ShowCountDown", 1); // not implemented
 
 
         this.requireCorrect = params.GetBool("RequireCorrect", false);
@@ -291,12 +300,14 @@ Update()
 {
   super.Update();
 
+  // phase -1 is for waiting for the message boxes to end
+
   if (this.phase == -2) // between trial delay
   {
     this.trialDelayTrigger.TriggerStart();
     if (this.trialDelayTrigger.Check())
     {
-      this.phase = 2;
+      this.phase = 0;
 
     }
   }
@@ -310,7 +321,12 @@ Update()
       {
         this.fadeTrigger.TriggerStart();
         this.phase = 2;
-        if (this.fadeTime <= 0){this.phase = 3; this.showFullTrigger.TriggerStart();}
+        if (this.fadeTime <= 0)
+        { // for a trial that does not fade, skip to "show full" time
+            this.phase = 3; 
+            this.showFullTrigger.TriggerStart(); 
+            this.holdTime = KTime.GetMilliTime();
+        }
       }
 
   }
@@ -574,9 +590,12 @@ GetFadePerc()
         // response was given to this trial
         if (this.responseTime >= 0 )
         {
+
+          if (this.AdvanceAfterTap){ this.phase = 4;}
+
            if (this.response == 1 && this.type == 1)
            {
-            if (this.AdvanceAfterTap){ this.phase = 4;}
+            
            }
            else
            {
@@ -784,6 +803,15 @@ SaveExportData()
 ExportData()
 {
    
+
+         // correct_response: value that the 'response' should be in order to be correct (0 - no go, 1 - go)
+         // response: the actual response. (0 - no go, 1 - go)
+         // responseTime: ms time for user response. 
+         //                with fade (FadeTime > 0): time measured from start of fading in (image at 0% displayed) to user response time stamp. (see AssignRT algorithm to explain RT assignments for difference fade percentages.)
+         //                without fade (FadeTime == 0): time measured from first frame the stim is displayed
+         // responseAssignment: assignment code for response. Only applicable for trials with fade. (see AssignRT algorithm to explain RT assignments for difference fade percentages.)
+         // stim: identification of stimulus image used for this trial. For letter trials, this value will be a letter. For image trials, this will be the file name of the image.
+
          for (var i = 0; i < this.exportMap.keyList.GetSize(); i++)
          {
             var key = this.exportMap.keyList.Get(i);
