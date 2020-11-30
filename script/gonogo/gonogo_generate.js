@@ -239,28 +239,28 @@ else
         // trial type 0 = no go trial
         //            1 = go trial
 
-       /* int goBuffer = GoTrialBuffer; // number of go trials before a nogo trial is allowed
-        // make sure the first 2 trials are go trials
-        // remove the first 2 go trials
-        GList<Integer> goTrialHold = new GList<Integer>();
-        for (int i = 0; i < trialTypeList.GetSize() && goTrialHold.GetSize() < goBuffer; i++)
+     /*   var goBuffer = GoTrialBuffer; // number of go trials before a nogo trial is allowed
+        // make sure the first 2 GoTrialBuffer are go trials
+        // remove the first GoTrialBuffer go trials
+        var goTrialHold = new GList();
+        for (var i = 0; i < trialTypeList.GetSize() && goTrialHold.GetSize() < goBuffer; i++)
         {
-            if (trialTypeList.Get(i).intValue() == 1) // 1 = a go trial
+            if (trialTypeList.Get(i) == 1) // 1 = a go trial
             {
                 goTrialHold.Add(trialTypeList.Get(i));
                 trialTypeList.Remove(i);
                 i--;
             }
 
-        }*/
+        }
         // since the buffer go trials are removed, randomize the remaining trials
         if (!usesFixedOrder)
         {
           trialTypeList.Randomize();
-        }
+        }*/
 
         // Now add back the buffer trials to the start of the list
-       /* for (int i = 0; i < goTrialHold.GetSize(); i++)
+   /*     for (int i = 0; i < goTrialHold.GetSize(); i++)
         {
             trialTypeList.Insert(goTrialHold.Get(i), 0);
         }*/
@@ -295,6 +295,9 @@ else
                   }
                 }
             }
+
+            // don't allow a "no" trial if the beginning go buffer has not yet been reached. 
+            if (i < GoTrialBuffer){canBeNoTrial = false;}
 
 
 

@@ -145,7 +145,8 @@ class GNGTrial extends Trial
         // ImageVisibiltyRequiredPerc - percentage of the image that must be faded in for the button press to count for this image's trial (default: 40)
         // ButtonShowPress - ms to show the button lit up after a press (default: 50ms)
         // FixationTime - ms to show the fixation image in between trials (default: 0ms)
-        // RequireCorrect - true: requires the response to be correct before moving to the next trial; false: any response continues to the next trial (default: false)
+        // BetweenTrialDelay - ms to show a blank screen between trials (default: 0ms)
+        // RequireCorrect - [NOT WORKING, MESSAGE BOX CHANGE NEEDED IN ENGINE] true: requires the response to be correct before moving to the next trial; false: any response continues to the next trial (default: false)
         // 
 
 
@@ -384,6 +385,8 @@ Update()
   else if (this.phase == 4)
   {
    // showing is complete
+
+   //Game_TakeScreenshot("GNG"); // for DEBUGGING ONLY!
 
    this.SaveExportData();
 
