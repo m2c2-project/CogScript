@@ -1,9 +1,11 @@
 {
     "name":"Go No Go",
     "instructions":[ 
-        ["title:Instructions", "instruction page 1", "Press [b]Next[/b] to continue."],
+        ["title:Instructions", "You will see images flashing quickly on the screen.", "Press [b]Next[/b] to continue."],
 
-    ["title:Instructions", "page 2", "Press [b]Next[/b] to continue."],
+    ["title:Instructions", "Press the button when you see a city image.", "Press [b]Next[/b] to continue."],
+
+    ["title:Instructions", "Do NOT press the button when you see a mountain image.", "Press [b]Next[/b] to continue."],
 
      ["title:Instructions", "Press [b]Start[/b] to begin the task."]]
 }

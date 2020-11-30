@@ -8,6 +8,27 @@ function GenerateTrialSet()
 
  // read zip file
 
+ // useImages - true: use image files instead of letters; false: user letters (default: false)
+ // goLetters - character string of all letters for "go" trials (no spaces or delimiters)
+ // noGoLetters - character st ring of all letters for "no go" trials (no spaces or delimiters)
+ // zipFilename - zip file used when "useImages" is true (default: "gonogofade.zip")
+ // fileheaderGo - beginning of file names in zip file for "go" trials (default: "go", so the files would be named "go1.png", "go2.png", etc)
+ // fileheaderNoGo - beginning of file names in zip file for "no go" trials (default: "nogo", so the files would be named "nogo1.png"
+ // fileheaderDefault - beginning of the file name in zip file for the default image, the image that is show to start (default: "fixation", so the file name would be "fixation.png")
+
+      // GoTrialBuffer - number of go trials to "force" before a no go trial is allowed (ex: a value of 2 means the first 2 trials of each block must be a go trial.) (default: 2)
+      // MaxNoInRow - maximum number of "no go" trials in a row (default: 2)
+      // RandomImageOrder - true: images from zip file are randomly selected; false: images from zip file are selected in numeric order. (default: true)
+      //
+
+      // There are two methods of selecting the number of trials.
+      // 1: select the raw number of each type of trial (this method takes precedence over the other)
+      //    GoCount - number of go trials
+      //    NoGoCount - number of no go trials (if these values aree used, trialNum is not used.)
+      // 2: select the overall number of trials and then the percentage of each trial type
+      //    TrialCount - number of total trials
+      //    NoGoPerc - percentage of no go trials (defualt: 50)
+      
 
 
  var useImages = trialSetParam.GetString("useImages", false);
@@ -98,13 +119,14 @@ else
      
 
 
-      var  tutorialPhase = trialSetParam.GetInt("TutorialPhase", 0);
+
+    //  var  tutorialPhase = trialSetParam.GetInt("TutorialPhase", 0); // not implemented
 
         var trialNum = trialSetParam.GetInt("TrialNum", 0);
 
 
 
-       var StartDelay = trialSetParam.GetInt("StartFixTime", 3000);
+//       var StartDelay = trialSetParam.GetInt("StartFixTime", 3000); // not implemented
 
         var GoTrialBuffer; // number of go trials to "force" before a no go trial is allowed (ex: a value of 2 means the first 2 trials of each block must be a go trial.)
         GoTrialBuffer = trialSetParam.GetInt("GoTrialBuffer", 2);
@@ -119,7 +141,7 @@ else
         var randomImageOrder = trialSetParam.GetBool("RandomImageOrder", true);
 
 
-        var fixedTrialOrder = trialSetParam.GetString( "FixedTrialOrder", "");
+        var fixedTrialOrder = trialSetParam.GetString( "FixedTrialOrder", ""); // untested
 
         var usesFixedOrder = false;
         if (!fixedTrialOrder == "")
