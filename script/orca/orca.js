@@ -24,6 +24,8 @@ Include("orca_recall.js");
 // randomizeList(B) - true:randomize the order of the list; false: use order given in csv file. (default:false)
 // matchText(S) - text for the "match" button.
 // noMatchText(S) - text for the "no match" button
+// matchTextDim(S) - dimensions for "match" button: width,height,text size (default: "200,100,32")
+// noMatchTextDim(S) - dimensions for "no match" button: width,height,text size (default: "200,100,32")
 // autoAdvanceTime (I) - millisecond time to make selection before automatically moving to the next trial. -1 is infinite.
 // trialDelayTime (I) - millisecond time to show blank screen between trials.
 // usePhase(I) - 0: both phases, response and recall; 1: response phase only (default); 2. recall only
@@ -298,6 +300,10 @@ class ResponseTrial extends Trial
     constructor(zipReader, params, item)
     {
         super(params);
+
+
+        // matchButtonLeft - true: the "match" button is displayed to the left; false: the "match" button is displayed to the right (default true)
+        // 
 
         this.zipReader = zipReader;
 
@@ -579,6 +585,18 @@ OnClickDown(x,y,clickInfo)
 
         ExportData()
         {
+            // filename: csv file for this trial set
+            // item_name: name being displayed
+            // item_correct_name: correct name of item
+            // item_image: image being displayed
+            // item_set: set that this trial belongs to
+            // item_category: category that this trial belongs to
+            // item_character: actual character that should be displayed in the image
+            // item_md5: checksum md5 for the item
+            // response: user selected response (1 = match; 0 = no match)
+            // correct_response: the correct response to this trial (1 = match; 0 = no match)
+            // response_time: ms time before user response (from 
+
             AddResult("filename", this.useFile);
 
             
