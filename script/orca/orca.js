@@ -17,12 +17,13 @@ Include("orca_generate.js");
 
 // -----------------
 // Parameters:
-// zipFile (S) - ALL FILES IN ZIP MUST BE LOWER CASE! file name of zip file to use. contains all csv files of lists. (default: shoppinglist.zip)
+// zipFile (S) - ALL FILES IN ZIP MUST BE LOWER CASE! file name of zip file to use. contains all csv files of lists. (default: orca.zip)
 // listSelect (S) - "ordered":select list files from zip in order; "random":select list files from zip randomly, no replacement;
 //                  "random_all":select list files from zip randomly, with replacement; 
 //                  OR
 //                  exact file name of the csv file within the "zipFile" to use for this trialSet.
 // randomizeList(B) - true:randomize the order of the list; false: use order given in csv file. (default:false)
+// matchButtonLeft - true: the "match" button is displayed to the left; false: the "match" button is displayed to the right (default true)
 // matchText(S) - text for the "match" button.
 // noMatchText(S) - text for the "no match" button
 // matchTextDim(S) - dimensions for "match" button: width,height,text size (default: "200,100,32")
@@ -55,6 +56,12 @@ function LoadImages()
 {
     LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "load images" );
 
+
+
+    // button color
+    var buttonColor = new GColor(170,181,187);
+    var textColor = new GColor(0,0,0);
+
    // imTextGoodPrice = GImage_Create.CreateTextImage("Is this a good price?",45, true);
 
  //   imTextPriceOf = GImage_Create.CreateTextImage("What was the price\n of the:",45, true);
@@ -69,8 +76,8 @@ function LoadImages()
     matchTextSplit = matchTextDim.split(",");
     noMatchTextSplit = noMatchTextDim.split(",");
 
-    imButtonYes = GImage_Create.CreateButtonSet( matchText, ToInt(matchTextSplit[2]), true, ToInt(matchTextSplit[0]), ToInt(matchTextSplit[1]));
-    imButtonNo = GImage_Create.CreateButtonSet( noMatchText, ToInt(noMatchTextSplit[2]), true, ToInt(noMatchTextSplit[0]), ToInt(noMatchTextSplit[1]));
+    imButtonYes = GImage_Create.CreateButtonSet( matchText, ToInt(matchTextSplit[2]), true, ToInt(matchTextSplit[0]), ToInt(matchTextSplit[1]), buttonColor, buttonColor, textColor, buttonColor);
+    imButtonNo = GImage_Create.CreateButtonSet( noMatchText, ToInt(noMatchTextSplit[2]), true, ToInt(noMatchTextSplit[0]), ToInt(noMatchTextSplit[1]), buttonColor, buttonColor, textColor, buttonColor);
 
     imButtonBlank = GImage_Create.CreateButtonSet( "   ", 64, true, 150, 100);
 
@@ -126,8 +133,7 @@ class ResponseTrial extends Trial
         super(params);
 
 
-        // matchButtonLeft - true: the "match" button is displayed to the left; false: the "match" button is displayed to the right (default true)
-        // 
+         // 
 
         this.zipReader = zipReader;
 
@@ -421,8 +427,9 @@ OnClickDown(x,y,clickInfo)
             // item_character: actual character that should be displayed in the image
             // item_md5: checksum md5 for the item
             // response: user selected response (1 = match; 0 = no match)
+            // button text, left or right
             // correct_response: the correct response to this trial (1 = match; 0 = no match)
-            // response_time: ms time before user response (from 
+            // response_time: ms time before user response 
 
             AddResult("filename", this.useFile);
 

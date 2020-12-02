@@ -75,12 +75,16 @@ function LoadImages()
   var imCorrectStr = "Correct!";
   var imIncorrectStr = "Incorrect!";
 
+ // var buttonColor = new GColor(136,151,160);
+ var buttonColor = new GColor(170,181,187);
+  var textColor = new GColor(0,0,0);
+
   // must use this because generate trial set is before LoadImages(). should fix in v1.4
   
   imButtonStart = GImage_Create.CreateButtonSet(imButtonStartStr, 40, true, 200, 100);
   
 
-  imButtonTap = GImage_Create.CreateButtonSet(imButtonTapStr, 40, true, 240, 100);
+  imButtonTap = GImage_Create.CreateButtonSet(imButtonTapStr, 40, true, 240, 100, buttonColor, buttonColor, textColor, buttonColor);
 
   
   imTextPlus = GImage_Create.CreateTextImage("+",50, true);
@@ -106,7 +110,7 @@ function LoadImages()
         var skipButtonStr = "Skip";
        
 
-        imSkipButton = GImage_Create.CreateButtonSet(skipButtonStr, 22, true, 150, 60);
+        imSkipButton = GImage_Create.CreateButtonSet(skipButtonStr, 22, true, 150, 60, buttonColor, buttonColor, textColor, buttonColor);
 
 
 
