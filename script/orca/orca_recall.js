@@ -45,6 +45,9 @@ Include("orca_tools.js");
     LoadImages()
     {
 
+        var buttonColor = new GColor(42,42,42);
+        var textColor = new GColor(252,252,252);
+
 
         //LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "load trial images:" + this.item.imageFile );
         this.zipReader.Open();

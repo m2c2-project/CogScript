@@ -59,8 +59,8 @@ function LoadImages()
 
 
     // button color
-    var buttonColor = new GColor(170,181,187);
-    var textColor = new GColor(0,0,0);
+    var buttonColor = new GColor(42,42,42);
+    var textColor = new GColor(252,252,252);
 
    // imTextGoodPrice = GImage_Create.CreateTextImage("Is this a good price?",45, true);
 

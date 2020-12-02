@@ -78,7 +78,17 @@ function GenerateTrialSet()
 
     var kfile = zipReader.GetKFile(filename);
 
-    var csv = kfile.GetCSV(',');
+    var csv = kfile.GetCSVOrdered(',', ["filename", "current_word", "correct_word", "incorrect1", "incorrect2", "set", "category", "character", "create_md5_hash"]);
+
+    LogMan.Log("DOLPH_ORCA", "gen csv:" + csv.length + "x" + csv[0].length);
+
+    var debStr = "";
+    for (var i = 0; i < 5; i++)
+    {
+        debStr = debStr + csv[0][i] + ",";
+    }
+
+    LogMan.Log("DOLPH_ORCA", debStr);
 
     // skip first line
     for (var i = 1; i < csv.length; i++)
@@ -90,7 +100,7 @@ function GenerateTrialSet()
 
              var item = new Item();
             // read item
-            item.setName = csv[i][0].split(" ").join("");
+       /*     item.setName = csv[i][0].split(" ").join("");
             item.category = csv[i][1].split(" ").join("");
             item.character = csv[i][2].split(" ").join("");
             item.imageFile = csv[i][3].split(" ").join("");
@@ -101,10 +111,25 @@ function GenerateTrialSet()
             item.incorrect1 = csv[i][6].split(" ").join("");
             item.incorrect2 = csv[i][7].split(" ").join("");
 
+            item.md5hash = csv[i][8].split(" ").join("");*/
+
+            item.setName = csv[i][5].split(" ").join("");
+            item.category = csv[i][6].split(" ").join("");
+            item.character = csv[i][7].split(" ").join("");
+            item.imageFile = csv[i][0].split(" ").join("");
+            item.name = csv[i][1].split(" ").join("");
+            item.correctName = csv[i][2].split(" ").join("");
+            
+
+            item.incorrect1 = csv[i][3].split(" ").join("");
+            item.incorrect2 = csv[i][4].split(" ").join("");
+
             item.md5hash = csv[i][8].split(" ").join("");
 
             item.match = 0;
             if (item.name == item.correctName){item.match = 1;}
+
+
 
             itemList.Add(item);
         }
