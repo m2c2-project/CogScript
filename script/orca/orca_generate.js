@@ -83,18 +83,9 @@ function GenerateTrialSet()
     var csv = kfile.GetCSVOrdered(',', ["filename", "current_word", "correct_word", "set", "category", "character", "pairing_md5", "character_index", "incorrect1", "incorrect2"]);
 
 
-   // LogMan.Log("DOLPH_ORCA", "gen csv:" + csv.length + "x" + csv[0].length);
 
-   /* var debStr = "";
-    for (var i = 0; i < 5; i++)
-    {
-        debStr = debStr + csv[0][i] + ",";
-    }
-
-    LogMan.Log("DOLPH_ORCA", debStr);*/
-
-    // skip first line
-    for (var i = 1; i < csv.length; i++)
+    
+    for (var i = 0; i < csv.length; i++)
     {
         // if (i > 2){break;}
         
@@ -117,7 +108,7 @@ function GenerateTrialSet()
             item.md5hash = csv[i]["pairing_md5"];
 
             item.match = 0;
-            if (item.name == item.correctName){item.match = 1;}
+            if (item.name.toLowerCase() == item.correctName.toLowerCase()){item.match = 1;}
 
 
 

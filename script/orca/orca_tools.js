@@ -114,6 +114,17 @@ function GetUnusedDataFile(zipReader, random)
                 ResetUsedFiles(zipReader.GetFileName());
 
                 allFileList = zipReader.GetFileList();
+
+                // remove csvs
+                for (var i = 0; i < allFileList.GetSize(); i++)
+                {
+                  if (!allFileList.Get(i).includes(".csv"))
+                  {
+                      allFileList.Remove(i);
+                      i--;
+                  }
+                }
+
                 getFilename = allFileList.GetRandom();
 
                 break;

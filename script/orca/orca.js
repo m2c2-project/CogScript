@@ -288,6 +288,7 @@ class ResponseTrial extends Trial
                 {
                     this.phase = 5;
                     this.holdTime = KTime.GetMilliTime();
+                    Game_TakeScreenshot("ORCA");
                 }
             }
 
