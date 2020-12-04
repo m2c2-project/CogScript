@@ -230,6 +230,7 @@ class ResponseTrial extends Trial
 
 
         this.trialDelayTrigger = CreateTrigger(this.trialDelayTime);
+        this.autoAdvanceTrigger = CreateTrigger(this.autoAdvanceTime);
 
       
         this.phase = -2;
@@ -291,9 +292,15 @@ class ResponseTrial extends Trial
 
             else if (this.phase == 5)
             {
-                if (this.autoAdvanceTime > 0 && KTime.GetMilliTime() - this.holdTime >= this.autoAdvanceTime)
+                if (this.autoAdvanceTime > 0)
                 {
-                    this.phase = 6;
+                    // only handle auto advance if there is an auto advance timer set
+                    // otherwise, this phase only changes when a button is selected.
+                    this.autoAdvanceTrigger.TriggerStart();
+                    if (this.autoAdvanceTrigger.Check())
+                    {
+                      this.phase = 6;
+                    }
                 }
             }
 
@@ -340,9 +347,7 @@ class ResponseTrial extends Trial
         {
             super.Draw();
 
-            //GameEngine.SetColor(1,0,0);
 
-            //  GameDraw.DrawText("trial: " + num, 40,40);
 
             for (var i = 0; i < this.buttonList.GetSize(); i++)
             {
@@ -350,24 +355,8 @@ class ResponseTrial extends Trial
             }
 
             GameEngine.SetColor(0,0,0);
-        
-          /*  // top button
-            GameDraw.DrawImage(im1, this.buttonList.Get(0).kpos.x + (this.buttonList.Get(0).image.Get(0).w - im1.w)/2, this.buttonList.Get(0).kpos.y + (this.buttonList.Get(0).image.Get(0).h - im1.h)/2);
-
-            // bottom button
-            GameDraw.DrawImage(im2, this.buttonList.Get(1).kpos.x + (this.buttonList.Get(1).image.Get(0).w - im2.w)/2, this.buttonList.Get(1).kpos.y + (this.buttonList.Get(1).image.Get(0).h - im2.h)/2);
-
-            */
-
+ 
             GameEngine.ResetColor();
-/*
-      for (int i = 0; i < itemList.GetSize(); i++)
-      {
-       GameDraw.DrawText(itemList.Get(i).name + " " + itemList.Get(i).price + " " + itemList.Get(i).altPrice,40,50+20*i);
-      }*/
-
-      
-
 
         }
 
