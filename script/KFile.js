@@ -26,6 +26,15 @@ class KFile
   }
  }
 
+ Filter(filterStr, toStr = "")
+ {
+  for (var i = 0; i < this.lineList.GetSize(); i++)
+  {
+    this.lineList.Set(i, this.lineList.Get(i).split(filterStr).join(toStr));
+  }
+ }
+
+
 
 
 
@@ -77,14 +86,14 @@ class KFile
       // go through each row (after the header row 0)
       for (var j = 1; j < csv.length; j++)
       {
-        ret[j-1] = [];
+        ret[j-1] = {};
         // go through each column
         for (var i = 0; i < orderIndex.length; i++)
         {
           var col = orderIndex[i]; 
           if (col < csv[j].length)
           {
-              ret[j-1][i] = csv[j][col];
+              ret[j-1][order[i]] = csv[j][col];
           }
         }
       }
