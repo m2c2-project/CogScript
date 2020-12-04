@@ -298,18 +298,19 @@ OnClickDown(x,y,clickInfo)
             AddResult("filename", this.useFile);
 
             
-            AddResult("item_name", this.item.name);
+         
             AddResult("item_correct_name", this.item.correctName);
             AddResult("item_image", this.item.imageFile);
             AddResult("item_set", this.item.setName);
             AddResult("item_category", this.item.category);
             AddResult("item_character", this.item.character);
+            AddResult("item_character_index,", this.item.characterIndex);
+
 
             AddResult("item_incorrect_name1", this.item.incorrect1);
             AddResult("item_incorrect_name2", this.item.incorrect2);
       
             AddResult("item_md5", this.item.md5hash);
-
          
            /* var opt_order = "";
             for (var i = 0; i < this.buttonList.GetSize(); i++)

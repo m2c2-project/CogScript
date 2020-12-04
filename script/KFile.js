@@ -52,7 +52,7 @@ class KFile
  }
 
 
- GetCSVOrdered(delimiter, order)
+ GetCSVOrdered(delimiter, order, ignoreCase = true)
  {
    // returns a 2d of each line split by the delimiter
    // ordered by the header (first line)
@@ -63,15 +63,33 @@ class KFile
 
    var orderIndex = []; // integer order of the rows for output
 
+
+   var headerList = []
+
+   for (var i = 0; i < csv[0].length; i++)
+   {
+      var str = csv[0][i];
+      if (ignoreCase){str = str.toLowerCase();}
+      headerList[i] = str;
+   }
+
   // find the order
   for (var j = 0; j < order.length; j++)
   {
 
-    // go through each column
-   for (var i = 0; i < csv[0].length; i++)
+    // go through each column and find the matching index
+    var found = false;
+   for (var i = 0; i < headerList.length; i++)
    {
-     if (csv[0][i] == order[j]){orderIndex.push(i); break;}
+     if (headerList[i] == order[j]){orderIndex.push(i); found = true; break;}
    }
+
+   if (!found) 
+   {
+     // add a -1 to represent index not found
+     orderIndex.push(-1);
+   }
+
 
   
   }
@@ -91,7 +109,7 @@ class KFile
         for (var i = 0; i < orderIndex.length; i++)
         {
           var col = orderIndex[i]; 
-          if (col < csv[j].length)
+          if (col >= 0 && col < csv[j].length)
           {
               ret[j-1][order[i]] = csv[j][col];
           }

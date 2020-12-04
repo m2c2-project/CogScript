@@ -78,9 +78,9 @@ function GenerateTrialSet()
 
     var kfile = zipReader.GetKFile(filename);
 
-    //kfile.Filter(" "); // remove all spaces
+    kfile.Filter(" "); // remove all spaces
 
-    var csv = kfile.GetCSVOrdered(',', ["filename", "current_word", "correct_word", "set", "category", "character", "create_md5_hash"]);
+    var csv = kfile.GetCSVOrdered(',', ["filename", "current_word", "correct_word", "set", "category", "character", "pairing_md5", "character_index", "incorrect1", "incorrect2"]);
 
 
    // LogMan.Log("DOLPH_ORCA", "gen csv:" + csv.length + "x" + csv[0].length);
@@ -106,14 +106,15 @@ function GenerateTrialSet()
             item.setName = csv[i]["set"];
             item.category = csv[i]["category"];
             item.character = csv[i]["character"];
+            item.characterIndex = csv[i]["character_index"];
             item.imageFile = csv[i]["filename"];
             item.name = csv[i]["current_word"];
             item.correctName = csv[i]["correct_word"];
             
-            item.incorrect1 = "inc1";
-            item.incorrect2 = "inc2";
+            item.incorrect1 = csv[i]["incorrect1"];
+            item.incorrect2 = csv[i]["incorrect2"];
 
-            item.md5hash = csv[i]["create_md5_hash"];
+            item.md5hash = csv[i]["pairing_md5"];
 
             item.match = 0;
             if (item.name == item.correctName){item.match = 1;}

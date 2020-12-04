@@ -97,6 +97,7 @@ class Item
   this.setName = "NA";
   this.category = "NA";
   this.character = "NA";
+  this.characterIndex = "NA";
   this.correctName = "NA"; // actual correct name for the image/character
   this.md5hash = "NA";
 
@@ -429,6 +430,7 @@ OnClickDown(x,y,clickInfo)
             AddResult("item_set", this.item.setName);
             AddResult("item_category", this.item.category);
             AddResult("item_character", this.item.character);
+            AddResult("item_character_index", this.item.characterIndex);
       
             AddResult("item_md5", this.item.md5hash);
 
