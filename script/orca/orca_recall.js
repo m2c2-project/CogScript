@@ -46,15 +46,15 @@ Include("orca_tools.js");
     {
 
         var buttonColor = new GColor(42,42,42);
-        var textColor = new GColor(252,252,252);
+    var textColor = new GColor(252,252,252);
 
 
         //LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "load trial images:" + this.item.imageFile );
         this.zipReader.Open();
         // add in this space so some of the text doesn't get cut off. remove after the image generation is fixed in v1.4 update
-        this.imButtonCorrect = GImage_Create.CreateButtonSet( this.item.correctName, 32, true, 250, this.buttonH);
-        this.imButtonIncorrect1 = GImage_Create.CreateButtonSet( this.item.incorrect1, 32, true, 250, this.buttonH);
-        this.imButtonIncorrect2 = GImage_Create.CreateButtonSet( this.item.incorrect2, 32, true, 250, this.buttonH);
+        this.imButtonCorrect = GImage_Create.CreateButtonSet( this.item.correctName, 32, true, 250, this.buttonH, buttonColor, buttonColor, textColor, buttonColor);
+        this.imButtonIncorrect1 = GImage_Create.CreateButtonSet( this.item.incorrect1, 32, true, 250, this.buttonH, buttonColor, buttonColor, textColor, buttonColor);
+        this.imButtonIncorrect2 = GImage_Create.CreateButtonSet( this.item.incorrect2, 32, true, 250, this.buttonH, buttonColor, buttonColor, textColor, buttonColor);
         this.item.image = this.zipReader.GetImage(this.item.imageFile);
         //this.item.image.LoadImage(this.item.imageFile);
 
@@ -179,6 +179,7 @@ Include("orca_tools.js");
                 {
                     this.phase = 5;
                     this.holdTime = KTime.GetMilliTime();
+                    //Game_TakeScreenshot("ORCA_RECALL"); // debugging only
                 }
             }
 
@@ -310,7 +311,7 @@ OnClickDown(x,y,clickInfo)
             AddResult("item_incorrect_name1", this.item.incorrect1);
             AddResult("item_incorrect_name2", this.item.incorrect2);
       
-            AddResult("item_md5", this.item.md5hash);
+          //  AddResult("item_md5", this.item.md5hash); // md5 not given in this csv
          
            /* var opt_order = "";
             for (var i = 0; i < this.buttonList.GetSize(); i++)

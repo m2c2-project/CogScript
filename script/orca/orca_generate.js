@@ -108,7 +108,7 @@ function GenerateTrialSet()
             item.md5hash = csv[i]["pairing_md5"];
 
             item.match = 0;
-            if (item.name.toLowerCase() == item.correctName.toLowerCase()){item.match = 1;}
+            if (item.name != null && item.name.toLowerCase() == item.correctName.toLowerCase()){item.match = 1;}
 
 
 
