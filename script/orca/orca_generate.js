@@ -18,7 +18,7 @@ function GenerateTrialSet()
 
     // get zip file
 
-    var zipFilename = GetParam("zipfile", "orca.zip");
+    var zipFilename = GetParam("zipfile", "orca_set_A_learning.zip");
 
 
     var randomizeList = GetParamBool("randomizeList", false);
