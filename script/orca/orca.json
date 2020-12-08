@@ -8,7 +8,7 @@
      ["title:Instructions", "Press [b]Start[/b] to begin the task."]],
 
      "recognition_instructions":[ ["title:Instructions", "Over the previous week you learned some Chinese characters and English words that matched with them…", "Press [b]Next[/b] to continue."],
- ["title:Instructions", "On the following screens you will see three English words that you may have learned match with a Chinese character. Choose the English word you believe is a correct match for the Chinese character", "img:orca_3.png", "Press [b]Next[/b] to continue."],
+ ["title:Instructions", "On the following screens you will see three English words that you may have learned match with a Chinese character. Choose the English word you believe is a correct match for the Chinese character", "img:orca_3.jpg", "Press [b]Next[/b] to continue."],
   ["title:Instructions", "Press [b]Start[/b] to begin the task."]]
 
 }
