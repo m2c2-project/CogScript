@@ -161,7 +161,7 @@ class ResponseTrial extends Trial
     {
 
 
-        LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "load trial images:" + this.item.imageFile );
+        LogMan.Log("DOLPH_COGTASK_SHOPPING_S", "item name:" + this.item.name + ";load trial images:" + this.item.imageFile );
         this.zipReader.Open();
         // add in this space so some of the text doesn't get cut off. remove after the image generation is fixed in v1.4 update
         this.item.imName = GImage_Create.CreateTextImage(this.item.name,46, true);
@@ -439,7 +439,8 @@ OnClickDown(x,y,clickInfo)
             AddResult("response", "" + this.selectedResponse);
             AddResult("correct_response", "" + this.item.match);
             AddResult("response_time", "" + this.responseTime);
-
+            
+            AddResult("task_phase", "learning");
         }
 
 

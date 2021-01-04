@@ -275,6 +275,8 @@ Start()
 
   this.tapButton = new GButton(imButtonTap, (GameEngine.GetWidth() - imButtonTap.Get(0).w)/2, GameEngine.GetHeight() - imButtonTap.Get(0).h*2, 100);
 
+ // GameTest_CreateTouch( this.tapButton.kpos.x + 50, this.tapButton.kpos.y + 50);
+
   this.tapButton.SetPressBorder(100);
 
 
@@ -348,9 +350,12 @@ Update()
      }
 
   }
-  else if (this.phase == 3) // show full time
+  else if (this.phase == 3) // show full time (wait for touch)
   {
     this.showFullTrigger.TriggerStart();
+
+    //GameTest_CreateTouch( this.tapButton.kpos.x + 50, this.tapButton.kpos.y + 50);
+  
     
       if (this.showFullTrigger.Check())
       {
@@ -382,6 +387,7 @@ Update()
           }
           else
           {
+            
             this.phase = 4;
           }
       }
@@ -391,6 +397,8 @@ Update()
    // showing is complete
 
    //Game_TakeScreenshot("GNG"); // for DEBUGGING ONLY!
+
+   
 
    this.SaveExportData();
 
@@ -585,10 +593,20 @@ GetFadePerc()
  OnClickDown(x,y,clickInfo)
 {
   //this.CallEndTrial();
+   LogMan.Log("DOLPH_SCRIPT", "touch event in script");
 
   var tx = x;
   var ty = y;
-
+  
+  if (this.phase < 2)
+  {
+     // if the phase 
+    if (this.lastTrial != null)
+    {
+       this.lastTrial.OnClickDown(x,y,clickInfo);
+    }
+  }
+  else
   {
     if (this.tapButton.CheckPressed(tx,ty) && this.phase >=2 && this.phase < 8)
     {

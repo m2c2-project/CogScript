@@ -271,6 +271,8 @@ function GameRunner_DrawBlockTransition()
 
 function GameRunner_OnClickDown(x,y,clickTime)
 {
+  LogMan.Log("DOLPH_SCRIPT", "touch event in script 2");
+
   if (curTrial != null){curTrial.OnClickDown(x,y,new ClickInfo(x,y,clickTime, 0));}
   else
   {

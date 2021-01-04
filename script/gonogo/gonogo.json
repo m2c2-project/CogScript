@@ -1,11 +1,10 @@
 {
-    "name":"Go No Go",
-    "instructions":[ 
-        ["title:Instructions", "You will see images flashing quickly on the screen.", "Press [b]Next[/b] to continue."],
+"name":"Go No Go",
+"instructions":[ 
 
-    ["title:Instructions", "Press the button when you see a city image.", "Press [b]Next[/b] to continue."],
-
-    ["title:Instructions", "Do NOT press the button when you see a mountain image.", "Press [b]Next[/b] to continue."],
-
-     ["title:Instructions", "Press [b]Start[/b] to begin the task."]]
+["title:Instructions", "On the following screen, you will see instructions for the [b]Go-NoGo Fade[/b] cognitive task.", "Press [b]Next[/b] to continue."],
+["title:Instructions", "You will see pictures of mountains and cities - one at a time.", "img:mountain_city.png", "Press [b]Next[/b] to continue."],
+["title:Instructions", "When you see a [b]CITY[/b] picture, [b]press the button as quickly as you can[/b]", "img:city.png", "Press [b]Next[/b] to continue."],
+["title:Instructions", "When you see a [b]MOUNTAIN[/b] picture, [b] DO NOT PRESS the button[/b]", "img:mountain.png", "Press [b]Next[/b] to continue."],
+["title:Instructions", "Press [b]Start[/b] to begin the task."]]
 }

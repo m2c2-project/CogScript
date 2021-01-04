@@ -235,6 +235,9 @@ Include("orca_tools.js");
 
         Draw()
         {
+            GameEngine.SetColor(1,0,0);
+            GameDraw.DrawBox(0,0,50,50);
+            GameEngine.ResetColor();
             super.Draw();
 
             //GameEngine.SetColor(1,0,0);
@@ -325,6 +328,8 @@ OnClickDown(x,y,clickInfo)
             AddResult("response", "" + this.selectedResponse);
             AddResult("correct_response", "" + this.correctResponse);
             AddResult("response_time", "" + this.responseTime);
+
+            AddResult("task_phase", "recognition");
 
         }
 
