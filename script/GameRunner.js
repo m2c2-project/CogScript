@@ -321,9 +321,10 @@ function GameRunner_GetInstructions()
      
      // get the 'instructions' parameter and use that if available
      var inst_str = GetParam("instructions", "instructions");
-     var instructions = cog_resource[inst_str];
-     if (instructions != null)
+     var instructions = null; 
+     if (inst_str in cog_resource)
      {
+         instructions = cog_resource[inst_str];
          ReplaceParamInStrArray(instructions);
      }
        return instructions;
