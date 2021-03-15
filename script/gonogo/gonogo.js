@@ -275,7 +275,7 @@ Start()
 
   this.tapButton = new GButton(imButtonTap, (GameEngine.GetWidth() - imButtonTap.Get(0).w)/2, GameEngine.GetHeight() - imButtonTap.Get(0).h*2, 100);
 
- // GameTest_CreateTouch( this.tapButton.kpos.x + 50, this.tapButton.kpos.y + 50);
+  GameTest_CreateTouch( this.tapButton.kpos.x + 50, this.tapButton.kpos.y + 50);
 
   this.tapButton.SetPressBorder(100);
 
