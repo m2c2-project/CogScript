@@ -11,10 +11,10 @@ function GenerateTrialSet()
  // useImages - true: use image files instead of letters; false: user letters (default: false)
  // goLetters - character string of all letters for "go" trials (no spaces or delimiters)
  // noGoLetters - character st ring of all letters for "no go" trials (no spaces or delimiters)
- // zipFilename - zip file used when "useImages" is true (default: "gonogofade.zip")
- // fileheaderGo - beginning of file names in zip file for "go" trials (default: "go", so the files would be named "go1.png", "go2.png", etc)
- // fileheaderNoGo - beginning of file names in zip file for "no go" trials (default: "nogo", so the files would be named "nogo1.png"
- // fileheaderDefault - beginning of the file name in zip file for the default image, the image that is show to start (default: "fixation", so the file name would be "fixation.png")
+ // imagezip - zip file used when "useImages" is true (default: "gonogofade.zip")
+ // GoFileHeader - beginning of file names in zip file for "go" trials (default: "go", so the files would be named "go1.png", "go2.png", etc)
+ // NoGoFileHeader - beginning of file names in zip file for "no go" trials (default: "nogo", so the files would be named "nogo1.png"
+ // DefaultFileHeader - beginning of the file name in zip file for the default image, the image that is show to start (default: "fixation", so the file name would be "fixation.png")
 
       // GoTrialBuffer - number of go trials to "force" before a no go trial is allowed (ex: a value of 2 means the first 2 trials of each block must be a go trial.) (default: 2)
       // MaxNoInRow - maximum number of "no go" trials in a row (default: 2)
@@ -39,7 +39,7 @@ function GenerateTrialSet()
 
  var zipFilename = trialSetParam.GetString("imagezip", "gonogofade.zip");
 
- var fileheaderGo = trialSetParam.GetString("GoFileHeader", "go");//"Go");
+ var fileheaderGo = trialSetParam.GetString("GoFileHeader",  "go");//"Go");
  var fileheaderNoGo = trialSetParam.GetString("NoGoFileHeader", "nogo");//"No");
  var fileheaderDefault = trialSetParam.GetString("DefaultFileHeader", "fixation");//"No");
 
