@@ -308,7 +308,7 @@ OnClickDown(x,y,clickInfo)
             AddResult("item_set", this.item.setName);
             AddResult("item_category", this.item.category);
             AddResult("item_character", this.item.character);
-            AddResult("item_character_index,", this.item.characterIndex);
+            AddResult("item_character_index", this.item.characterIndex);
 
 
             AddResult("item_incorrect_name1", this.item.incorrect1);
