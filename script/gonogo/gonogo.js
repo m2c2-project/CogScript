@@ -9,15 +9,16 @@ Include("Trial.js");
 Include("ZipReader.js");
 Include("gonogo_generate.js");
 
+Include("gonogo_tests.js");
 
+curTest = new GNGTestFade();
 
 function Init()
 {
+  curTest = new GNGTestFade();
+
   SetName(GetName());
  // SetUpdateLastTrial(true);
-
-
-
 
 // must be here because LoadImages() is after GeneratTrials in v1.3. should change for v1.4
  /*imLetterBank = [];
@@ -35,6 +36,8 @@ function Init()
  noImageBank.Add(imLetterBank[88-65]);
  noImageBank.Add(imLetterBank[89-65]);
  //noImageBank.Add(imLetterBank[90-65]);*/
+
+
 
 
  imLetterBank = [];

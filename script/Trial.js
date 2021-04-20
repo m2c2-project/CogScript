@@ -71,3 +71,39 @@ class Trial
 
 
 }
+
+
+
+
+class TrialTest
+{
+    constructor()
+    {  
+      this.params = [];
+    
+    }
+
+
+    Init()
+    {
+      return null;
+    }
+
+
+
+    StartTrial()
+    {
+      return null;
+    }
+
+    Update()
+    {
+      return null;
+    }
+
+    EndTrial()
+    {
+      return null;
+    }
+
+}
