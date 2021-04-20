@@ -172,6 +172,7 @@ class GNGTrial extends Trial
         this.AdvanceAfterTap = params.GetBool("AdvanceAfterTap", false);
 
         this.ImageVisibilityRequiredPerc = params.GetInt("ImageVisibilityRequiredPerc", 40);
+        this.ImageVisibilityMaxPerc = params.GetInt("ImageVisibilityMaxPerc", 80);
 
 
         var buttonShowPress = this.AfterTapDelay;
@@ -720,6 +721,7 @@ GetFadePerc()
  
  
                var minAlphaReq = this.ImageVisibilityRequiredPerc*1.0/100;
+               var maxAlphaReq = this.ImageVisibilityMaxPerc*1.0/100;
  
       
  
@@ -727,7 +729,7 @@ GetFadePerc()
                // v# represents the response type given by the algorithm
  
                // check to see which trial we are assigning this tap to
-               if (fade > .8 || this.lastTrial == null)
+               if (fade > maxAlphaReq || this.lastTrial == null)
                {
                    // v0
                    this.SetResponse(rTime, "0");
@@ -738,7 +740,7 @@ GetFadePerc()
                    this.lastTrial.SetResponse(rTime, "0");
  
                }
-               else if (fade >= minAlphaReq && fade <= .8)
+               else if (fade >= minAlphaReq && fade <= maxAlphaReq)
                {
                  if (this.lastTrial.responseTime >= 0 && this.responseTime < 0)
                  {
