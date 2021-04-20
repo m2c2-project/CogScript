@@ -771,7 +771,7 @@ GetFadePerc()
                    else if (this.lastTrial.type == 0 && this.type == 1)
                    {
                       //v4b
-                      this.SetResponse(this.rTime, "4b");
+                      this.SetResponse(rTime, "4b");
                    }
                    else if (this.lastTrial.type == 1 && this.type == 1 || this.lastTrial.type == 0 && this.type == 0)
                    {
