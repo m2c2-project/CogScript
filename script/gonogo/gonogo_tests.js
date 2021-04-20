@@ -76,6 +76,16 @@ class GNGTestFade extends TrialTest
         {
             this.GoPress(trial);
         }
+        // RA: 4c1, trial 12
+        if (trial.num == 12 && trial.fadeTrigger.GetTimePerc() >= .65 && this.touchReady == 1)
+        {
+            this.GoPress(trial);
+        }
+        // RA: 4c2, trial 13
+        if (trial.num == 14 && trial.fadeTrigger.GetTimePerc() >= .45 && this.touchReady == 1)
+        {
+            this.GoPress(trial);
+        }
       
        // LogMan.Log("DOLPH_COGTEST", "update");
        
