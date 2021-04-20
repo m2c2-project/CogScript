@@ -48,6 +48,15 @@ class KTrigger
       
     }
 
+    GetTimePerc()
+    {
+        if (this.start < 0){return -1;}
+
+        var get = KTime.GetMilliTime() - this.start;
+        
+        return get*1.0/this.delay;
+    }
+
     Check()
     {
     // a delay less than zero always returns false

@@ -31,10 +31,16 @@ class GNGTestFade extends TrialTest
     {
        // LogMan.Log("DOLPH_COGTEST", "update");
 
-       if (trial.fadeTrigger.GetTime() > 400)
+       if (trial.num % 2 == 0)
        {
-        LogMan.Log("DOLPH_COGTEST", "pressed");
-            GameTest_CreateTouch( trial.tapButton.kpos.x + 50, trial.tapButton.kpos.y + 50);
+
+        
+        if (trial.fadeTrigger.GetTime() > 400)
+        {
+            LogMan.Log("DOLPH_COGTEST", "pressed");
+                GameTest_CreateTouch( trial.tapButton.kpos.x + 50, trial.tapButton.kpos.y + 50);
+        }
+
        }
         return null;
     }
