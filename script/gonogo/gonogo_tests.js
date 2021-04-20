@@ -37,23 +37,35 @@ class GNGTestFade extends TrialTest
 
     Update(trial)
     {
+       /*
+        <cogtask type="script" script="gonogo" TrialNum="10" FadeTime="800" ShowFullTime="0" FeedbackTime="0"  >
+                        <Block>
+                            <!--<TrialSet trialNum="5" goLetters="abc" noGoLetters="zxy"  NoGoPerc="10" FadeTime="800" TrialFixationTime="500" />-->
+                            <TrialSet trialNum="15" useImages="true" imageZip="gonogofade.zip"  GoFileHeader="city" NoGoFileHeader="mountain"
+                            FixedTrialOrder="0,1,1,1,1,1,1,0,1,1,0,1,1,1,1" />
+                        </Block>
+        </cogtask>
 
-        // go trial
+       */
+
+        // first trial is trial.num == 0
+        
+        // go trial, trial 1, RA: 0
         if (trial.num == 1 && trial.fadeTrigger.GetTimePerc() >= .85 && this.touchReady == 1)
         {
            this.GoPress(trial);
         }
-        // go trial
+        // go trial, trial 2, RA: 0 - response added the the trial before because it is low on the fade perc
         if (trial.num == 3 && trial.fadeTrigger.GetTimePerc() >= .15 && this.touchReady == 1)
         {
             this.GoPress(trial);
         }
-        // go trial
+        // go trial // trial 5, RA: 0
         if (trial.num == 5 && trial.fadeTrigger.GetTimePerc() >= .8 && this.touchReady == 1)
         {
             this.GoPress(trial);
         }
-        // RA: 1
+        // RA: 1 , trial 6
         if (trial.num == 6 && trial.fadeTrigger.GetTimePerc() >= .5 && this.touchReady == 1)
         {
             this.GoPress(trial);
