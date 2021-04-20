@@ -1,38 +1,45 @@
 
-
+Include("Trial.js");
 
 class GNGTestFade extends TrialTest
 {
   
+
     constructor()
     {  
-      this.params = [];
+        super();
     
     }
     
     Init()
     {
 
-        ErrorMan.AddError("test error");
-
-      return "init failure.";
+      //  ErrorMan.AddError("test error");
+      //ErrorMan.AddError("DOLPH_COGTEST", "test error");
+      LogMan.Log("DOLPH_COGTEST", "init");
+      return null;
     }
 
 
 
-    StartTrial()
+    StartTrial(trial)
     {
-
         return null;
     }
 
-    Update()
+    Update(trial)
     {
+       // LogMan.Log("DOLPH_COGTEST", "update");
 
+       if (trial.fadeTrigger.GetTime() > 400)
+       {
+        LogMan.Log("DOLPH_COGTEST", "pressed");
+            GameTest_CreateTouch( trial.tapButton.kpos.x + 50, trial.tapButton.kpos.y + 50);
+       }
         return null;
     }
     
-    EndTrial()
+    EndTrial(trial)
     {
         return null;
     }

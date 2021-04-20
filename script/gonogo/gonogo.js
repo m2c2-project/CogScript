@@ -11,7 +11,7 @@ Include("gonogo_generate.js");
 
 Include("gonogo_tests.js");
 
-curTest = new GNGTestFade();
+
 
 function Init()
 {

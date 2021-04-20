@@ -79,7 +79,7 @@ class TrialTest
 {
     constructor()
     {  
-      this.params = [];
+     // this.params = [];
     
     }
 
@@ -91,17 +91,17 @@ class TrialTest
 
 
 
-    StartTrial()
+    StartTrial(trial)
     {
       return null;
     }
 
-    Update()
+    Update(trial)
     {
       return null;
     }
 
-    EndTrial()
+    EndTrial(trial)
     {
       return null;
     }

@@ -15,6 +15,7 @@ function GameRunner_Init(paramKeyList, paramValList)
   usedParams = new GList();
 
   curTrial = null;
+  curTest = null;
 
   trialList = new GList();
 
@@ -187,7 +188,7 @@ function GameRunner_Start(paramKeyList, paramValList)
 
     if (curTest != null)
     {
-      curTest.StartTrial();
+      curTest.StartTrial(curTrial);
     }
 }
 
@@ -241,7 +242,7 @@ function GameRunner_Update()
 
   if (curTest != null)
     {
-      curTest.Update();
+      curTest.Update(curTrial);
     }
 
 
@@ -419,7 +420,7 @@ function CallEndTrial(exportData = true)
 
   if (curTest != null)
   {
-      curTest.EndTrial();
+      curTest.EndTrial(curTrial);
   }
 
  } 

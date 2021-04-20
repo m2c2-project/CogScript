@@ -40,6 +40,14 @@ class KTrigger
      TriggerEnd(this.index);
     }
 
+    GetTime()
+    {
+      if (this.start < 0){return -1;}
+      // returns elapsed time since start
+      return KTime.GetMilliTime() - this.start;
+      
+    }
+
     Check()
     {
     // a delay less than zero always returns false
