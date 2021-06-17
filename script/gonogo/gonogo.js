@@ -9,15 +9,16 @@ Include("Trial.js");
 Include("ZipReader.js");
 Include("gonogo_generate.js");
 
+Include("gonogo_tests.js");
+
 
 
 function Init()
 {
+  curTest = new GNGTestFade();
+
   SetName(GetName());
  // SetUpdateLastTrial(true);
-
-
-
 
 // must be here because LoadImages() is after GeneratTrials in v1.3. should change for v1.4
  /*imLetterBank = [];
@@ -35,6 +36,8 @@ function Init()
  noImageBank.Add(imLetterBank[88-65]);
  noImageBank.Add(imLetterBank[89-65]);
  //noImageBank.Add(imLetterBank[90-65]);*/
+
+
 
 
  imLetterBank = [];
@@ -169,6 +172,7 @@ class GNGTrial extends Trial
         this.AdvanceAfterTap = params.GetBool("AdvanceAfterTap", false);
 
         this.ImageVisibilityRequiredPerc = params.GetInt("ImageVisibilityRequiredPerc", 40);
+        this.ImageVisibilityMaxPerc = params.GetInt("ImageVisibilityMaxPerc", 80);
 
 
         var buttonShowPress = this.AfterTapDelay;
@@ -717,6 +721,7 @@ GetFadePerc()
  
  
                var minAlphaReq = this.ImageVisibilityRequiredPerc*1.0/100;
+               var maxAlphaReq = this.ImageVisibilityMaxPerc*1.0/100;
  
       
  
@@ -724,7 +729,7 @@ GetFadePerc()
                // v# represents the response type given by the algorithm
  
                // check to see which trial we are assigning this tap to
-               if (fade > .8 || this.lastTrial == null)
+               if (fade > maxAlphaReq || this.lastTrial == null)
                {
                    // v0
                    this.SetResponse(rTime, "0");
@@ -735,7 +740,7 @@ GetFadePerc()
                    this.lastTrial.SetResponse(rTime, "0");
  
                }
-               else if (fade >= minAlphaReq && fade <= .8)
+               else if (fade >= minAlphaReq && fade <= maxAlphaReq)
                {
                  if (this.lastTrial.responseTime >= 0 && this.responseTime < 0)
                  {
@@ -766,7 +771,7 @@ GetFadePerc()
                    else if (this.lastTrial.type == 0 && this.type == 1)
                    {
                       //v4b
-                      this.SetResponse(this.rTime, "4b");
+                      this.SetResponse(rTime, "4b");
                    }
                    else if (this.lastTrial.type == 1 && this.type == 1 || this.lastTrial.type == 0 && this.type == 0)
                    {

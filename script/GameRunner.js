@@ -15,6 +15,7 @@ function GameRunner_Init(paramKeyList, paramValList)
   usedParams = new GList();
 
   curTrial = null;
+  curTest = null;
 
   trialList = new GList();
 
@@ -24,6 +25,11 @@ function GameRunner_Init(paramKeyList, paramValList)
 
 
     Init();
+
+    if (curTest != null)
+    {
+      curTest.Init();
+    }
 
 
 }
@@ -178,6 +184,12 @@ function GameRunner_Start(paramKeyList, paramValList)
     {
      Start();
     }
+
+
+    if (curTest != null)
+    {
+      curTest.StartTrial(curTrial);
+    }
 }
 
 function GameRunner_LoadImages()
@@ -226,6 +238,12 @@ function GameRunner_Update()
     // main update
      Update();
   }
+
+
+  if (curTest != null)
+    {
+      curTest.Update(curTrial);
+    }
 
 
 }
@@ -398,6 +416,12 @@ function CallEndTrial(exportData = true)
 
   // push to native
   PushExportData();
+
+
+  if (curTest != null)
+  {
+      curTest.EndTrial(curTrial);
+  }
 
  } 
 

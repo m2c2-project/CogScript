@@ -50,6 +50,23 @@ class KTrigger
      TriggerEnd(this.index);
     }
 
+    GetTime()
+    {
+      if (this.start < 0){return -1;}
+      // returns elapsed time since start
+      return KTime.GetMilliTime() - this.start;
+      
+    }
+
+    GetTimePerc()
+    {
+        if (this.start < 0){return -1;}
+
+        var get = KTime.GetMilliTime() - this.start;
+        
+        return get*1.0/this.delay;
+    }
+
     Check()
     {
     // a delay less than zero always returns false
