@@ -102,6 +102,11 @@ class Entity
   return this.hitBox.PointCollide(this.position.x,this.position.y, tx, ty);
  }
 
+ EntCollide(otherEnt)
+ {
+   return this.hitBox.BoxCollide(this.position.x, this.position.y, otherEnt, otherEnt.position.x, otherEnt.position.y);
+ }
+
 
  SetImage(image)
  {

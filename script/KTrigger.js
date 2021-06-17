@@ -27,11 +27,21 @@ class KTrigger
     }
 
 
+    Reset()
+    {
+        this.start = -1;
+        this.end = -1;
+    }
+
+
 
     Start()
     {
-      this.start = KTime.GetMilliTime();
-      TriggerStart(this.index); // this is the Global TriggerStart function that calls the native Trigger_Start function
+      if (this.start < 0)
+      {
+       this.start = KTime.GetMilliTime();
+       TriggerStart(this.index); // this is the Global TriggerStart function that calls the native Trigger_Start function
+      }
     }
 
     End()
