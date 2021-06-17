@@ -2,9 +2,8 @@
 Include("Entity.js");
 Include("Tools.js");
 Include("GButton.js");
-Include("ZipReader.js");
 Include("GImage_Create.js");
-
+Include("ZipReader.js");
 // --------------------------------
 // Global Cog Task Functions
 // --------------------------------
@@ -34,21 +33,22 @@ function GetInstructions()
 // create/load images
 function LoadImages()
 {
-  var text = GetParamString("testtext", "none");
-  imText = GImage_Create.CreateTextImage("Hello this a demo:" + text, 32, true);
+     var text = GetParamString("testtext", "no value");
 
-  imApple = new GImage();
-  imApple.LoadImage("apple.png");
+     imDisplayText = GImage_Create.CreateTextImage("Hello:" + text, 32, true);
+
+     imApple = new GImage();
+     imApple.LoadImage("apple.png");
 
 
-     zipReader =  new ZipReader( GetParamString("filename", "faces.zip") );
+     zipReader =  new ZipReader("faces.zip");
 
      zipReader.Open();
 
-     imApple = zipReader.GetImage("human1.png");
+     imApple = zipReader.GetImage("human2.png");
 
      zipReader.Close();
-  
+
 
 }
 
@@ -56,7 +56,8 @@ function LoadImages()
 // draw commands for a block transition, do not define to use the default
 /*function DrawBlockTransition()
 {
-
+  GameEngine.SetColor(1,0,0);
+  GameDraw.DrawBox(50,50,50,50);
 }*/
 
 // --------------------------------
@@ -67,26 +68,22 @@ function LoadImages()
 // run at the start of each trial
 function Start()
 {
+      dx = 70;
+      dy = 200;
       cTrial = cTrial + 1;
 
-      
-   
-      xpos = GetParamInt("displayNumber", -50);
-
-      ypos = 100;
-
       ent = new Entity(imApple, 50, 50);
-      ent.position.SetTarget(300, 300);
 
+      //ent.position.SetTarget(200, 500);
+      
+      AddEnt(ent);
 
       phase = 0;
 
 
-      rot = 0;
-
-      holdTime = KTime.GetMilliTime();
+      startTrigger = CreateTrigger(1000);
+      holdTime = -1;
       responseTime = -1;
-
 }
 
 
@@ -95,36 +92,33 @@ function Start()
 // Update loop, called once a cycle
 function Update()
 {
-       rot++;
-       ent.rot = rot;
+        // dx = dx + 5;
+         if (dx > GameEngine.GetWidth()) {dx = 0;}
 
-       if (phase == 0) // wait for apple to get to target
-       {
-          if (ent.position.AtTarget())
-          {
-            ent.position.SetTarget(0,0);
+         ent.rot = ent.rot + 2;
 
-            phase = 1;
-          }
+      if (phase == 0)
+      {
+        startTrigger.Start();
 
-       }
-       else if (phase == 1)
-       {
-         if (ent.position.AtTarget())
+         if (startTrigger.Check())
          {
-           ent.position.SetTarget(300,300);
-
-           phase = 0;
+            holdTime = KTime.GetMilliTime();
+            phase = 1;
          }
 
-       }
-      /*   xpos = xpos + 2;
-         if (xpos > GameEngine.GetWidth())
+      }
+      else if (phase == 1)
+      {
+         if (ent.position.AtTarget())
          {
-            xpos = 0;
-         }*/
+            //ent.position.SetTarget(300,600);
+            //phase = 2;
+         }
 
-         ent.Update();
+      }
+
+
 }
 
 // Draw commands, called once every time the screen is refreshed
@@ -134,29 +128,38 @@ function Draw()
    GameDraw.DrawText("trial:" + cTrial, 50 ,50);
 
    GameEngine.SetColor(0,1,0);
-   GameDraw.DrawBox(xpos,ypos, 50, 100);
+
+   GameDraw.DrawBox(dx, dy, 100, 100);
+
 
    GameEngine.SetColor(0,0,0);
-   GameDraw.DrawImage(imText, 0,0);
+   GameDraw.DrawImage(imDisplayText, 0,0);
 
-   GameEngine.ResetColor();
-  // GameDraw.DrawImage(imApple, 200,300);
 
-   ent.Draw();
+   
 }
 
 
 function OnClickDown(x,y,clickInfo)
 {
-   xpos = x;
-   ypos = y;
-   //ent.position.SetTarget(x,y);
+     dx = x;
+     dy = y;
+  // CallEndTrial();
 
-   if (ent.PointCollide(x,y))
-   {
-     responseTime = KTime.GetMilliTime() - holdTime;
-     CallEndTrial();
-   }
+  ent.position.SetTarget(x,y);
+
+
+  if (phase == 1)
+  {
+    responseTime = KTime.GetMilliTime() - holdTime;
+    CallEndTrial();
+  }
+    
+ /*   if ( ent.PointCollide(x,y) )
+    {
+      ent.position.SetTarget(x,y);
+     
+    }*/
 }
 
 function OnClickUp(x,y,clickInfo)
@@ -166,8 +169,10 @@ function OnClickUp(x,y,clickInfo)
 
 function OnClickMove(x,y,clickInfo)
 {
-   xpos = x;
-   ypos = y;
+   dx = x;
+     dy = y;
+
+     ent.position.SetTarget(x,y);
 }
 
 
@@ -177,6 +182,5 @@ function OnClickMove(x,y,clickInfo)
 function ExportData()
 {
    AddResult("trial_number", "" + cTrial);
-
-   AddResult("responseTime", "" + responseTime);
+   AddResult("response_time", "" + responseTime);
 }
