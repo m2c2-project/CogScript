@@ -10,11 +10,8 @@ Include("GImage_Create.js");
 
 function Init()
 { 
-  trialNum = 0;
-
   // global cogtask variables
   SetName(GetName());
-
 }
 
 function GetName()
@@ -25,11 +22,7 @@ function GetName()
 function GetInstructions()
 {
  // return array of strings for the instructions
-
- 
-
  return ["--Thse are the instructions", "--Follow them."];
- 
 }
 
 
@@ -40,11 +33,29 @@ function LoadImages()
 
 }
 
-
 function DrawBlockTransition()
 {
 
 }
+
+
+// this is where all the trials should be created
+function GenerateTrialSet()
+{
+  trialNum = GetParamInt("TrialNum", 0);
+  
+
+  // create a list of trial params to send to native app to create trials with
+  generateTrialParamList = new GList();
+
+  for (var i = 0; i < trialNum; i++)
+  {
+    
+    generateTrialParamList.Add(params);
+  }
+}
+
+
 
 // --------------------------------
 // Individual Trial Functions
