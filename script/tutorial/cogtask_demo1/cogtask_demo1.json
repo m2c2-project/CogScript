@@ -1,0 +1,9 @@
+{
+    "instructions":[ 
+    	["title:Instructions", "On the next screen, you will be presented with instructions for the [b]Demo[/b] task.", "Press [b]Next[/b] to continue."],
+	            ["title:Instructions", "This is an apple",
+				"img:apple.png", 
+				"Press [b]Next[/b] to continue."],
+       			["title:Instructions", "Press [b]Start[/b] to begin the task."]]
+
+}
