@@ -51,6 +51,7 @@ function LoadImages()
 // run at the start of each trial
 function Start()
 {
+      dx = 70;
       cTrial = cTrial + 1;
 }
 
@@ -60,7 +61,8 @@ function Start()
 // Update loop, called once a cycle
 function Update()
 {
-         
+         dx = dx + 1;
+         if (dx > GameEngine.GetWidth()) {dx = 0;}
 
 
 }
@@ -69,14 +71,14 @@ function Update()
 function Draw()
 {
    GameEngine.SetColor(1,0,0);
-   GameDraw.DrawText("trial:" + cTrial, 50 ,50);
+   GameDraw.DrawText("trial:" + cTrial, dx ,50);
 }
 
 
 function OnClickDown(x,y,clickInfo)
 {
-  
-   CallEndTrial();
+     dx = x;
+  // CallEndTrial();
 }
 
 function OnClickUp(x,y,clickInfo)

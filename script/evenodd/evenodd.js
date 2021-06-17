@@ -10,6 +10,19 @@ function Init()
 {
   SetName("evenodd_script");
 
+ 
+
+}
+
+
+function GetName()
+{
+  return "evenodd";
+}
+
+function GetInstructions()
+{
+ return ["select even or odd"];
 }
 
 var numberList = new GList(); 
@@ -17,7 +30,7 @@ var numberList = new GList();
 // create/load images
 function LoadImages()
 {
- imTextEvenOrOdd = GImage_Create.CreateTextImage("le français is this number\n even or odd?", 32, true);
+ imTextEvenOrOdd = GImage_Create.CreateTextImage("is this number\n even or odd?", 32, true);
 
  imSetButtonEven = GImage_Create.CreateButtonSet("even", 32, true, 150, 100);
  imSetButtonOdd = GImage_Create.CreateButtonSet("odd", 32, true, 150, 100);
@@ -34,7 +47,8 @@ function LoadImages()
 
 
 
-
+var phase = 0;
+var entNumber = null;
 // run at the start of each trial
 function Start()
 {
@@ -43,7 +57,9 @@ function Start()
 
  selection = -1;
  responseTime = -1;
-  showNumber = GetParam("useNumber", GameEngine.Random(1,10));//GameEngine.Random(0,10);
+ showNumber = GetParamInt("useNumber", GameEngine.RandomInt(1,9));//GameEngine.Random(0,10);
+  
+  LogMan.Log("DOLPH_EVENODD", showNumber);
 
   fixTrigger = CreateTrigger(1000);
   studyTrigger = CreateTrigger(1000);
@@ -58,7 +74,7 @@ function Start()
   entFix.alpha.Set(1,1,1);
 
   // create number entity
-  entNumber = new Entity(numberList.Get(showNumber), numberList.Get(0).GetCenterX(), numberList.Get(showNumber).GetCenterY());
+  entNumber = new Entity(numberList.Get(showNumber), numberList.Get(showNumber).GetCenterX(), numberList.Get(showNumber).GetCenterY());
   entNumber.SetColor(new GColor(0,0,0));
   entNumber.alpha.Set(0,0,.2);
 
