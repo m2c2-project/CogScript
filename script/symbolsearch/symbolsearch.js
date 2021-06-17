@@ -22,26 +22,6 @@ function GetName()
     return "Symbol Search";
 }
 
-function GetInstructions()
-{
- // return array of strings for the instructions
-
- matchPairsTop = GetParamInt("MatchPairsTop", 4);
-
- //return ["--You will see " + matchPairsTop + " pairs of symbols on the top of the screen and 2 pairs of symbols on the bottom of the screen.", "--As quickly and as accurately as you can, please touch the pair on the bottom that exactly matches one of the pairs on top."];
- /*
-return [ "You will see a series of tiles at the top and bottom of the screen.", "",
-    "As quickly and as accurately as you can, please touch the title on the bottom of the screen that exactly matches one of the tiles at the top of the screen."
-        ];
-        */
-
-
-       return [ [ "You will see a series of symbol tiles. Select the symbol tile from the bottom of the screen that matches a symbol tile on the top.",
-                  "img:symbol2.png", "Press [b]Next[/b] to continue."],
-                 ["Here is an example of a correct response.", "img:symbol3.png", "Press [b]Start[/b] to begin."]];
-
-}
-
 
 
 

@@ -71,4 +71,9 @@ adb shell "mkdir %dolph%/shoppinglist"
 
 for %%i in (shoppinglist/*) do (adb push shoppinglist/%%i %dolph%/shoppinglist)
 
+adb shell "mkdir %dolph%/image_test"
+
+for %%i in (image_test/*) do (adb push image_test/%%i %dolph%/image_test)
+
+
 pause

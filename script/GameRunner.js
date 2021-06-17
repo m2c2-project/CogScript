@@ -271,6 +271,8 @@ function GameRunner_DrawBlockTransition()
 
 function GameRunner_OnClickDown(x,y,clickTime)
 {
+  LogMan.Log("DOLPH_SCRIPT", "touch event in script 2");
+
   if (curTrial != null){curTrial.OnClickDown(x,y,new ClickInfo(x,y,clickTime, 0));}
   else
   {
@@ -317,8 +319,14 @@ function GameRunner_GetInstructions()
    {
      // cog_resource is defined
      
-      var instructions = cog_resource["instructions"];
-      ReplaceParamInStrArray(instructions);
+     // get the 'instructions' parameter and use that if available
+     var inst_str = GetParam("instructions", "instructions");
+     var instructions = null; 
+     if (inst_str in cog_resource)
+     {
+         instructions = cog_resource[inst_str];
+         ReplaceParamInStrArray(instructions);
+     }
        return instructions;
    }
     
@@ -372,20 +380,26 @@ function AddEnt(entity)
 
 
 
-function CallEndTrial()
+function CallEndTrial(exportData = true)
 {
  //call trial ExportData()
- if (curTrial != null)
- {
-    curTrial.ExportData();
- }
- else if (typeof(ExportData) !== 'undefined')
- {
-  ExportData();
- }
 
- // push to native
- PushExportData();
+ if (exportData)
+ {
+  if (curTrial != null)
+  {
+      curTrial.ExportData();
+  }
+  else if (typeof(ExportData) !== 'undefined')
+  {
+    ExportData();
+  }
+
+
+  // push to native
+  PushExportData();
+
+ } 
 
  // Call Native End Trial
  Game_EndTrial();

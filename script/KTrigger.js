@@ -31,7 +31,7 @@ class KTrigger
     Start()
     {
       this.start = KTime.GetMilliTime();
-      TriggerStart(this.index);
+      TriggerStart(this.index); // this is the Global TriggerStart function that calls the native Trigger_Start function
     }
 
     End()
@@ -110,6 +110,11 @@ class KTrigger
     // return this.end-this.start;
 
      return TriggerGetActualDisplayTime(this.index);
+    }
+
+    GetTargetTime()
+    {
+        return this.GetDelay();
     }
 
     GetDelay()

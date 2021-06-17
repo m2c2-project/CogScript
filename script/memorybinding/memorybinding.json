@@ -1,0 +1,19 @@
+{
+    "instructions":[
+    	["title:Instructions", "On the next screen, you will be presented with instructions for the [b]Color Shapes[/b] task.", "Press [b]Next[/b] to continue."],
+	                ["title:Instructions", "Colored shapes will appear briefly on the screen.", 
+					  "The color and shape are important but [b]NOT[/b] their location.", 
+					    "img:CS1.png", "Press [b]Next[/b] to continue."], 
+
+                      ["title:Instructions", "Try to remember the shapes and their colors, because they will soon disappear.",
+					  "img:CS1.png", 
+					  "Press [b]Next[/b] to continue."],
+
+                     ["title:Instructions", "Next, you will see the same shapes reappear.", 
+					 "Please answer whether the shapes have the SAME or DIFFERENT colors as they had before.", 
+					 "img:CS2.png",  
+					 "Press [b]Next[/b] to continue."],
+					 	["title:Instructions", "Press [b]Start[/b] to begin the task."]
+					 ]
+
+}
