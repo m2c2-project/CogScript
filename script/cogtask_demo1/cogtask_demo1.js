@@ -54,10 +54,13 @@ function LoadImages()
 
 
 // draw commands for a block transition, do not define to use the default
-/*function DrawBlockTransition()
+function DrawBlockTransition()
 {
-
-}*/
+   GameEngine.ResetColor();
+   GameDraw.DrawBox(0,0,GameEngine.GetWidth(), GameEngine.GetHeight());
+   GameEngine.SetColor(1,0,0);
+   GameDraw.DrawBox(50,50,50,50);
+}
 
 // --------------------------------
 // Individual Trial Functions
