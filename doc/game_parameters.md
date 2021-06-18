@@ -2,6 +2,37 @@
 
 The Game Parameters are handled by the GameParams class in GameParams.js.
 
+## Game Parameters overview
+
+Game parameters are setup as a set of nested parameters. There are 3 different levels of parameters:
+
+1. Global Parameters
+2. Block Parameters
+3. Trial Set Parameters
+
+The parameters are inherited from its parent parameter. If there is a conflict (aka a parameter is redefined) the child's parameter is used. For example, if a block defines the parameter "upperBounds"="100" and the trial set within it defines the parameter "upperBounds"="90", the trial set will get the parameter "upperBounds"="90".
+
+If blocks and trial sets are not defined, every trial will use the Global Parameters.
+
+The parameters will be automatically given to the script by the Game Engine. These will be handled by the app that is running the cognitive task. Each trial only needs to know how to handle its own parameters.
+
+All parameter keys are case insensitive.
+
+## Restricted parameters
+
+There are some parameter key names which are restricted because they have values which are already defined:
+
+- "TrialNum"-the number of trials
+- "RandomizeBlocks"- true or false. when true, the blocks in the cogtask are randomized. Otherwise, they are presented in order.
+- "RandomizeTrialSets"- true or false. when true, the trialsets in this block are randomized. Otherwise, they are presented in order.
+- "type" - type of cogtask being run
+- "script" - script type to run
+- "scriptDir" - location of script files
+- "debug" - true or false, sets debug mode on or off
+- "displayName" - name to display to the user
+- "exportName" - name used in the export data
+- "instructions" - true or false. sets instruction screen on or off.
+
 ## Simple CogTasks
 
 To get the parameters for the current trial, use the GetParamString(), GetParamInt(), GetParamBool(), and GetParamColor() functions.

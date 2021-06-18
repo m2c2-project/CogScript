@@ -13,11 +13,6 @@ For a cognitive task to be read by the engine, it must be in a directory "script
 
 If a file "script/COGTASK_NAME/COGTASK_NAME.json" is included, it will be read in as the resource.
 
-
-# Limitations
-
-
-
 # Possible additions
 
 - Allow the code to be written in typescript to force type safe operations and guard against errors.
