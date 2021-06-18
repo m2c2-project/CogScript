@@ -139,6 +139,11 @@ function Start()
             if (matchPairsTop < 1){matchPairsTop = 1;}
             else if (matchPairsTop > 4){matchPairsTop = 4;}
 
+            questionTextDisplayStyle = GetParamInt("questionTextDisplayStyle", 0);
+            // questionTextDisplayStyle = 0 - no fade always on screen
+            //                            1 - don't show during transition, no fade (immediately appear)
+            //                            2 - don't show during transition, fade in
+            //                            3 - off
             phase = 0;
 
             type = Symbol.REGULAR; // set this as type lure or not
@@ -406,13 +411,30 @@ function Draw()
                 symbolList.Get(i).Draw(0,0);
             }
 
-            if (phase == 1) // wait for selection
+            if (true) // wait for selection
             {
+               
                 centerX = (symbolListBottom.Get(0).GetX() + symbolListBottom.Get(1).GetX() + symbolListBottom.Get(1).GetWidth())/2;
-                GameEngine.SetColor(0,0,0,textFade);
+
+                var questionAlpha = 1;
+                if (questionTextDisplayStyle == 1 ) // no fade, display only when symbols are ready
+                {
+                    if (symbolListBottom.Get(0).AtTarget()){questionAlpha = 1;}
+                    else {questionAlpha = 0;}
+                }
+                else if (questionTextDisplayStyle == 2) // fade in
+                {
+                    questionAlpha = textFade;
+                }
+                else if (questionTextDisplayStyle == 3) // off
+                {
+                    questionAlpha = 0;
+                }
+
+                GameEngine.SetColor(0,0,0,questionAlpha);
                 //GameDraw.DrawText("Which of these matches", centerX, symbolListBottom.Get(0).GetY() - GameEngine.GetTextSize()*3f+5, true);
                    // GameDraw.DrawText("a pair above?", centerX, symbolListBottom.Get(0).GetY() - GameEngine.GetTextSize()*2f+5, true);
-                GameDraw.DrawImage(imMatchText, centerX - imMatchText.w/2, splitLineY + (symbolListBottom.Get(0).GetY() - splitLineY)/2 - imMatchText.h/2);
+                GameDraw.DrawImage(imMatchText, GameEngine.GetWidth()/2 - imMatchText.w/2, splitLineY + (symbolListBottom.Get(0).GetY() - splitLineY)/2 - imMatchText.h/2);
 
                // GameDraw.DrawText("or", centerX, symbolListBottom.Get(0).GetY() + symbolListBottom.Get(0).GetHeight()/4, true);
                GameDraw.DrawImage(imOrText, centerX - imOrText.w/2, symbolListBottom.Get(0).GetY() + symbolListBottom.Get(0).GetHeight()/4);
