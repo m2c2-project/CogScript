@@ -57,7 +57,9 @@ function GenerateTrialSet()
 
   for (var i = 0; i < trialNum; i++)
   {
-    AddTrial(new MyTrial(trialSetParam, i, lastTrial));
+    var trial = new MyTrial(trialSetParam, i, lastTrial);
+    AddTrial(trial);
+    lastTrial = trial;
   }
 }
 

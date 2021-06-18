@@ -74,7 +74,7 @@ Example:
 
 ### GenerateTrialSet()
 
-This function is used to generate all the trials in a trial set. This is where all the trial parameters should be read and interpreted into the trials.
+This function is used to generate all the trials in a trial set. This is where all the trial parameters should be read and interpreted into the trials. Implementing this function gives you more control over how the trials are generated.
 
 Example:
 
