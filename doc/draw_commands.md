@@ -2,6 +2,8 @@
 
 The following functions are used to draw images to the screen. These functions should be used in a trial's Draw() function.
 
+Found in the GameEngine.js file.
+
 ### GameEngine.SetColor(r:Float, g:Float, b:Float, a:Float = 1)
 
 Sets the GameEngine's current color to red = r, green = g, blue = b, alpha = a (default 1). All of the other draw commands will use this color when drawing. 
