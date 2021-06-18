@@ -18,6 +18,8 @@ Example:
 
 This function is used to create an instance of the KTrigger type. This object is used to handle timing. For example, if an image is to be displayed on the screen for 1000 milliseconds.
 
+See KTrigger.md
+
 Example:
 
     displayTrigger = CreateTrigger(1000);
@@ -28,3 +30,4 @@ Example:
     {
         // trigger timer was reached
     }
+
