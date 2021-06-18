@@ -9,6 +9,8 @@ class Trial
     this.params = params;
     this.complete = false;
     this.entList = new GList();
+
+    this.endTrialCalled = false;
   }
 
 
@@ -53,11 +55,14 @@ class Trial
 
   }
 
-
+  
   CallEndTrial(exportData = true)
   {
-    //this.complete = true;
-    CallEndTrial(exportData); // global func
+    if (!this.endTrialCalled) // only allow one call
+    {
+      this.endTrialCalled = true;
+      CallEndTrial(exportData); // global func
+    }
   }
 
   ExportData()
