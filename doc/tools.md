@@ -31,3 +31,13 @@ Example:
         // trigger timer was reached
     }
 
+### GameEngine.GetAcc()
+
+Returns an array of 3 values for the x,y, and z values from the accelerometer.
+
+Example:
+
+     var acc = GameEngine.GetAcc();
+
+     GameDraw.DrawText("x:" + acc[0] + "y:" + acc[1] + "z:" + acc[2], 10, 100);
+
