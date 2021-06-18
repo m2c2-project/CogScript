@@ -73,7 +73,7 @@ Example:
 
 ### GenerateTrialSet() - optional
 
-This function is used if specific instructions are needed for generating each trial set. 
+This function is used if specific logic is needed for generating each trial set. 
 
 It should only be used if parameters need to be added to each individual trial during generation. This would be required if the generation of an individual trial depends on the generation of all the trials. For example, if a cognitive task requires exactly one half of the trials are type A and one half are type B. Cognitive tasks with trials that are completely independent from the other trials should omit this function.
 
