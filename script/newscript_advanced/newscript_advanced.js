@@ -71,7 +71,7 @@ class MyTrial extends Trial
        super(params);
         this.params = params; 
 
-        this.displayText = params.GetString("displayText", "no text");
+        this.displayText = params.GetString("displayText", "default text");
         this.displayNumber = displayNumber;
 
         this.responseTime = -1;
