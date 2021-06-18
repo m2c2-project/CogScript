@@ -67,55 +67,38 @@ class MyTrial extends Trial
   
     constructor(params, displayNumber)
     {
-         super(params);
+       super(params);
         this.params = params; 
 
         this.displayText = params.GetString("displayText", "no text");
-
         this.displayNumber = displayNumber;
     
     }
 
     LoadImages()
     {
-      imText = 
+      imText = GImage_Create.CreateTextImage(this.displayText + ":" + this.displayNumber,32, true);
     }
 
     Start()
     {
-        this.color = new GColor(1,0,0);
-        if (this.testVal == 1)
-        {
-                this.color = new GColor(0,1,0);
-        }
-
-        this.x = 0;
+        
 
     }
 
      
     Update()
     {
-        this.x++;
+        
 
     }
 
     Draw()
     {
        GameEngine.SetColor(1,0,0);
-       GameDraw.DrawBox(this.x,50,200,250);
-
-
-       GameDraw.DrawText("trial count:" + trialList.GetSize(), 300, 100);
-
-       GameEngine.SetColor(this.color);
-       GameDraw.DrawText("test val:" + this.testVal, 300, 150);
-       GameDraw.DrawText("trial num:" + this.trial_num, 300, 200);
-
+       GameDraw.DrawImage(imText, 10, 10);
 
        GameEngine.ResetColor();
-       GameDraw.DrawImage(imFace1, 100, 100);
-   
     }
 
     OnClickDown(x,y,clickTime)
