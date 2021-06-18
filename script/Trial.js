@@ -71,6 +71,11 @@ class Trial
 
   }
 
+  AddEnt(ent)
+  {
+     this.entList.Add(ent);
+  }
+
 
 
 

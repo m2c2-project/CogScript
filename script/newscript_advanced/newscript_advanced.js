@@ -53,9 +53,11 @@ function GenerateTrialSet()
 
   var trialNum = trialSetParam.GetInt("TrialNum", 0);
 
+  var lastTrial = null;
+
   for (var i = 0; i < trialNum; i++)
   {
-    AddTrial(new MyTrial(trialSetParam, i));
+    AddTrial(new MyTrial(trialSetParam, i, lastTrial));
   }
 }
 
@@ -66,7 +68,7 @@ function GenerateTrialSet()
 class MyTrial extends Trial
 {   
   
-    constructor(params, displayNumber)
+    constructor(params, displayNumber, lastTrial)
     {
        super(params);
         this.params = params; 
@@ -76,6 +78,8 @@ class MyTrial extends Trial
 
         this.responseTime = -1;
         this.startTime = -1;
+
+        this.lastTrial = lastTrial;
     
     }
 
@@ -128,6 +132,15 @@ class MyTrial extends Trial
     {
         AddResult("displayNumber", this.displayNumber);
         AddResult("responseTime", this.responseTime);
+
+        if (this.lastTrial != null)
+        {
+          AddResult("lastTrialResponse", this.lastTrial.responseTime);
+        }
+        else
+        {
+          AddResult("lastTrialResponse", "NA");
+        }
     }
 
 

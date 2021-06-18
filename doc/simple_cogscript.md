@@ -119,6 +119,12 @@ Example:
 
 Call this to end the current trial. The ExportData() function will then be called automatically and the next trial will begin. If this is the final trial, the cogtask will end.
 
+### AddResult()
+
+Call this function in the ExportData() function. This adds one key value pair to the trial's results.
+
+    AddResult("responseTime", "" + responseTime);
+
 ### GetParamInt(), GetParamString(), GetParamBool(), GetParamColor()
 
 These functions get a parameter for the current trial. The first argument is the name of the parameter to find. The second argument is the default value to use if the parameter is not found.
