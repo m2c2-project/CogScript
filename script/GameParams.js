@@ -169,9 +169,9 @@ class GameParams
   GetUsedParams()
   {
     var usedArr = [];
-    for (var i = 0; i < usedParams.GetSize(); i++)
+    for (var i = 0; i < this.usedParams.GetSize(); i++)
     {
-      usedArr.push(usedParams.Get(i));
+      usedArr.push(this.usedParams.Get(i));
     }
     return usedArr;
   }
