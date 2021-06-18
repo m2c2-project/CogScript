@@ -171,7 +171,10 @@ Returns the current time in milliseconds.
 
 Adds an entity to the trial's update and draw list. An entity added here will automatically be updated and drawn to the screen.
 
+Example: 
 
+        ent = new Entity(imApple, 50, 50);
+        AddEnt(ent);
 
 
 
