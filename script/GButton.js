@@ -21,6 +21,7 @@ class GButton
      this.pressBorder = 10;// amount of space around the button that can be pressed (hit box)
 
      this.kpos = new KPosition(sx,sy);
+     this.position = this.kpos;
      this.alpha = new KAlpha(1, 0.1);
 
      this.pressed = false;

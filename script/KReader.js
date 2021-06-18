@@ -6,6 +6,9 @@ class KReader
 
  constructor(filename, fileLoc = 1)
  {
+  //fileLoc = 0 - reading a file in resources
+  //fileLoc = 1 - reading a file in the active data directory
+  
   this.ref = KReader_Create(filename, fileLoc);
   this.filename = filename;
  }

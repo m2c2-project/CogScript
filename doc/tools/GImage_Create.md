@@ -29,7 +29,7 @@ borderColor - color of border around button
 
 ### CreateButtonImageSet(text:String, size:Int, center:Bool, buttonWidth:Int, buttonHeight:Int, grad1:GColor, grad2:GColor, textColor:GColor, borderColor:GColor)
 
-creates a set of 2 button images. returns array of GImage. 
+creates a GList of 2 button images. returns GList of GImage. For use with GButton.
 
 text - text in button
 size - font size

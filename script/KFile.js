@@ -15,11 +15,13 @@ class KFile
  }
 
 
-
+ AddLine(line)
+ {
+  this.lineList.Add(line);
+ }
 
  AddLines(lines)
  {
-
   for (var i = 0; i < lines.length; i++)
   {
     this.lineList.Add(lines[i]);
