@@ -44,5 +44,23 @@ class GImage_Create
    
 
  }
+ 
+ static CreateButtonSetWH(text, size, center, bW, bH, grad1 = new GColor(204, 204, 204), grad2 = new GColor(136, 136, 136), textColor = new GColor(0, 0, 0), borderColor = new GColor(0, 0, 0))
+ {
+        var buttonList = new GList();
+
+        buttonList.Add(GImage_Create.CreateButtonImage(text, size, center, bW, bH, grad1, grad2, textColor, borderColor)); // regular image
+
+
+        var blue = new GColor(87, 123, 199);
+        var white = new GColor(1, 1, 1);
+        buttonList.Add(GImage_Create.CreateButtonImage(text, size, center, bW, bH, white, white, white, white));
+
+
+        return buttonList;
+
+
+
+    }
 
 }
