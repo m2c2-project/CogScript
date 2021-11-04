@@ -26,13 +26,6 @@ function LoadImages() {
     imSetButtonStart = GImage_Create.CreateButtonSet("Start", 40, true, 150, 100);
     imTextReady = GImage_Create.CreateTextImage("Ready", 50, true);
 
-    //CreateButtonSet(text, size, center, bW, bH, grad1 = new GColor(204,204,204), grad2 = new GColor(136,136,136), textColor = new GColor(0,0,0), borderColor = new GColor(0,0,0))
-    //imSetButtonRed = GImage_Create.CreateButtonSet("Red", 32, true, 150, 100);
-    //imSetButtonGreen = GImage_Create.CreateButtonSet("Green", 32, true, 150, 100);
-    //imSetButtonBlue = GImage_Create.CreateButtonSet("Blue", 32, true, 150, 100);
-    //imSetButtonOrange = GImage_Create.CreateButtonSet("Orange", 32, true, 150, 100);
-    //imSetButtonYellow = GImage_Create.CreateButtonSet("Yellow", 32, true, 150, 100);
-    //imSetButtonPurple = GImage_Create.CreateButtonSet("Purple", 32, true, 150, 100);
     imSetButtonRed = GImage_Create.CreateButtonSetWH("RED", 36, true, 175, 100, grad1 = new GColor(0, 0, 0), grad2 = new GColor(0, 0, 0), textColor = new GColor(1, 1, 1), borderColor = new GColor(0, 0, 0));
     imSetButtonGreen = GImage_Create.CreateButtonSetWH("GREEN", 36, true, 175, 100, grad1 = new GColor(0, 0, 0), grad2 = new GColor(0, 0, 0), textColor = new GColor(1, 1, 1), borderColor = new GColor(0, 0, 0));
     imSetButtonBlue = GImage_Create.CreateButtonSetWH("BLUE", 36, true, 175, 100, grad1 = new GColor(0, 0, 0), grad2 = new GColor(0, 0, 0), textColor = new GColor(1, 1, 1), borderColor = new GColor(0, 0, 0));
@@ -51,14 +44,6 @@ function LoadImages() {
     wordList.Add(GImage_Create.CreateTextImage("ORANGE", 64, true));
     wordList.Add(GImage_Create.CreateTextImage("YELLOW", 64, true));
     wordList.Add(GImage_Create.CreateTextImage("PURPLE", 64, true));
-
-    // Randomize Word Order - Set i < # of times to randomize order
-    //for (var i = 1; i < 1; i++) {
-    //    wordList.Randomize();
-    //}
-    //for (var i = 1; i < GetParamInt("trialNum"); i++) {
-    //    wordList.Randomize();
-    //}
 
     // Countdown
     for (var i = 1; i < 4; i++) {
@@ -166,16 +151,28 @@ function Start() {
     trialType = GameEngine.RandomInt(0, 2); // Max number is 1 less than 2nd value!!
     fixLength = GameEngine.RandomInt(0, 6);
 
+    // Get Last Trail Type
+    if (trialCount >= 1) {
+        prev_trial = trialTypeText;
+    }
+
     if (GetParamInt("trialType") == 1) {
-        trialTypeText = "cong";
+        trialTypeText = "C";
     } else {
-        trialTypeText = "incong";
+        trialTypeText = "I";
+    }
+
+    // Trial Sequence
+    if (trialCount == 0) {
+        trial_sequence = "X"
+    } else if (trialCount >= 1) {
+        trial_sequence = prev_trial + trialTypeText;
     }
 
     if (GetParamInt("leftCorrect") == 1) {
-        leftCorrectText = "no";
+        leftCorrectText = "RIGHT";
     } else {
-        leftCorrectText = "yes";
+        leftCorrectText = "LEFT";
     }
 
     // Set trigger time
@@ -685,15 +682,16 @@ function OnClickMove(x, y, clickInfo) {
 
 function ExportData() {
     AddResult("aFixTime", fixTrigger.GetActual());
-    AddResult("tFixTime", fixTrigger.GetDelay());
     AddResult("aStudyTime", studyTrigger.GetActual());
     AddResult("tStudyTime", studyTrigger.GetDelay());
-    AddResult("selection", selection);
-    AddResult("study_number", showText);
-    AddResult("trialType", trialTypeText);
-    AddResult("trialTarget", target);
-    AddResult("trialDistractor", distractor);
-    AddResult("leftCorrect", leftCorrectText);
-    AddResult("response_time", responseTime);
+    AddResult("Fixation_Time", fixTrigger.GetDelay());
+    AddResult("selection", selection_text);
+    AddResult("trial_type", trialTypeText);
+    AddResult("trial_sequence", trial_sequence);
+    AddResult("target_answer", target);
+    AddResult("target_answer_location", leftCorrectText);
+    AddResult("trial_distractor", distractor);
     AddResult("accuracy", acc);
+    AddResult("Fixation_Time", fixTrigger.GetDelay());
+    AddResult("RT", responseTime);
 }
