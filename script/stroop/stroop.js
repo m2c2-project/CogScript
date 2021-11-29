@@ -636,12 +636,14 @@ function OnClickDown(x, y, clickInfo) {
     if (phase == 10) {
         if (buttonLeft.CheckPressed(x, y)) {
             selection = 0;
+            selection_text = "LEFT";
             phase = 30;
             responseTime = clickInfo.GetTime() - responseTrigger.GetStartTime();
         }
 
         if (buttonRight.CheckPressed(x, y)) {
             selection = 1;
+            selection_text = "RIGHT";
             phase = 30;
             responseTime = clickInfo.GetTime() - responseTrigger.GetStartTime();
         }
