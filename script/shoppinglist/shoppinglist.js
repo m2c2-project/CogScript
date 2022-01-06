@@ -384,10 +384,12 @@ class ShowPriceTrial extends Trial
 
         else if (this.phase == 5)
         {
-            // Uncomment this piece to move to next phase immediately after button press
-            //if (this.selected >= 0 && !this.buttonList.Get(this.selected).IsPressed() ||
-            //        KTime.GetMilliTime() - this.holdTime >= this.judgmentTime)
-            if (KTime.GetMilliTime() - this.holdTime >= this.judgmentTime)
+            // Uncomment for delay only
+            //if (KTime.GetMilliTime() - this.holdTime >= this.judgmentTime)
+          
+            // User-driven delay
+            if (this.selected >= 0 && !this.buttonList.Get(this.selected).IsPressed() ||
+                    KTime.GetMilliTime() - this.holdTime >= this.judgmentTime)
             {
                 this.phase = 6;
             }
