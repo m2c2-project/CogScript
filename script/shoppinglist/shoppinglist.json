@@ -1,9 +1,23 @@
 {
-    "instructions":[ ["title:Instructions", "For this task, you'll have to learn a shopping list and the prices of the items on that list. There are two phases to this task...", "Press [b]Next[/b] to continue."],
-    ["title:Instructions", "During the first phase, please judge whether the price listed beneath each shopping item is a good price for the item.", "img:sl_1.png", "Press [b]Next[/b] to continue."],
-["title:Instructions", "During the second phase, you will be asked to touch which of two possible prices was associated with the shopping item in the first phase.", "img:sl_2.png", "Press [b]Next[/b] to continue."],
- ["title:Instructions", "Press [b]Start[/b] to begin the task."]],
- "phase2only_instructions":[ ["title:Instructions", "Over the previous week you learned some shopping lists and prices of the items on those lists", "Press [b]Next[/b] to continue."],
- ["title:Instructions", "On the following screens you will see two prices that you may have seen paired with a shopping list item. Choose the price you believe was paired with the shopping item", "img:sl_2.png", "Press [b]Next[/b] to continue."],
-  ["title:Instructions", "Press [b]Start[/b] to begin the task."]]
+    "full_instructions":[ ["title:Shopping List Activity", "On the next screen, you will be presented with instructions for the [b]Shopping List[/b] activity.", "Press [b]Next[/b] to continue."],
+        ["title:Shopping List Activity", "For this activity, you'll have to learn a shopping list and the prices of the items on that list. There are two phases to this task...", "Press [b]Next[/b] to continue."],
+    ["title:Shopping List Activity", "During the first phase, you will be asked to judge whether the price listed beneath each shopping item is a good price for the item.", "img:sl_1.png", "Press [b]Next[/b] to continue."],
+["title:Shopping List Activity", "During the second phase, you will be asked to tap which of two possible prices was paired with the shopping item in the first phase.", "img:sl_2.png", "Press [b]Next[/b] to continue."],
+ ["title:Shopping List Activity", "Press [b]Start[/b] to begin."]],
+ 
+ "phase2only_full_instructions":[ ["title:Shopping List Activity", "On the next screen, you will be presented with instructions for the [b]Shopping List[/b] activity.", "Press [b]Next[/b] to continue."],
+    ["title:Shopping List Activity", "Over the previous week you learned some shopping lists and prices of the items on those lists", "Press [b]Next[/b] to continue."],
+ ["title:Shopping List Activity", "On the following screens you will see two prices that you may have seen paired with a shopping list item. You will be asked to choose the price you believe was paired with the shopping item", "img:sl_2.png", "Press [b]Next[/b] to continue."],
+  ["title:Shopping List Activity", "Press [b]Start[/b] to begin."]],
+
+"quick_instructions":[
+    	["title:Shopping List Activity", "img:sl_3.png",
+    		"For this activity, you will decide whether the cost of each item is good. Try to remember the price of each item.",
+         "Then, you will be shown each item again with two price options. Tap which of the two prices was paired with the item before.",
+    		 "Press [b]Start[/b] to begin."]],
+
+"phase2only_quick_instructions":[
+    	["title:Shopping List Activity", "img:sl_4.png","Over the previous week you learned some shopping lists and prices of items on the list.",
+    		"Choose which of two prices you believe was the price of the item you saw earlier in the week.",
+    		 "Press [b]Start[/b] to begin."]]
 }
