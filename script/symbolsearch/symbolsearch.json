@@ -1,13 +1,51 @@
 {
-    "instructions":[ 
-    	["title:Instructions", "On the next screen, you will be presented with instructions for the [b]Symbol Search[/b] task.", "Press [b]Next[/b] to continue."],
-	            ["title:Instructions", "You will see 3 sets of symbols on top and 2 on the bottom.",
-				"img:symboln1.png", 
+    "full_instructions":[
+    	["title:Symbol Match Activity", "On the next screen, you will be presented with instructions for the [b]Symbol Search[/b] activity.", "Press [b]Next[/b] to continue."],
+	            ["title:Symbol Match Activity", "You will see 3 sets of symbols on top and 2 on the bottom.",
+				"img:symboln1.png",
 				"Press [b]Next[/b] to continue."],
-       			["title:Instructions", "Please touch the set on the bottom that is exactly the same as a set above.",
+       			["title:Symbol Match Activity", "You will be asked to tap the set on the bottom that is exactly the same as a set above.",
 				"img:symboln2.png",  
 				"Press [b]Next[/b] to continue."],
-					["title:Instructions", "Please be as fast and accurate as you can.", "Press [b]Next[/b] to continue."],
-       			["title:Instructions", "Press [b]Start[/b] to begin the task."]]
+					["title:Symbol Match Activity", "Please be as fast and accurate as you can.", "Press [b]Next[/b] to continue."],
+       			["title:Symbol Match Activity", "Press [b]Start[/b] to begin."]],
+
+    "full_instructions_MatchPairsTop2":[
+    	["title:Symbol Match Activity", "On the next screen, you will be presented with instructions for the [b]Symbol Search[/b] activity.", "Press [b]Next[/b] to continue."],
+	            ["title:Symbol Match Activity", "You will see 2 sets of symbols on top and 2 on the bottom.",
+				"img:symbol2.png",
+				"Press [b]Next[/b] to continue."],
+       			["title:Symbol Match Activity", "You will be asked to tap the set on the bottom that is exactly the same as a set above.",
+				"img:symbol3.png",  
+				"Press [b]Next[/b] to continue."],
+					["title:Symbol Match Activity", "Please be as fast and accurate as you can.", "Press [b]Next[/b] to continue."],
+       			["title:Symbol Match Activity", "Press [b]Start[/b] to begin."]],
+
+        "full_instructions_MatchPairsTop4":[
+    	["title:Symbol Match Activity", "On the next screen, you will be presented with instructions for the [b]Symbol Search[/b] activity.", "Press [b]Next[/b] to continue."],
+	            ["title:Symbol Match Activity", "You will see 4 sets of symbols on top and 2 on the bottom.",
+				"img:symbol_MatchPairsTop4_n1.png",
+				"Press [b]Next[/b] to continue."],
+       			["title:Symbol Match Activity", "You will be asked to tap the set on the bottom that is exactly the same as a set above.",
+				"img:symbol_MatchPairsTop4_n2.png",  
+				"Press [b]Next[/b] to continue."],
+					["title:Symbol Match Activity", "Please be as fast and accurate as you can.", "Press [b]Next[/b] to continue."],
+       			["title:Symbol Match Activity", "Press [b]Start[/b] to begin."]],
+
+
+    "quick_instructions":[
+    	["title:Symbol Match Activity", "img:symbol4.png",
+        "For this activity, tap the set of symbols on the bottom of the screen that are exactly the same as a set above.", 
+    		"Please be as fast and accurate as you can.", "Press [b]Start[/b] to begin."]],
+
+    "quick_instructions_MatchPairsTop2":[
+    	["title:Symbol Match Activity", "img:symbol2.png",
+        "For this activity, tap the set of symbols on the bottom of the screen that are exactly the same as a set above.", 
+    		"Please be as fast and accurate as you can.", "Press [b]Start[/b] to begin."]],
+
+    "quick_instructions_MatchPairsTop4":[
+    	["title:Symbol Match Activity", "img:symbol_MatchPairsTop4_n1.png",
+        "For this activity, tap the set of symbols on the bottom of the screen that are exactly the same as a set above.", 
+    		"Please be as fast and accurate as you can.", "Press [b]Start[/b] to begin."]]
 
 }
