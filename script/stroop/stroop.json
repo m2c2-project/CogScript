@@ -3,31 +3,23 @@
     	["title:Instructions", "During this activity, you will see a color name in a particular font color.",
 
 					"img:stroop1_cong.png",
-
 					"You will be asked to identify the color of the font, not the word itself.",
-
 					"Press [b]NEXT[/b] to continue."],
-
-					["title:Stroop Activity", "Word and font color might not always match." ,
-
+					["title:Stroop Activity", "The word and font color might not always match." ,
 					"img:stroop2_incong.png",
-
 					"Press [b]Next[/b] to continue"],
-
-					["title:Stroop Activity", "Each trial will be separated by a fixation.",
-
+					["title:Stroop Activity", "Each trial will be separated by a fixation located in the middle of the screen.",
 					"img:stroop3_trial_example.png",
-
 					"[b]Hint:[/b] Please try to answer as quickly and accurately as possible.",
-
 					 "Press [b]Next[/b] to continue."],
 					["title:Stroop Activity", "Press [b]Start[/b] to begin."]],
     
     "quick_instructions":[
-    	["title:Color Naming Task", "--You will see COLOR WORDS presented in the center of the screen.",
-            "--For each COLOR WORD displayed, touch the word at the bottom of that matches the color the FONT the COLOR WORD is displayed in.",
-            "--Please respond as quickly and accurately as possible.",
-    	 "Press [b]Start[/b] to begin."]]
+    	["title:Color Naming Task", "img:stroop1_cong.png",
+    	"You will see COLOR WORDS presented in the center of the screen.",
+            "For each COLOR WORD displayed, touch the word at the bottom that matches the color of FONT the COLOR WORD is.",
+            "Please respond as quickly and accurately as possible.", 
+	 "Press [b]Start[/b] to begin."]]
 
 
 }
