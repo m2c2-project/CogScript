@@ -1,28 +1,33 @@
 {
-    "instructions":[["title:Instructions", "On the next screen, you will be presented with instructions for the [b]Dot Memory[/b] task.", "Press [b]Next[/b] to continue."],
-    	["title:Instructions", "You will see 3 red dots appear briefly on a grid.",
+    "full_instructions":[["title:Grid Memory Activity", "On the next screen, you will be presented with instructions for the [b]Grid Memory[/b] activity.", "Press [b]Next[/b] to continue."],
+    	["title:Instructions", "During this activity, you will see 3 red dots appear briefly on a grid.",
 
 					"img:dotmem1_grid.png",
 
-					"Try to remember their location!",
+					"You will be asked to try to remember their locations!",
 
 					"Press [b]NEXT[/b] to continue."],
 
-					["title:Instructions", "Next, you will see a screen full of Es and Fs, like the example below." ,
+					["title:Grid Memory Activity", "Next, you will see a screen full of Es and Fs, like the example below." ,
 
 					"img:dotmem2_fs.png",
 
-					"Touch all the Fs as quickly as you can!",
+					"You will be asked to tap all the Fs as quickly as you can!",
 
 					"Press [b]Next[/b] to continue"],
 
-					["title:Instructions", "When the empty grid appears, please place dots where you remember seeing them!",
+					["title:Grid Memory Activity", "When the empty grid appears, you will be asked to place dots where you remember seeing them by tapping on the grid.",
 
 					"img:dotmem3_fgrid.png",
 
 					"[b]Hint:[/b] You can tap and untap to move the dots.",
 
 					 "Press [b]Next[/b] to continue."],
-					["title:Instructions", "Press [b]Start[/b] to begin the task."]]
+					["title:Grid Memory Activity", "Press [b]Start[/b] to begin."]],
+    
+    "quick_instructions":[
+    	["title:Grid Memory Activity", "img:dotmem1_grid.png","For this activity, try to remember the location of 3 dots.",
+    		"Before placing the 3 dots in their location, you will also have to tap some Fs on the screen as quickly as you can. ", 
+    	 "Press [b]Start[/b] to begin."]]
 
 }
