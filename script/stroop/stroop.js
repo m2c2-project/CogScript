@@ -684,8 +684,6 @@ function OnClickMove(x, y, clickInfo) {
 
 function ExportData() {
     AddResult("aFixTime", fixTrigger.GetActual());
-    AddResult("aStudyTime", studyTrigger.GetActual());
-    AddResult("tStudyTime", studyTrigger.GetDelay());
     AddResult("Fixation_Time", fixTrigger.GetDelay());
     AddResult("selection", selection_text);
     AddResult("trial_type", trialTypeText);
@@ -694,6 +692,5 @@ function ExportData() {
     AddResult("target_answer_location", leftCorrectText);
     AddResult("trial_distractor", distractor);
     AddResult("accuracy", acc);
-    AddResult("Fixation_Time", fixTrigger.GetDelay());
     AddResult("RT", responseTime);
 }
