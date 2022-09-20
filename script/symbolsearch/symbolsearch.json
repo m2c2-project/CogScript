@@ -46,6 +46,15 @@
     "quick_instructions_MatchPairsTop4":[
     	["title:Symbol Match Activity", "img:symbol_MatchPairsTop4_n1.png",
         "For this activity, tap the set of symbols on the bottom of the screen that are exactly the same as a set above.", 
-    		"Please be as fast and accurate as you can.", "Press [b]Start[/b] to begin."]]
+    		"Please be as fast and accurate as you can.", "Press [b]Start[/b] to begin."]],
+    
+    "full_instructions_EASonly":[
+        ["title:Symbol Search", "You will see 3 sets of symbols on top and 2 on the bottom.",
+                "img:symboln1.png",
+                "Press [b]Next[/b] to continue."],
+                   ["title:Symbol Search", "Please touch the set on the bottom that is exactly the same as a set above.",
+                "img:symboln2.png",
+                "Press [b]Start[/b] to begin the task."]]
+
 
 }
