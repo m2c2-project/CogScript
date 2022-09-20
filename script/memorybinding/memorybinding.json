@@ -20,5 +20,18 @@
     	["title:Color Shapes Activity", "img:CS1.png", 
     		"For this activity, you will see some colored shapes appear briefly on the screen.", 
             "When they reappear you will have to decide whether the shapes have the SAME or DIFFERENT colors as they had before.", 
-    		"Press [b]Start[/b] to begin."]]
+    		"Press [b]Start[/b] to begin."]],
+
+"full_instructions_EASonly":[
+    ["title:Color Shapes", "Colored shapes will appear briefly on the screen.", "The color and shape are important but [b]NOT[/b] their location.",
+                  "img:CS1.png", "Press [b]Next[/b] to continue."],
+
+                  ["title:Color Shapes", "Try to remember the shapes and their colors, because they will soon disappear.",
+                  "img:CS1.png",
+                  "Press [b]Next[/b] to continue."],
+
+                 ["title:Color Shapes", "Next, you will see the same shapes reappear.",
+                 "Please answer whether the shapes have the SAME or DIFFERENT colors as they had before.",
+                 "img:CS2.png",
+                 "Press [b]Start[/b] to begin."]]
 }
